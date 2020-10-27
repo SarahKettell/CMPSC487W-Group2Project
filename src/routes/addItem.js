@@ -4,7 +4,7 @@ const uuid = require('uuid/v4');
 module.exports = async (req, res) => {
     const item = {
         id: uuid(),
-        name: req.body.name,
+        name: 'test',
         completed: false,
     };
 

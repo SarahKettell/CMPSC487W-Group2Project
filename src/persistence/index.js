@@ -57,7 +57,7 @@ async function teardown() {
 
 async function getItems() {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items', (err, rows) => {
+        pool.query('SELECT * FROM menu_items', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -88,8 +88,8 @@ async function getItem(id) {
 async function storeItem(item) {
     return new Promise((acc, rej) => {
         pool.query(
-            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
-            [item.id, item.name, item.completed ? 1 : 0],
+            'INSERT INTO menu_items (item_id, pizza_name, crust, sauce, cheese, toppings, sm_price, med_price, lg_price, xlg_price, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [item.item_id, item.pizza_name, item.crust, item.sauce, item.cheese, item.toppings, item.sm_price, item.med_price, item.lg_price, item.xlg_price, item.description],
             err => {
                 if (err) return rej(err);
                 acc();

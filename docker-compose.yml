@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  app:
+    image: node:latest
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 3000:3000
+    working_dir: /pizza-parlor-app
+    volumes:
+      - ./:/pizza-parlor-app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: group24ever
+      MYSQL_DB: pizza-parlor
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - pizza-parlor-directory:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: group24ever
+      MYSQL_DATABASE: pizza-parlor
+
+volumes:
+  pizza-parlor-directory:

@@ -6,11 +6,16 @@ To setup with Docker:
 1. Install Docker Desktop
 2. Launch docker desktop
 3. Download github files from main branch and save where you want the code to be
-4. Make sure you have MySQL installed. Launch it and create a database called "pizza-parlor".
 5. In your terminal/power shell, navigate into the folder from github
 6. Run this command: docker-compose up -d
+7. Make sure you have MySQL installed.
+8. Run this command: docker ps
+9. Note the CONTAINER ID for the mysql container
+10. Run this command with the ID: docker exec -it CONTAINERID mysql -p
+11. Enter password: group24ever
+12. Run the MySQL code in the database_structure.sql file
 
-This should start a stack of containers in Docker Desktop. You can stop and start this whenever you want to work on it by clicking the buttons.
+This should start a stack of containers in Docker Desktop. You can stop and start this whenever you want to work on it by clicking the buttons. The database will relaunch with the previously stored items every time start it in Docker Desktop.
 
 
 ## Main Components

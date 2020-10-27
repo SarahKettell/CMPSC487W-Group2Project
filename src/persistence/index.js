@@ -17,6 +17,9 @@ const {
 
 let pool;
 
+
+// Initializes the menu_items table if needed
+// TODO: Expand later on to more tables
 async function init() {
     const host = HOST_FILE ? fs.readFileSync(HOST_FILE) : HOST;
     const user = USER_FILE ? fs.readFileSync(USER_FILE) : USER;
@@ -35,7 +38,7 @@ async function init() {
 
     return new Promise((acc, rej) => {
         pool.query(
-            'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean)',
+            'CREATE TABLE IF NOT EXISTS menu_items (item_id varchar(36), pizza_name varchar(250), crust varchar(250), sauce varchar(250), cheese varchar(250), toppings varchar(250), sm_price varchar(10), med_price varchar(10), lg_price varchar(250), xlg_price varchar(10), description varchar(500))',
             err => {
                 if (err) return rej(err);
 
@@ -46,6 +49,8 @@ async function init() {
     });
 }
 
+
+// Proper disconnection from the DB
 async function teardown() {
     return new Promise((acc, rej) => {
         pool.end(err => {
@@ -55,6 +60,8 @@ async function teardown() {
     });
 }
 
+
+// Gets the menu items
 async function getItems() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM menu_items', (err, rows) => {
@@ -70,6 +77,8 @@ async function getItems() {
     });
 }
 
+// Get a specific item
+// TODO: Needs to be customized to match our db. This is from a tutorial get
 async function getItem(id) {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM todo_items WHERE id=?', [id], (err, rows) => {
@@ -85,6 +94,8 @@ async function getItem(id) {
     });
 }
 
+
+// Add a NEW item to the menu_items table
 async function storeItem(item) {
     return new Promise((acc, rej) => {
         pool.query(
@@ -98,6 +109,9 @@ async function storeItem(item) {
     });
 }
 
+
+// Update a specific item in the DB
+// TODO: Needs to be changed to match our DB
 async function updateItem(id, item) {
     return new Promise((acc, rej) => {
         pool.query(
@@ -111,6 +125,9 @@ async function updateItem(id, item) {
     });
 }
 
+
+// Remove an item from the database
+// TODO: Needs to be changed to match our DB
 async function removeItem(id) {
     return new Promise((acc, rej) => {
         pool.query('DELETE FROM todo_items WHERE id = ?', [id], err => {
@@ -120,6 +137,9 @@ async function removeItem(id) {
     });
 }
 
+
+// Defines the export functions above
+// Need to change this if you create more
 module.exports = {
     init,
     teardown,

@@ -1,6 +1,7 @@
 const db = require('../persistence');
 
+// Gets a list of menu items
 module.exports = async (req, res) => {
-    const items = await db.getItems();
-    res.send(items);
+    const menu_items = await db.getItems();
+    res.send(menu_items);
 };

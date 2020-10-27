@@ -1,3 +1,5 @@
+
+<!-- This is the main page of the website -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,6 +30,7 @@
                     <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" placeholder="Enter something here.">
+                        <!-- Button calls function to add data to db-->
                         <button type="submit" class="btn btn-primary" onclick="addNewData('description')">Add</button>
                     </div>
                 </form>
@@ -48,7 +51,7 @@
         </div>
     </div>
 
-
+    <!-- data from DB is fetched when page is loaded -->
     <body onload="getDatafromDB('db-content')">
     <!-- Bootstrap Javascript Bundle with jquery and Popper -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

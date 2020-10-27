@@ -12,7 +12,10 @@ This is a sample README markdown file for our group git repository.
 ## Documentation
 https://nodejs.org/api/documentation.html
 https://docs.docker.com/docker-hub/
-https://github.com/nicolaka/netshoot  // for Docker networking
+// for Docker networking
+https://github.com/nicolaka/netshoot  
+// for javascript database interaction on client side
+https://stackoverflow.com/questions/36975619/how-to-call-a-rest-web-service-api-from-javascript  
 
 ## Docker Commands
 

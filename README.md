@@ -2,6 +2,17 @@
 
 This is a sample README markdown file for our group git repository.
 
+To setup with Docker:
+1. Install Docker Desktop
+2. Launch docker desktop
+3. Download github files from main branch and save where you want the code to be
+4. Make sure you have MySQL installed. Launch it and create a database called "pizza-parlor".
+5. In your terminal/power shell, navigate into the folder from github
+6. Run this command: docker-compose up -d
+
+This should start a stack of containers in Docker Desktop. You can stop and start this whenever you want to work on it by clicking the buttons.
+
+
 ## Main Components
 
 1. Docker containers for Node.js server and MySQL DB
@@ -9,7 +20,13 @@ This is a sample README markdown file for our group git repository.
 3. HTML/CSS with Bootstrap
 4. GitHub repository
 
-## Documentation
+## Table Structure
+Docker does not copy the contents of a MySQL database between users. You will need to keep your own DB running on your machine and create tables/data within it to match the decided on structure.
+
+Goal: To have a "starter" sql file that can be run to populate our databases with the right stuff
+
+
+## Documentation That Was Helpful
 https://nodejs.org/api/documentation.html
 https://docs.docker.com/docker-hub/
 // for Docker networking

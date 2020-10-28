@@ -23,9 +23,13 @@ function getDatafromDB(elementID){
 // appends it to the element referenced
 function displayMenuItems(textBox, jsonData){
   let menuItems = [];
+
   for(let i = 0; i < jsonData.length; i++){
     menuItems.push(jsonData[i]);
+    console.log(menuItems[i]);
   }
+
+  console.log('Done');
 
   let textInput = document.createTextNode(JSON.stringify(jsonData));
   textBox.appendChild(textInput);

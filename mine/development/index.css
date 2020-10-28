@@ -1,0 +1,49 @@
+/* media queries */
+/* THEME COLORS */
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-size: 18px;
+}
+.banner .bimg {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+.hero {
+  width: 100%;
+  height: auto;
+  background: url("/design/images/home_banner.png");
+}
+.hero .hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.restaurant-info-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2% 7% 2% 7%;
+}
+.restaurant-info-body .text-wrap .header {
+  display: inline-flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.restaurant-info-body .text-wrap .header .heading {
+  padding-left: 1rem;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.restaurant-info-body .text-wrap .business-text {
+  margin-top: -1rem;
+}
+.restaurant-info-body .text-wrap .business-text li {
+  padding-left: 0.5rem;
+  font-size: 14px;
+}

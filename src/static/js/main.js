@@ -48,10 +48,6 @@ function displayMenuItems(textBox, jsonData){
     }
     textBox.appendChild(newDiv);
   }
-
-
-  // let textInput = document.createTextNode(JSON.stringify(jsonData));
-  // textBox.appendChild(textInput);
 }
 
 

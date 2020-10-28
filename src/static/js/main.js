@@ -22,17 +22,36 @@ function getDatafromDB(elementID){
 // Converts the jsonData into menu item text
 // appends it to the element referenced
 function displayMenuItems(textBox, jsonData){
-  let menuItems = [];
 
+  // array that stores the keys for the menu_item table
+  const menuKeys = Object.keys(jsonData[0]);
+  // new array to hold the menu values corresponding to each key
+  let menuValues = new Array(jsonData.length)
+
+  // creates a 2-dim array [i][j] where i = pizza menu item, j = value stored in that menu item
   for(let i = 0; i < jsonData.length; i++){
-    menuItems.push(jsonData[i]);
-    console.log(menuItems[i]);
+    menuValues[i] = Object.values(jsonData[i]);
   }
 
-  console.log('Done');
+  // create a new div element to add contents to
+  const newDiv = document.createElement("div");
 
-  let textInput = document.createTextNode(JSON.stringify(jsonData));
-  textBox.appendChild(textInput);
+  // iterate over each key value pair to output the strings
+  for(let i = 0; i < menuValues.length; i++){
+    let newDiv = document.createElement("div");
+    let newParagraph = document.createElement("p");
+    for(let j = 1; j < menuKeys.length; j++){
+      let textInput = document.createTextNode(menuKeys[j] + ": " + menuValues[i][j]);
+      newParagraph.appendChild(textInput);
+      newParagraph.appendChild(document.createElement("br"));
+      newDiv.appendChild(newParagraph);
+    }
+    textBox.appendChild(newDiv);
+  }
+
+
+  // let textInput = document.createTextNode(JSON.stringify(jsonData));
+  // textBox.appendChild(textInput);
 }
 
 

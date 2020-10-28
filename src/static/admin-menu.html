@@ -38,12 +38,12 @@
         <div class="wrap">
             <div class=info-heading>
                 <h2>Menu Items</h2>
-                <h3>Information regarding all menu items can be viewed here.
+                <p>Information regarding all menu items can be viewed here.
                     Click the edit button to edit the details of an item, delete an 
-                    item by clicking the trash icon and add a new item.</h3>    
+                    item by clicking the trash icon and add a new item.</p>    
             </div>
         <!-- current orders -->
-            <div class=box-wrap>
+            <div class="box-wrap">
                 <div class="header">
                     <div class="heading">
                         <h2>Hawaiian Pizza</h2>
@@ -92,6 +92,10 @@
                     </div>
                 </div>
             </div>
+
+            <div id="admin-menu-list">
+            </div>
+
             <div class="add-item-button">
                 <button type="button">
                     <h2> Add Item </h2>
@@ -102,5 +106,6 @@
 
     <!-- call footer -->
     <div id="footer"></div>
+    <body onload="getDatafromDB('admin-menu-list')">
 </body>
 </html>

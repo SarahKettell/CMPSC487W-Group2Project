@@ -157,3 +157,28 @@ button {
   font-weight: bold;
   padding: 20px;
 }
+
+
+/* MENU PAGE STYLES */
+.menu-item-box{
+  border: 1px solid black;
+  padding:30px;
+  margin:30px;
+  display: block;
+}
+
+.menu-item-container{
+  padding: 30px 0 30px 0;
+}
+
+.edit-button{
+  display:inline-block;
+  width:50%;
+  margin-bottom: 30px;
+}
+.delete-button{
+  display:inline-block;
+  width:50%;
+  text-align: right;
+  margin-bottom: 30px;
+}

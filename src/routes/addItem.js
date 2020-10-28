@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 module.exports = async (req, res) => {
     const menu_item = {
         item_id: uuid(),
-        pizza_name: req.body.name,
+        pizza_name: req.body.pizza_name,
         crust: req.body.crust,
         sauce: req.body.sauce,
         cheese: req.body.cheese,

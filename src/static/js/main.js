@@ -174,27 +174,14 @@ function displayAdminMenuItems(textBox, jsonData){
 
 
 
-// adds the data to the database
-const addDatatoDB = async (inputData) => {
-	// creates the item object
-	const newMenuItem = {
-        id: 0,
-        pizza_name: 'Plain Cheese',
-        crust: 'thin',
-        sauce: 'white',
-        cheese: 'three cheese blend',
-        toppings: 'none',
-        sm_price: '6.00',
-        med_price: '8.00',
-        lg_price: '10.00',
-        xlg_price: '12.00',
-        description: 'It has cheese only.'
-    };
+// adds a menu item to the database
+const addMenuItemtoDB = async (inputData) => {
+    // input data is stored as a menu item object
 
     // creates a post request, which is defined in the src/index.js file to call "addItem.js"
   	const response = await fetch('http://localhost:3000/items', {
     	method: 'POST',
-    	body: JSON.stringify(newMenuItem), // string or object
+    	body: JSON.stringify(inputData), // string or object
     	headers: {
       		'Content-Type': 'application/json'
     	}

@@ -36,13 +36,22 @@
 
     <!-- edit form -->
     
-    <form>
+    <form id="form-add-menu-item">
         <div class="form-heading">
             <h2>
                 Edit/Add Menu Item
             </h2>
         </div>
         <table style="width: 100%">
+
+            <tr>
+                <th>
+                    <label for="itemName" class="label">Name:</label>
+                </th>
+                <th>
+                    <input type="text" id="itemName" name="itemName" class="input">
+                </th>
+            </tr>
 
             <tr>
                 <th>
@@ -109,6 +118,15 @@
 
             <tr>
                 <th>
+                    <label for="extraLargePrice" class="labelPrice">Extra Large Size Price:</label>
+                </th>
+                <th>
+                    <input type="text" id="extraLargePrice" name="extraLargePrice" class="inputPrice">
+                </th>
+            </tr>
+
+            <tr>
+                <th>
                     <label for="itemDesc" class="label">Description:</label>
                 </th>
                 <th>
@@ -116,13 +134,87 @@
                 </th>
             </tr>
         </table>
-        <div class="submit-button">
-            <button type="button">
-                <h2> Submit Now </h2>
+        <div class="submit-button" id="submit-button-ref">
+            <button type="button" onclick="processFormContents()">
+            Submit Now
             </button>
         </div>
+        <div class="submit-confirmation"></div>
     </form>
 
     <div id="footer"></div>
+
+    <script type="text/javascript">
+        function processFormContents(){
+            var name = document.getElementById('itemName');
+            var crust = document.getElementById('itemCrust');
+            var sauce = document.getElementById('itemSauce');
+            var cheese = document.getElementById('itemCheese');
+            var toppings = document.getElementById('itemToppings');
+            var smallPrice = document.getElementById('smallPrice');
+            var mediumPrice = document.getElementById('mediumPrice');
+            var largePrice = document.getElementById('largePrice');
+            var extraLargePrice = document.getElementById('extraLargePrice');
+            var description = document.getElementById('itemDesc');
+
+            var nameInfo = name.value;
+            var crustInfo = crust.value;
+            var sauceInfo = sauce.value;
+            var cheeseInfo = cheese.value;
+            var toppingsInfo = toppings.value;
+            var smallPriceInfo = smallPrice.value;
+            var mediumPriceInfo = mediumPrice.value;
+            var largePriceInfo = largePrice.value;
+            var extraLargePriceInfo = extraLargePrice.value;
+            var descriptionInfo = description.value;
+
+            const newMenuItem = {
+                item_id: 0,
+                pizza_name: nameInfo,
+                crust: crustInfo,
+                sauce: sauceInfo,
+                cheese: cheeseInfo,
+                toppings: toppingsInfo,
+                sm_price: smallPriceInfo,
+                med_price: mediumPriceInfo,
+                lg_price: largePriceInfo,
+                xlg_price: extraLargePriceInfo,
+                description: descriptionInfo
+            };
+
+            // save new item
+            addMenuItemtoDB(newMenuItem);
+
+            // Clear form after submitted
+            name.value = "";
+            crust.value = "";
+            sauce.value = "";
+            cheese.value = "";
+            toppings.value = "";
+            smallPrice.value = "";
+            mediumPrice.value = "";
+            largePrice.value = "";
+            extraLargePrice.value = "";
+            description.value = "";
+
+            // create confirmation message
+            if(!document.getElementById('confirmation-message')){
+                var formDiv = document.getElementById('form-add-menu-item');
+                formDiv.id = "confirmation-message";
+                const message = document.createElement('h4');
+                message.classList.add('submit-confirmation');
+                message.appendChild(document.createTextNode("Item added successfully!"));
+                let backLink = document.createElement('a');
+                backLink.classList.add('submit-confirmation');
+                let backLinkText = document.createTextNode("Back to Menu >>");
+                backLink.title = "Go back to menu";
+                backLink.href = "admin-menu.html";
+                backLink.appendChild(backLinkText);
+                formDiv.appendChild(message);
+                formDiv.appendChild(backLink);
+            }
+
+        }
+    </script>
 </body>
 </html>

@@ -182,3 +182,38 @@ button {
   text-align: right;
   margin-bottom: 30px;
 }
+
+.add-item-button{
+  display:inline-block;
+  background: red;
+  color: white;
+  text-transform: uppercase;
+  margin-right: 30px;
+  margin-left: 30px;
+  padding: 20px;
+}
+
+.add-item-button a{
+  color: white;
+  font-size: 14pt;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.submit-confirmation{
+  text-align: center;
+  margin-top: 30px; 
+  font-weight: bold;
+  display: block;
+  width: 100%;
+}
+
+.submit-button button{
+  padding-top:20px!important;
+  padding-bottom:20px!important;
+  font-size: 16pt;
+}
+
+#form-add-menu-item h2{
+  margin:30px;
+}

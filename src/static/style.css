@@ -217,3 +217,36 @@ button {
 #form-add-menu-item h2{
   margin:30px;
 }
+
+#menu-contents{
+  display: block;
+  width:100%;
+}
+
+.main-menu-item{
+  display: flex;
+  border:1px solid black;
+  margin:30px;
+  position: relative;
+  height: auto;
+}
+
+.main-menu-item h2{
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.main-menu-item .image-div{
+  display: block;
+  width: 200px;
+  height:500px;
+  float: left;
+  overflow: hidden;
+  background-image: url("/design/images/pizza-icon2.jpeg");
+  background-repeat: no-repeat;
+}
+
+.main-menu-item .content-div{
+  display: block;
+  padding: 30px;
+}

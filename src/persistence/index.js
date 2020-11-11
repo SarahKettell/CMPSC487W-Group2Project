@@ -4,6 +4,72 @@ const waitPort = require('wait-port');
 const fs = require('fs');
 const mysql = require('mysql');
 
+// define all required tables here for ease of reading/editing
+const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
+                            item_id varchar(36),
+                            item_name varchar(250) not null,
+                            crust varchar(250) not null,
+                            sauce varchar(250) not null,
+                            sm_price varchar(10) not null,
+                            med_price varchar(10) not null,
+                            lg_price varchar(10) not null,
+                            xlg_price varchar(10) not null,
+                            description varchar(500) not null,
+                            primary key(item_id)
+                    )`;
+
+const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
+                        order_id varchar(36),
+                        customer_id varchar(36),
+                        date_time_created datetime not null,
+                        date_time_checked_out datetime,
+                        date_time_scheduled datetime,
+                        date_time_completed datetime,
+                        type varchar(36),
+                        notes varchar(500),
+                        payment_type varchar(36),
+                        sub_total_price decimal(10,2) not null,
+                        tax_price decimal(10,2) not null,
+                        tip_price decimal(10,2) not null,
+                        total_price decimal(10,2) not null,
+                        checked_out boolean not null,
+                        completed boolean not null,
+                        primary key(order_id)
+                    )`;
+
+const CREATE_TOPPINGS = `CREATE TABLE IF NOT EXISTS toppings(
+                        topping_id varchar(36),
+                        topping_name varchar(100) not null,
+                        in_stock boolean,
+                        current_topping boolean,
+                        primary key (topping_id)
+                    )`;
+
+const CREATE_ORDER_ITEMS = `CREATE TABLE IF NOT EXISTS order_items(
+                            order_item_id varchar(36),
+                            order_id varchar(36) not null,
+                            item_name varchar(100) not null,
+                            crust varchar(100) not null,
+                            size varchar(36) not null,
+                            price decimal(10,2) not null,
+                            notes varchar(500),
+                            primary key (order_item_id)
+                        )`;
+
+const CREATE_ORDER_ITEM_TOPPINGS = `CREATE TABLE IF NOT EXISTS order_item_toppings(
+                                    order_item_id varchar(36),
+                                    topping_id varchar(36) not null,
+                                    primary key (order_item_id)
+                                )`;
+
+const CREATE_MENU_ITEM_TOPPINGS = `CREATE TABLE IF NOT EXISTS menu_item_toppings(
+                                    menu_item_id varchar(36),
+                                    topping_id varchar(36) not null,
+                                    primary key (menu_item_id)
+                                )`;
+
+
+
 const {
     MYSQL_HOST: HOST,
     MYSQL_HOST_FILE: HOST_FILE,
@@ -28,17 +94,18 @@ async function init() {
 
     await waitPort({ host, port : 3306});
 
+    // Allows up to connectionLimit connections in one pool
     pool = mysql.createPool({
-        connectionLimit: 5,
+        connectionLimit: 10,
         host,
         user,
         password,
         database,
     });
 
-    return new Promise((acc, rej) => {
+    let promise = new Promise((acc, rej) => {
         pool.query(
-            'CREATE TABLE IF NOT EXISTS menu_items (item_id varchar(36), pizza_name varchar(250), crust varchar(250), sauce varchar(250), cheese varchar(250), toppings varchar(250), sm_price varchar(10), med_price varchar(10), lg_price varchar(250), xlg_price varchar(10), description varchar(500))',
+            CREATE_MENU_ITEMS,
             err => {
                 if (err) return rej(err);
 
@@ -46,11 +113,32 @@ async function init() {
                 acc();
             },
         );
+    })
+    .then(() => {
+        pool.query(CREATE_ORDERS);
+    })
+    .then(() => {
+        pool.query(CREATE_TOPPINGS);
+    })
+    .then(() => {
+        pool.query(CREATE_ORDER_ITEMS);
+    })
+    .then(() => {
+        pool.query(CREATE_ORDER_ITEM_TOPPINGS);
+    })
+    .then(() => {
+        pool.query(CREATE_MENU_ITEM_TOPPINGS);
     });
+
+    // a Promise object represents the eventual completion/failure of an asynch
+    // operation and it's resulting value
+    return promise;
 }
 
 
 // Proper disconnection from the DB
+// pool.end(err, function)finishes all remaining queries and 
+// then closes the connection to the DB
 async function teardown() {
     return new Promise((acc, rej) => {
         pool.end(err => {

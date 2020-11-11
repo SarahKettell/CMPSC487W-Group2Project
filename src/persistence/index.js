@@ -16,7 +16,7 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
                             xlg_price varchar(10) not null,
                             description varchar(500) not null,
                             primary key(item_id)
-                    )`;
+                        )`;
 
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
                         order_id varchar(36),
@@ -40,6 +40,7 @@ const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
 const CREATE_TOPPINGS = `CREATE TABLE IF NOT EXISTS toppings(
                         topping_id varchar(36),
                         topping_name varchar(100) not null,
+                        topping_category varchar(100) not null,
                         in_stock boolean,
                         current_topping boolean,
                         primary key (topping_id)
@@ -103,6 +104,8 @@ async function init() {
         database,
     });
 
+    // a Promise object represents the eventual completion/failure of an asynch
+    // operation and it's resulting value
     let promise = new Promise((acc, rej) => {
         pool.query(
             CREATE_MENU_ITEMS,
@@ -130,8 +133,7 @@ async function init() {
         pool.query(CREATE_MENU_ITEM_TOPPINGS);
     });
 
-    // a Promise object represents the eventual completion/failure of an asynch
-    // operation and it's resulting value
+    
     return promise;
 }
 

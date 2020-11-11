@@ -6,17 +6,17 @@ const mysql = require('mysql');
 
 // define all required tables here for ease of reading/editing
 const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
-                            item_id varchar(36),
-                            item_name varchar(250) not null,
-                            crust varchar(250) not null,
-                            sauce varchar(250) not null,
-                            sm_price varchar(10) not null,
-                            med_price varchar(10) not null,
-                            lg_price varchar(10) not null,
-                            xlg_price varchar(10) not null,
-                            description varchar(500) not null,
-                            primary key(item_id)
-                        )`;
+                        item_id varchar(36),
+                        item_name varchar(250) not null,
+                        crust varchar(100) not null,
+                        sauce varchar(100) not null,
+                        sm_price decimal(10,2) not null,
+                        med_price decimal(10,2) not null,
+                        lg_price decimal(10,2) not null,
+                        xlg_price decimal(10,2) not null,
+                        description varchar(500) not null,
+                        primary key(item_id)
+                    )`;
 
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
                         order_id varchar(36),
@@ -167,6 +167,87 @@ async function getItems() {
     });
 }
 
+// Gets the menu toppings
+async function getToppings() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets all orders
+async function getOrders() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM orders', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets all order items
+async function getOrderItems() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM order_items', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets all menu item toppings
+async function getMenuItemToppings() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM menu_item_toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets all menu item toppings
+async function getOrderItemToppings() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM order_item_toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+
 // Get a specific item
 // TODO: Needs to be customized to match our db. This is from a tutorial get
 async function getItem(id) {
@@ -234,6 +315,11 @@ module.exports = {
     init,
     teardown,
     getItems,
+    getToppings,
+    getOrders,
+    getOrderItems,
+    getMenuItemToppings,
+    getOrderItemToppings,
     getItem,
     storeItem,
     updateItem,

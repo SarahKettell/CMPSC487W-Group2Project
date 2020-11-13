@@ -26,6 +26,18 @@ function getDatafromDB(elementID){
     getJsonData(location);
 }
 
+const getJsonToppings = async (itemInfo) => {
+  const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
+  const myJson = await response.json(); 
+
+  console.log(myJson);
+}
+
+// get toppings
+function getToppingsFromDB(item_id){
+    getJsonToppings(item_id);
+}
+
 // Converts the jsonData into menu item text
 // appends it to the element referenced
 function displayMenuItems(textBox, jsonData){
@@ -250,6 +262,16 @@ function displayAdminMenuItems(textBox, jsonData){
   }
 }
 
+
+const getToppingData = async(contentDiv) =>{
+
+}
+
+// displays the toppings as a selection of checkboxes
+function displayToppingOptions(contentDiv){
+    // creates a post request, which is defined in the src/index.js file to call "addItem.js"
+    console.log(contentDiv);
+}
 
 
 // adds a menu item to the database

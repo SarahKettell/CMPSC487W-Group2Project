@@ -6,7 +6,7 @@ const mysql = require('mysql');
 
 // define all required tables here for ease of reading/editing
 const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
-                        item_id varchar(36),
+                        menu_item_id varchar(36),
                         item_name varchar(250) not null,
                         crust varchar(100) not null,
                         sauce varchar(100) not null,
@@ -15,7 +15,7 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
                         lg_price decimal(10,2) not null,
                         xlg_price decimal(10,2) not null,
                         description varchar(500) not null,
-                        primary key(item_id)
+                        primary key(menu_item_id)
                     )`;
 
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
@@ -167,10 +167,28 @@ async function getItems() {
     });
 }
 
-// Gets the menu toppings
+// Gets all of the toppings, used for displaying toppings in
+// menu/order item customization forms
 async function getToppings() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets toppings for a specific menu item
+async function getMenuItemToppings(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT topping_id, topping_name, topping_category, in_stock, current_topping FROM menu_items NATURAL JOIN menu_item_toppings NATURAL JOIN toppings WHERE menu_item_id=?',
+         [id], (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -203,22 +221,6 @@ async function getOrders() {
 async function getOrderItems() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM order_items', (err, rows) => {
-            if (err) return rej(err);
-            acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
-                ),
-            );
-        });
-    });
-}
-
-// Gets all menu item toppings
-async function getMenuItemToppings() {
-    return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM menu_item_toppings', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>

@@ -1,2 +1,25 @@
 /* Stylesheet file */
 /* Default using Bootstrap */
+
+/* ADD NEW MENU ITEM STYLES */
+.container{
+	padding:30pt 60pt 30pt 60pt;
+	font-size:14pt;
+}
+
+.form-row{
+	margin-bottom: 15pt;
+}
+
+.form-row label{
+	font-weight: bold;
+}
+
+.form-row button{
+	background: red;
+	border:none;
+}
+.form-row button:hover {
+	background: darkred;
+	border:none;
+}

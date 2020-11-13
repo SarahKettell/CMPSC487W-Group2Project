@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const db = require('./persistence');
 const getItems = require('./routes/getItems');
-const getToppings = require('./routes/getToppings');
+const toppings = require('./routes/getToppings');
 const getOrders = require('./routes/getOrders');
 const getOrderItems = require('./routes/getOrderItems');
-const getMenuItemToppings = require('./routes/getMenuItemToppings');
 const getOrderItemToppings = require('./routes/getOrderItemToppings');
 const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
@@ -18,10 +17,10 @@ app.use(express.static(__dirname + '/static'));
 // NOTE: May not want to actually display the database info like this
 // in final build. Good for troubleshooting now though.
 app.get('/items', getItems);
-app.get('/toppings', getToppings);
+app.get('/toppings', toppings.getAllToppings);
+app.get('/toppings/:id', toppings.getMenuToppings);
 app.get('/orders', getOrders);
 app.get('/orderItems', getOrderItems);
-app.get('/menuItemToppings', getMenuItemToppings);
 app.get('/orderItemToppings', getOrderItemToppings);
 
 

@@ -6,7 +6,7 @@ drop table menu_item_toppings;
 drop table toppings;
 
 CREATE TABLE IF NOT EXISTS menu_items(
-	item_id varchar(36),
+	menu_item_id varchar(36),
 	item_name varchar(250) not null,
 	crust varchar(100) not null,
 	sauce varchar(100) not null,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS menu_items(
 	lg_price decimal(10,2) not null,
 	xlg_price decimal(10,2) not null,
 	description varchar(500) not null,
-	primary key(item_id)
+	primary key(menu_item_id)
 );
 
 CREATE TABLE IF NOT EXISTS orders(
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS order_item_toppings(
 CREATE TABLE IF NOT EXISTS menu_item_toppings(
 	menu_item_id varchar(36),
 	topping_id varchar(36) not null,
-	primary key (menu_item_id)
+	primary key (menu_item_id, topping_id)
 );
 
 CREATE TABLE IF NOT EXISTS toppings(
@@ -90,5 +90,7 @@ insert into toppings values('16', 'red sauce', 'sauce', true, true);
 insert into toppings values('17', 'pesto', 'sauce', true, true);
 insert into toppings values('18', 'white garlic', 'sauce', true, true);
 insert into toppings values('19', 'barbeque', 'sauce', true, true);
-
+insert into menu_item_toppings values('1', '1');
+insert into menu_item_toppings values('1', '2');
+insert into menu_item_toppings values('1', '3');
 

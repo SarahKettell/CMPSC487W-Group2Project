@@ -27,10 +27,16 @@ function getDatafromDB(elementID){
 }
 
 const getJsonToppings = async (itemInfo) => {
-  const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
-  const myJson = await response.json(); 
-
-  console.log(myJson);
+  if(itemInfo === null){
+    const response = await fetch('http://localhost:3000/toppings');
+    const myJson = await response.json();
+    console.log(myJson);
+    return myJson;
+  }
+  else {
+    const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
+    const myJson = await response.json();
+  } 
 }
 
 // get toppings

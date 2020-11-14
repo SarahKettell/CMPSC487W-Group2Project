@@ -70,7 +70,7 @@ const CREATE_MENU_ITEM_TOPPINGS = `CREATE TABLE IF NOT EXISTS menu_item_toppings
                                 )`;
 
 
-
+// DB connection constants, do not change
 const {
     MYSQL_HOST: HOST,
     MYSQL_HOST_FILE: HOST_FILE,

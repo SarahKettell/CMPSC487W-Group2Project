@@ -23,3 +23,7 @@
 	background: darkred;
 	border:none;
 }
+
+.form-check-label{
+	padding-left:10px;
+}

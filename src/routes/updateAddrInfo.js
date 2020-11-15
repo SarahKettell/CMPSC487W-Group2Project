@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         company_name: req.body.company_name,
         street_address: req.body.street_address,
         city: req.body.city,
-        state: req.body.state,
+        state_name: req.body.state_name,
         zip_code: req.body.zip_code,
     });
     console.log(addr_info);

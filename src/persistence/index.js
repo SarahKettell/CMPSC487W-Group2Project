@@ -211,7 +211,7 @@ async function getMenuItemToppings(id) {
     });
 }
 
-//Get zip code for restaurant information
+//Get address for restaurant information
 async function getAddrInfo() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM address_info', (err, rows) => {

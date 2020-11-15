@@ -8,7 +8,7 @@ drop table address_info;
 drop table contact_info;
 
 CREATE TABLE IF NOT EXISTS address_info(
-	id integer;
+	id integer,
 	company_name varchar(50),
 	street_address varchar(100),
 	city varchar(50),
@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS address_info(
 );
 
 CREATE TABLE IF NOT EXISTS contact_info(
+	id integer,
 	phone integer(10),
 	email varchar(100)
 );
@@ -109,4 +110,4 @@ insert into menu_item_toppings values('1', '1');
 insert into menu_item_toppings values('1', '2');
 insert into menu_item_toppings values('1', '3');
 insert into address_info values(1, 'Company Name', '123 Pizza Street', 'Pizzatopia', 'PA', 12345);
-insert into contact_info values(1234567890, 'sms7631@psu.edu');
+insert into contact_info values(1, 1234567890, 'sms7631@psu.edu');

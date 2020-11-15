@@ -1,8 +1,7 @@
 const db = require('../persistence');
 
-
+//gets a list of address information for the restaurant
 module.exports = async (req, res) => {
-    console.log('bryan test');
     const addrInfo = await db.getAddrInfo();
     res.send(addrInfo);
     

@@ -202,57 +202,100 @@ function displayAdminMenuItems(textBox, jsonData){
     deleteLink.classList.add("delete-button");
     deleteLink.appendChild(deleteLinkText);
     newItem.appendChild(deleteLink);
+    /*let deleteLink = document.createElement("img");
+    deleteLink.src = "delete.svg";
+    deleteLink.classList.add("delete-button");
+    newItem.appendChild(deleteLink);*/
+    
 
     // title
     let newTitle = document.createElement("h2");
+    newTitle.classList.add("pizzaName");
     newTitle.appendChild(document.createTextNode(jsonData[i].pizza_name));
     newHeader.appendChild(newTitle);
     newItem.appendChild(newHeader);
 
     // List of pizza style options
     let styleTitle = document.createElement("h4");
+    styleTitle.classList.add("subTitle");
     styleTitle.appendChild(document.createTextNode("Pizza Style"));
     newItem.appendChild(styleTitle);
     let styleUL = document.createElement("ul");
-    let crustLI = document.createElement("li");
-    crustLI.appendChild(document.createTextNode(jsonData[i].crust));
-    let sauceLI = document.createElement("li");
-    sauceLI.appendChild(document.createTextNode(jsonData[i].sauce));
-    let cheeseLI = document.createElement("li");
-    cheeseLI.appendChild(document.createTextNode(jsonData[i].cheese));
-    let toppingsLI = document.createElement("li");
-    toppingsLI.appendChild(document.createTextNode(jsonData[i].toppings));
-    styleUL.appendChild(crustLI);
-    styleUL.appendChild(sauceLI);
-    styleUL.appendChild(cheeseLI);
-    styleUL.appendChild(toppingsLI);
+
+    //styling + layout for the line that contains info regarding crust, sauce, toppings and cheese
+    let firstLI = document.createElement("li");
+    firstLI.classList.add("info");
+      //crust information
+      let crustLabel = document.createElement("a");
+      crustLabel.classList.add("labels");
+      crustLabel.appendChild(document.createTextNode("Crust: "));
+      firstLI.appendChild(crustLabel);
+      let crustInfo = document.createElement("a"); 
+      crustInfo.appendChild(document.createTextNode(jsonData[i].crust + "\t"));
+      crustInfo.classList.add("info");
+      firstLI.appendChild(crustInfo);
+
+      //sauce information
+      let sauceLabel = document.createElement("a");
+      sauceLabel.classList.add("labels");
+      sauceLabel.appendChild(document.createTextNode("Sauce: "));
+      firstLI.appendChild(sauceLabel);
+      let sauceInfo = document.createElement("a"); 
+      sauceInfo.appendChild(document.createTextNode(jsonData[i].sauce + "\t"));
+      sauceInfo.classList.add("info");
+      firstLI.appendChild(sauceInfo);
+
+      //cheese information
+      let cheeseLabel = document.createElement("a");
+      cheeseLabel.classList.add("labels");
+      cheeseLabel.appendChild(document.createTextNode("Cheese: "));
+      firstLI.appendChild(cheeseLabel);
+      let cheeseInfo = document.createElement("a"); 
+      cheeseInfo.appendChild(document.createTextNode(jsonData[i].cheese + "\t"));
+      cheeseInfo.classList.add("info");
+      firstLI.appendChild(cheeseInfo);
+
+      //toppings information
+      let toppingsLabel = document.createElement("a");
+      toppingsLabel.classList.add("labels");
+      toppingsLabel.appendChild(document.createTextNode("Toppings: "));
+      firstLI.appendChild(toppingsLabel);
+      let toppingsInfo = document.createElement("a"); 
+      toppingsInfo.appendChild(document.createTextNode(jsonData[i].toppings));
+      toppingsInfo.classList.add("info");
+      firstLI.appendChild(toppingsInfo);
+    
+    styleUL.appendChild(firstLI);
     newItem.appendChild(styleUL);
 
     // list of prices for item
     let priceTitle = document.createElement("h4");
+    priceTitle.classList.add("subTitle");
     priceTitle.appendChild(document.createTextNode("Prices"));
     newItem.appendChild(priceTitle);
     let priceUL = document.createElement("ul");
-    let smPrice = document.createElement("li");
-    smPrice.appendChild(document.createTextNode("Small Size: " + jsonData[i].sm_price));
-    let medPrice = document.createElement("li");
-    medPrice.appendChild(document.createTextNode("Medium Size: " + jsonData[i].med_price));
-    let lgPrice = document.createElement("li");
-    lgPrice.appendChild(document.createTextNode("Large Size: " + jsonData[i].lg_price));
-    let xlgPrice = document.createElement("li");
-    xlgPrice.appendChild(document.createTextNode("Extra Large Size: " + jsonData[i].xlg_price));
-    priceUL.appendChild(smPrice);
-    priceUL.appendChild(medPrice);
-    priceUL.appendChild(lgPrice);
-    priceUL.appendChild(xlgPrice);
+
+    //labels for prices
+    let priceLabel = document.createElement("a");
+    priceLabel.classList.add("labels");
+    priceLabel.appendChild(document.createTextNode("Small/Medium/Large/XL: "));
+    let priceInfo = document.createElement("a");
+    priceInfo.classList.add("info");
+    priceInfo.appendChild(document.createTextNode("$" + jsonData[i].sm_price
+      + " / $" + jsonData[i].med_price + " / $" + jsonData[i].lg_price + " / $" + jsonData[i].xlg_price));
+
+    priceUL.appendChild(priceLabel);
+    priceUL.appendChild(priceInfo);
     newItem.appendChild(priceUL);
 
     // list the description for the item
     let descTitle = document.createElement("h4");
+    descTitle.classList.add("subTitle");
     descTitle.appendChild(document.createTextNode("Description"));
     newItem.appendChild(descTitle);
     let descUL = document.createElement("ul");
     let descriptionLI = document.createElement("li");
+    descriptionLI.classList.add("info");
     descriptionLI.appendChild(document.createTextNode(jsonData[i].description));
     descUL.appendChild(descriptionLI);
     newItem.appendChild(descUL);
@@ -261,7 +304,6 @@ function displayAdminMenuItems(textBox, jsonData){
     textBox.appendChild(newDiv);
   }
 }
-
 
 const getToppingData = async(contentDiv) =>{
 
@@ -272,7 +314,6 @@ function displayToppingOptions(contentDiv){
     // creates a post request, which is defined in the src/index.js file to call "addItem.js"
     console.log(contentDiv);
 }
-
 
 // adds a menu item to the database
 const addMenuItemtoDB = async (inputData) => {

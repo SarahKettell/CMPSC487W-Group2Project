@@ -161,26 +161,59 @@ button {
 
 /* MENU PAGE STYLES */
 .menu-item-box{
-  border: 1px solid black;
-  padding:30px;
-  margin:30px;
+  margin-top: 30px;
+  display: block;
+  padding: 3% 5% 3% 5%;
+  outline: 1px solid;
   display: block;
 }
 
+.pizzaName{
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.subTitle{
+  text-decoration: underline;
+  font-weight: bold;
+  color: #D50000;
+  font-size: 18px;
+}
 .menu-item-container{
   padding: 30px 0 30px 0;
+}
+
+.info{
+  font-size: 16px;
+  color: black;
+  padding-right: 2rem;
+}
+
+.labels{
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  font-style: italic;
+}
+
+.labels:hover, .info:hover{
+  text-decoration: none;
+  color: black;
 }
 
 .edit-button{
   display:inline-block;
   width:50%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .delete-button{
   display:inline-block;
   width:50%;
   text-align: right;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  background-image: url(/design/instagram.svg);
 }
 
 .add-item-button{

@@ -12,6 +12,12 @@ const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
 const deleteItem = require('./routes/deleteItem');
 
+const getAddrInfo = require('./routes/getAddrInfo');
+const updateAddrInfo = require('./routes/updateAddrInfo');
+
+const getContactInfo = require('./routes/getContactInfo');
+const updateContactInfo = require('./routes/updateContactInfo');
+
 // Converts into JSON format
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/static'));
@@ -24,15 +30,22 @@ app.get('/toppings/:id', toppings.getMenuToppings);
 app.get('/orders', getOrders);
 app.get('/orderItems', getOrderItems);
 
+app.get('/address', getAddrInfo);
+
+app.get('/contact', getContactInfo);
+
 // Add contents into the server from the client-side
 app.post('/items', addItem);
 
 // Updates contents based the id parameter given
 app.put('/items/:id', updateItem);
 
+app.put('/address/:id', updateAddrInfo);
+
+app.put('/contact/:id', updateContactInfo);
+
 // Deletes contents based on the id paramter given
 app.delete('/items/:id', deleteItem);
-
 
 // Initializes the database connection, creates tables if needed
 db.init().then(() => {

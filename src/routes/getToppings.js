@@ -2,7 +2,6 @@ const db = require('../persistence');
 
 // Gets a JSON-structured list of all toppings in the DB
 const getAllToppings = async (req, res) => {
-	console.log('bogeyman was here');
     const toppings = await db.getToppings();
     res.send(toppings);
 };

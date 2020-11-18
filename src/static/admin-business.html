@@ -42,17 +42,14 @@
                     <div class="heading">
                         <h2>Address</h2>
                     </div>
-                    <button class="icon">
+                    <button class="icon" onClick="window.location='edit-address.html';">
                         <svg width="30" height="30">
                             <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
                 <div class="descr">
-                    <a>Company Name </a><br>
-                    <a>123 Some Street </a><br>
-                    <a>Pizzatopia, PA </a><br>
-                    <a>12345 </a><br>
+                    <div class="admin-address" id="admin-address"></div>
                 </div>
             </div>
             <!-- menu items -->
@@ -63,7 +60,7 @@
                     </div>
                     <button class="icon">
                         <svg width="30" height="30">
-                            <image href="\design\edit.svg" height="30" width="30"/>
+                            <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
@@ -104,40 +101,28 @@
             <div class=business-information>
                 <div class="header">
                     <div class="heading">
-                        <h2>Phone</h2>
+                        <h2>Contact Information</h2>
                     </div>
                     <button class="icon">
                         <svg width="30" height="30">
-                            <image href="\design\edit.svg" height="30" width="30"/>
+                            <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
                 <div class="descr">
-                    <a>123-456-7890 </a>
-                </div>
-            </div>
-            <!-- reports -->
-            <div class=reports>
-                <div class="header">
-                    <div class="heading">
-                        <h2>Email</h2>
-                    </div>
-                    <button class="icon">
-                        <svg width="30" height="30">
-                            <image href="\design\edit.svg" height="30" width="30"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="descr">
+                    <a>123-456-7890 </a><br>
                     <a>pizzatopia@gmail.com</a>
                 </div>
             </div>
+            <!-- reports -->
+            
         </div>
     </div>
 
 
     <!-- call footer -->
     <div id="footer"></div>
+    <body onload="getDatafromDB('admin-address')"></body>
 </body>
 
 <!-- modal

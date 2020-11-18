@@ -2,11 +2,11 @@
 * Functions to deal with creating the forms to add, update, or 
 * customize menu items
 *************************************************************************/
-const getToppingsData = async (pageElement, option, itemInfo) => {
+const getToppingsData = async (pageElement, option, itemInfo, submitAction) => {
   if(option === "new"){
     const response = await fetch('http://localhost:3000/toppings');
     const myJson = await response.json();
-    generateAdminMenuForm(pageElement, option, myJson);
+    generateAdminMenuForm(pageElement, option, myJson, submitAction);
   }
   else {
     const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
@@ -14,15 +14,16 @@ const getToppingsData = async (pageElement, option, itemInfo) => {
   } 
 }
 
-function loadAdminMenuForm(pageElement, option){
-	getToppingsData(pageElement, option, null);
+function loadAdminMenuForm(pageElement, option, submitAction){
+	getToppingsData(pageElement, option, null, submitAction);
 }
 
 
 // Creates the form for adding/editing menu items
 // if option == new, do not try to load prev data
 // if option == edit, load prev data into form
-function generateAdminMenuForm(pageElement, option, toppingData){
+// Form ids = 
+function generateAdminMenuForm(pageElement, option, toppingData, submitAction){
 
 	console.log(toppingData);
 
@@ -34,11 +35,11 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	let nameRow = document.createElement("div");
 	nameRow.classList.add("form-row");
 	let nameLabel = document.createElement("label");
-	nameLabel.setAttribute("for", "itemName");
+	nameLabel.setAttribute("for", "item_name");
 	nameLabel.innerHTML = "Pizza Name:";
 	let nameInput = document.createElement("input");
 	nameInput.setAttribute("type", "text");
-	nameInput.setAttribute("id", "itemName");
+	nameInput.setAttribute("id", "item_name");
 	nameInput.classList.add("form-control");
 	nameRow.appendChild(nameLabel);
 	nameRow.appendChild(nameInput);
@@ -54,15 +55,19 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	crustSelect.setAttribute("id", "itemCrust");
 	crustSelect.classList.add("form-control");
 	let crust1 = document.createElement("option");
+	crust1.setAttribute("id", "crust-thin");
 	crust1.setAttribute("value", "crust-thin");
 	crust1.innerHTML = "Thin-Crust";
 	let crust2 = document.createElement("option");
+	crust2.setAttribute("id", "crust-thick");
 	crust2.setAttribute("value", "crust-thick");
 	crust2.innerHTML = "Thick-Crust";
 	let crust3 = document.createElement("option");
+	crust3.setAttribute("id", "crust-whole-wheat");
 	crust3.setAttribute("value", "crust-whole-wheat");
 	crust3.innerHTML = "Whole Wheat";
 	let crust4 = document.createElement("option");
+	crust4.setAttribute("id", "crust-gluten-free");
 	crust4.setAttribute("value", "crust-gluten-free");
 	crust4.innerHTML = "Gluten Free";
 	crustSelect.appendChild(crust1);
@@ -72,7 +77,6 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	crustRow.appendChild(crustLabel);
 	crustRow.appendChild(crustSelect);
 	newForm.appendChild(crustRow);
-
 
 	// sauceRow = Sauce(s)
 	let sauceRow = document.createElement("div");
@@ -153,11 +157,11 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	let smallPRow = document.createElement("div");
 	smallPRow.classList.add("form-row");
 	let smallPLabel = document.createElement("label");
-	smallPLabel.setAttribute("for", "smallPrice");
+	smallPLabel.setAttribute("for", "sm_price");
 	smallPLabel.innerHTML = "Small Size Price:";
 	let smallPInput = document.createElement("input");
 	smallPInput.setAttribute("type", "number");
-	smallPInput.setAttribute("id", "smallPrice");
+	smallPInput.setAttribute("id", "sm_price");
 	smallPInput.setAttribute("placeholder", "0.00");
 	smallPInput.classList.add("form-control");
 	smallPRow.appendChild(smallPLabel);
@@ -168,11 +172,11 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	let mediumPRow = document.createElement("div");
 	mediumPRow.classList.add("form-row");
 	let mediumPLabel = document.createElement("label");
-	mediumPLabel.setAttribute("for", "mediumPrice");
+	mediumPLabel.setAttribute("for", "med_price");
 	mediumPLabel.innerHTML = "Medium Size Price:";
 	let mediumPInput = document.createElement("input");
 	mediumPInput.setAttribute("type", "number");
-	mediumPInput.setAttribute("id", "mediumPrice");
+	mediumPInput.setAttribute("id", "med_price");
 	mediumPInput.setAttribute("placeholder", "0.00");
 	mediumPInput.classList.add("form-control");
 	mediumPRow.appendChild(mediumPLabel);
@@ -183,11 +187,11 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	let largePRow = document.createElement("div");
 	largePRow.classList.add("form-row");
 	let largePLabel = document.createElement("label");
-	largePLabel.setAttribute("for", "largePrice");
+	largePLabel.setAttribute("for", "lg_price");
 	largePLabel.innerHTML = "Large Size Price:";
 	let largePInput = document.createElement("input");
 	largePInput.setAttribute("type", "number");
-	largePInput.setAttribute("id", "largePrice");
+	largePInput.setAttribute("id", "lg_price");
 	largePInput.setAttribute("placeholder", "0.00");
 	largePInput.classList.add("form-control");
 	largePRow.appendChild(largePLabel);
@@ -198,16 +202,30 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	let xlargePRow = document.createElement("div");
 	xlargePRow.classList.add("form-row");
 	let xlargePLabel = document.createElement("label");
-	xlargePLabel.setAttribute("for", "extralargePrice");
+	xlargePLabel.setAttribute("for", "xlg_price");
 	xlargePLabel.innerHTML = "Extra Large Price:";
 	let xlargePInput = document.createElement("input");
 	xlargePInput.setAttribute("type", "number");
-	xlargePInput.setAttribute("id", "extralargePrice");
+	xlargePInput.setAttribute("id", "xlg_price");
 	xlargePInput.setAttribute("placeholder", "0.00");
 	xlargePInput.classList.add("form-control");
 	xlargePRow.appendChild(xlargePLabel);
 	xlargePRow.appendChild(xlargePInput);
 	newForm.appendChild(xlargePRow);
+
+	// xlargePRow = Small Price
+	let noteRow = document.createElement("div");
+	noteRow.classList.add("form-row");
+	let noteLabel = document.createElement("label");
+	noteLabel.setAttribute("for", "description");
+	noteLabel.innerHTML = "Description:";
+	let noteInput = document.createElement("textarea");
+	noteInput.setAttribute("rows", "5");
+	noteInput.setAttribute("id", "description");
+	noteInput.classList.add("form-control");
+	noteRow.appendChild(noteLabel);
+	noteRow.appendChild(noteInput);
+	newForm.appendChild(noteRow);
 
 
 	// submitButton = Submit/Save
@@ -218,7 +236,7 @@ function generateAdminMenuForm(pageElement, option, toppingData){
 	submitButton.classList.add("btn");
 	submitButton.classList.add("btn-primary");
 	submitButton.setAttribute("type", "button");
-	submitButton.setAttribute("onclick", "processFormContents()");
+	submitButton.setAttribute("onclick", submitAction);
 	submitButton.innerHTML = "Save Item";
 	submitRow.appendChild(submitButton);
 	newForm.appendChild(submitRow);

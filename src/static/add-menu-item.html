@@ -54,10 +54,18 @@
     <script type="text/javascript">
         function loadForm(){
             const formElement = document.getElementById('item-form');
-            loadAdminMenuForm(formElement, 'new')
+            loadAdminMenuForm(formElement, 'new', "test()");
+        }       
+        function test(){
+            console.log(document.getElementById('item-form').getElementsByTagName("input"));
+            console.log(document.getElementById('item-form').getElementsByTagName("textarea"));
         }
 
         function processFormContents(){
+            // get the form fields and store them in an array
+            const formData = document.getElementById('item-form').getElementsByTagName("itemName");
+
+
             var name = document.getElementById('itemName');
             var crust = document.getElementById('itemCrust');
             var sauce = document.getElementById('itemSauce');

@@ -9,7 +9,6 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
                         menu_item_id varchar(36),
                         item_name varchar(250) not null,
                         crust varchar(100) not null,
-                        sauce varchar(100) not null,
                         sm_price decimal(10,2) not null,
                         med_price decimal(10,2) not null,
                         lg_price decimal(10,2) not null,

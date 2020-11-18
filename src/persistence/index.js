@@ -6,7 +6,7 @@ const mysql = require('mysql');
 
 // define all required tables here for ease of reading/editing
 const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
-                        item_id varchar(36),
+                        menu_item_id varchar(36),
                         item_name varchar(250) not null,
                         crust varchar(100) not null,
                         sauce varchar(100) not null,
@@ -15,7 +15,7 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
                         lg_price decimal(10,2) not null,
                         xlg_price decimal(10,2) not null,
                         description varchar(500) not null,
-                        primary key(item_id)
+                        primary key(menu_item_id)
                     )`;
 
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
@@ -69,6 +69,20 @@ const CREATE_MENU_ITEM_TOPPINGS = `CREATE TABLE IF NOT EXISTS menu_item_toppings
                                     primary key (menu_item_id)
                                 )`;
 
+const CREATE_ADDRESS_INFO = `CREATE TABLE IF NOT EXISTS address_info(
+                                id integer,
+                                company_name varchar(50),
+                                street_address varchar(100),
+                                city varchar(50),
+                                state_name varchar(50),
+                                zip_code integer(5)
+                            )`;
+
+const CREATE_CONTACT_INFO = `CREATE TABLE IF NOT EXISTS contact_info(
+                                id integer,
+                                phone integer(10),
+                                email varchar(100)
+                            )`;                           
 
 
 const {
@@ -131,8 +145,13 @@ async function init() {
     })
     .then(() => {
         pool.query(CREATE_MENU_ITEM_TOPPINGS);
+    })
+    .then(() => {
+        pool.query(CREATE_ADDRESS_INFO);
+    })
+    .then(() => {
+        pool.query(CREATE_CONTACT_INFO);
     });
-
     
     return promise;
 }
@@ -167,10 +186,60 @@ async function getItems() {
     });
 }
 
-// Gets the menu toppings
+// Gets all of the toppings, used for displaying toppings in
+// menu/order item customization forms
 async function getToppings() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets toppings for a specific menu item
+async function getMenuItemToppings(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT topping_id, topping_name, topping_category, in_stock, current_topping FROM menu_items NATURAL JOIN menu_item_toppings NATURAL JOIN toppings WHERE menu_item_id=?',
+         [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+//Get address for restaurant information
+async function getAddrInfo() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM address_info', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+//Get contact info for restaurant information
+async function getContactInfo() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM contact_info', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -203,22 +272,6 @@ async function getOrders() {
 async function getOrderItems() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM order_items', (err, rows) => {
-            if (err) return rej(err);
-            acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
-                ),
-            );
-        });
-    });
-}
-
-// Gets all menu item toppings
-async function getMenuItemToppings() {
-    return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM menu_item_toppings', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -296,6 +349,38 @@ async function updateItem(id, item) {
     });
 }
 
+// Update a restaurant info in the DB (SURI)
+async function updateAddrInfo(arg) {
+    console.log(arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE address_info SET company_name=?, street_address=?, city=?, state_name=?, zip_code =? WHERE id=?',
+            [arg.company_name, arg.street_address, arg.city, arg.state_name, arg.zip_code, 1],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// Update a restaurant info in the DB (SURI)
+async function updateContactInfo(arg) {
+    console.log(arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE contact_info SET phone=?, email=? WHERE id=?',
+            [arg.phone, arg.email, 1],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 
 // Remove an item from the database
 // TODO: Needs to be changed to match our DB
@@ -320,8 +405,12 @@ module.exports = {
     getOrderItems,
     getMenuItemToppings,
     getOrderItemToppings,
+    getAddrInfo,
+    getContactInfo,
     getItem,
     storeItem,
     updateItem,
+    updateAddrInfo,
+    updateContactInfo,
     removeItem,
 };

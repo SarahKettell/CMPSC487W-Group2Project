@@ -539,6 +539,7 @@ function generateMenuItemEditForm(textBox, itemID, menuItems, toppingIDs, toppin
 }
 
 function removeEditWindow(){
+	document.getElementById("form-add-menu-item row").remove();
 	document.getElementById("pop-up-box-background").remove();
 	document.getElementById("edit-item-box").remove();
 }

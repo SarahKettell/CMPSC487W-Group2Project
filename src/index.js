@@ -4,12 +4,13 @@ const express = require('express');
 const app = express();
 const db = require('./persistence');
 // defines the paths through routes
-const getItems = require('./routes/getItems');
+const menuItems = require('./routes/getMenuItems');
 const toppings = require('./routes/getToppings');
 const getOrders = require('./routes/getOrders');
 const getOrderItems = require('./routes/getOrderItems');
 const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
+const updateMenuItemByID = require('./routes/updateMenuItem');
 const deleteItem = require('./routes/deleteItem');
 
 const getAddrInfo = require('./routes/getAddrInfo');
@@ -24,7 +25,9 @@ app.use(express.static(__dirname + '/static'));
 
 // Retrieves contents from the backend to a retrieveable location
 // to the client side
-app.get('/items', getItems);
+app.get('/menuItems', menuItems.getAllMenuItems);
+app.get('/menuItemToppings', menuItems.getMenuItemToppingIds);
+app.put('/menuItems/:id', updateMenuItemByID);
 app.get('/toppings', toppings.getAllToppings);
 app.get('/toppings/:id', toppings.getMenuToppings);
 app.get('/orders', getOrders);
@@ -35,17 +38,17 @@ app.get('/address', getAddrInfo);
 app.get('/contact', getContactInfo);
 
 // Add contents into the server from the client-side
-app.post('/items', addItem);
+app.post('/menuItems', addItem);
 
 // Updates contents based the id parameter given
-app.put('/items/:id', updateItem);
+//app.put('/items/:id', updateItem);
 
 app.put('/address/:id', updateAddrInfo);
 
 app.put('/contact/:id', updateContactInfo);
 
 // Deletes contents based on the id paramter given
-app.delete('/items/:id', deleteItem);
+//app.delete('/items/:id', deleteItem);
 
 // Initializes the database connection, creates tables if needed
 db.init().then(() => {

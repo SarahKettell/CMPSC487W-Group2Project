@@ -38,111 +38,34 @@
     <!-- edit form -->
     <div class="container">
     
-    <div class="form-heading">
-            <h2>Add a New Menu Item</h2>
-            <p>Fill out the form below to add a new menu item to the pizza menu for customers to order.</p>
-    </div>
+        <div class="form-heading">
+                <h2>Add a New Menu Item</h2>
+                <p>Fill out the form below to add a new menu item to the pizza menu for customers to order.</p>
+        </div>
 
-    <form id="form-add-menu-item row">
-        <div class="form-row">
-            <label for="itemName" class="label">Pizza Name:</label>
-            <input type="text" id="itemName" name="itemName" class="form-control">
-        </div>
-        <div class="form-row">
-            <label for="itemCrust" class="label">Crust Type:</label>
-            <select id="itemCrust" name="itemCrust" class="form-control">
-                <option>Thin-Crust</option>
-                <option>Thick-Crust</option>
-                <option>Whole-Wheat</option>
-                <option>Caulfiflower</option>
-            </select>
-        </div>
-        <div class="form-row">
-            <label>Sauce(s):</label>
-                <div class="input-group">
-                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="sauce-red-sauce" value="red-sauce">
-                  <label class="form-check-label" for="sauce-red-sauce">Red sauce</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="sauce-garlic-sauce" value="garlic-sauce">
-                  <label class="form-check-label" for="sauce-garlic-sauce">Garlic sauce</label>
-                    </div>
-                </div>
-        </div>
-        <div class="form-row">
-            <label>Cheese(s):</label>
-                <div class="input-group">
-                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="cheese-mozzarella" value="mozzarella">
-                  <label class="form-check-label" for="cheese-mozzarella">Mozzarella</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="cheese-three-cheese" value="three-cheese">
-                  <label class="form-check-label" for="cheese-three-cheese">Three-cheese blend</label>
-                    </div>
-                </div>
-        </div>
-        <div class="form-row">
-            <label>Topping(s):</label>
-            <div class="input-group">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="topping-green-peppers">
-                <label class="form-check-label" for="topping-green-peppers">
-                  Green Peppers
-                </label>
-            </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="topping-mushrooms">
-            <label class="form-check-label" for="topping-mushrooms">
-              Mushrooms
-            </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="topping-pepperoni">
-            <label class="form-check-label" for="topping-pepperoni">
-              Pepperoni
-            </label>
-          </div>
-        </div>
-        </div>
-        <div class="form-row">
-                <label for="smallPrice" class="label">Small Size Price:</label>
-                <input type="number" id="smallPrice" name="smallPrice" class="form-control" placeholder="0.00">
-            </div>
-        <div class="form-row">
-                <label for="mediumPrice" class="label">Medium Size Price:</label>
-                <input type="number" id="mediumPrice" name="mediumPrice" class="form-control" placeholder="0.00">
-        </div>
-        <div class="form-row">
-                <label for="largePrice" class="label">Large Size Price:</label>
-                <input type="number" id="largePrice" name="largePrice" class="form-control" placeholder="0.00">
-        </div>
-        <div class="form-row">
-                <label for="extraLargePrice" class="label">Extra Large Size Price:</label>
-                <input type="number" id="extraLargePrice" name="extraLargePrice" class="form-control" placeholder="0.00">
-        </div>
-        <div class="form-row">
-                <label for="itemDesc" class="label">Description:</label>
-                <textarea id="itemDesc" name="itemDesc" class="form-control" rows="5"></textarea>
-        </div>
-        <div class="form-row" id="submit-button-ref">
-            <button class="btn btn-primary" type="button" onclick="processFormContents()">
-            Save Item
-            </button>
-        </div>
-        <div class="submit-confirmation"></div>
-
-    </form>
+        <div id="item-form"></div>
 
     </div>
 
     <div id="footer"></div>
 
-    <body onload="getToppingsFromDB('2')">
-
+    <script src="js/menu-forms.js"></script>
+    <body onload="loadForm()">
     <script type="text/javascript">
+        function loadForm(){
+            const formElement = document.getElementById('item-form');
+            loadAdminMenuForm(formElement, 'new', "test()");
+        }       
+        function test(){
+            console.log(document.getElementById('item-form').getElementsByTagName("input"));
+            console.log(document.getElementById('item-form').getElementsByTagName("textarea"));
+        }
+
         function processFormContents(){
+            // get the form fields and store them in an array
+            const formData = document.getElementById('item-form').getElementsByTagName("itemName");
+
+
             var name = document.getElementById('itemName');
             var crust = document.getElementById('itemCrust');
             var sauce = document.getElementById('itemSauce');

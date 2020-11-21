@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS menu_items(
 	menu_item_id varchar(36),
 	item_name varchar(250) not null,
 	crust varchar(100) not null,
-	sauce varchar(100) not null,
 	sm_price decimal(10,2) not null,
 	med_price decimal(10,2) not null,
 	lg_price decimal(10,2) not null,
@@ -85,8 +84,8 @@ CREATE TABLE IF NOT EXISTS toppings(
 	primary key (topping_id)
 );
 
-insert into menu_items values('1', 'Meat Lovers', 'thick', 'red', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
-insert into menu_items values('2','Veggie Extravaganza', 'thick', 'red', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
+insert into menu_items values('1', 'Meat Lovers', 'thick-crust', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
+insert into menu_items values('2','Veggie Extravaganza', 'thick-crust', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
 insert into toppings values('1', 'green peppers', 'vegetable', true, true);
 insert into toppings values('2', 'mushrooms', 'vegetable', true, true);
 insert into toppings values('3', 'olives', 'vegetable', true, true);

@@ -9,7 +9,6 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
                         menu_item_id varchar(36),
                         item_name varchar(250) not null,
                         crust varchar(100) not null,
-                        sauce varchar(100) not null,
                         sm_price decimal(10,2) not null,
                         med_price decimal(10,2) not null,
                         lg_price decimal(10,2) not null,
@@ -84,7 +83,7 @@ const CREATE_CONTACT_INFO = `CREATE TABLE IF NOT EXISTS contact_info(
                                 email varchar(100)
                             )`;                           
 
-
+// DB connection constants, do not change
 const {
     MYSQL_HOST: HOST,
     MYSQL_HOST_FILE: HOST_FILE,
@@ -111,7 +110,7 @@ async function init() {
 
     // Allows up to connectionLimit connections in one pool
     pool = mysql.createPool({
-        connectionLimit: 10,
+        connectionLimit: 20,
         host,
         user,
         password,
@@ -171,7 +170,7 @@ async function teardown() {
 
 
 // Gets the menu items
-async function getItems() {
+async function getMenuItems() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM menu_items', (err, rows) => {
             if (err) return rej(err);
@@ -191,6 +190,22 @@ async function getItems() {
 async function getToppings() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM toppings', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+// Gets all topping ids related to all menu items
+async function getMenuItemToppingIDs() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * from menu_item_toppings', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -349,6 +364,40 @@ async function updateItem(id, item) {
     });
 }
 
+// Update a specific item in the DB
+// TODO: Needs to be changed to match our DB
+async function updateMenuItem(item) {
+    console.log("From async" + item);
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE menu_items SET item_name=?, crust=?, sm_price=?, med_price=?, lg_price=?, xlg_price=?, description=?  WHERE menu_item_id=?',
+            [item.item_name, item.crust, item.sm_price, item.med_price, item.lg_price, item.lg_price, item.description, item.menu_item_id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    }).then(() => {
+        pool.query(
+            'DELETE FROM menu_item_toppings WHERE menu_item_id=?',
+            [item.menu_item_id]
+        );
+    });
+}
+
+async function updateMenuItemToppings(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO menu_item_toppings(menu_item_id, topping_id) VALUES(?,?)',
+            [item.menu_item_id, item.topping_id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -399,11 +448,12 @@ async function removeItem(id) {
 module.exports = {
     init,
     teardown,
-    getItems,
+    getMenuItems,
     getToppings,
     getOrders,
     getOrderItems,
     getMenuItemToppings,
+    getMenuItemToppingIDs,
     getOrderItemToppings,
     getAddrInfo,
     getContactInfo,
@@ -412,5 +462,7 @@ module.exports = {
     updateItem,
     updateAddrInfo,
     updateContactInfo,
+    updateMenuItem,
+    updateMenuItemToppings,
     removeItem,
 };

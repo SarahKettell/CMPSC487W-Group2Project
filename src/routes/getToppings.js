@@ -16,4 +16,4 @@ const getMenuToppings = async (req, res) => {
 module.exports = {
 	getAllToppings,
 	getMenuToppings
-}
+};

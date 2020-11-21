@@ -7,7 +7,7 @@
 // async function to retreive the json output from the database
 const getJsonData = async (textBox) => {
 	// get database "items"
-	const response = await fetch('http://localhost:3000/items');
+	const response = await fetch('http://localhost:3000/menuItems');
 	const myJson = await response.json(); 
 
   //get database address
@@ -35,23 +35,6 @@ function getDatafromDB(elementID){
     getJsonData(location);
 }
 
-const getJsonToppings = async (itemInfo) => {
-  if(itemInfo === null){
-    const response = await fetch('http://localhost:3000/toppings');
-    const myJson = await response.json();
-    console.log(myJson);
-    return myJson;
-  }
-  else {
-    const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
-    const myJson = await response.json();
-  } 
-}
-
-// get toppings
-function getToppingsFromDB(item_id){
-    getJsonToppings(item_id);
-}
 
 // Converts the jsonData into menu item text
 // appends it to the element referenced
@@ -66,21 +49,6 @@ function displayMenuItems(textBox, jsonData){
   for(let i = 0; i < jsonData.length; i++){
     menuValues[i] = Object.values(jsonData[i]);
   }
-
-  // // iterate over each key value pair to output the strings
-  // for(let i = 0; i < menuValues.length; i++){
-  //   let newUL = document.createElement("ul");
-  //   newUL.classList.add("menu-item-container");
-  //   let newItem = document.createElement("li");
-  //   newItem.classList.add("row");
-  //   newItem.classList.add("menu-item-box");
-  //   for(let j = 1; j < menuKeys.length; j++){
-  //     let textInput = document.createTextNode(menuKeys[j] + ": " + menuValues[i][j]);
-  //     newItem.appendChild(textInput);
-  //     newDiv.appendChild(newItem);
-  //   }
-  //   textBox.appendChild(newDiv);
-  // }
 
   // create a new div element to add contents to
   const newDiv = document.createElement("div");
@@ -209,161 +177,7 @@ function displayAdminAddress(textBox, jsonData) {
   //console.log("Got to admin function.");
 }
 
-// Converts the jsonData into menu item text for the admin panel edit view
-function displayAdminMenuItems(textBox, jsonData){
-  console.log("Got to admin function.");
 
-  // array that stores the keys for the menu_item table
-  const menuKeys = Object.keys(jsonData[0]);
-  // new array to hold the menu values corresponding to each key
-  let menuValues = new Array(jsonData.length)
-
-  // creates a 2-dim array [i][j] where i = pizza menu item, j = value stored in that menu item
-  for(let i = 0; i < jsonData.length; i++){
-    menuValues[i] = Object.values(jsonData[i]);
-  }
-
-
-  // iterate over arrays -> not used for this but left for reference
-  // for(let j = 1; j < menuKeys.length; j++){
-  //   let textInput = document.createTextNode(menuKeys[j] + ": " + menuValues[i][j]);
-  //   newItem.appendChild(textInput);
-  //   newDiv.appendChild(newItem);
-  // }
-
-  // create a new div element to add contents to
-  const newDiv = document.createElement("div");
-
-  // iterate over each key value pair to output the strings
-  for(let i = 0; i < menuValues.length; i++){
-    let newUL = document.createElement("ul");
-    newUL.classList.add("menu-item-container");
-    let newItem = document.createElement("div");
-    newItem.classList.add("row");
-    newItem.classList.add("menu-item-box");
-    let newHeader = document.createElement("div");
-
-    // edit item link
-    let editLink = document.createElement("a");
-    let editLinkText = document.createTextNode("Edit");
-    editLink.title = "Edit Menu Item";
-    editLink.href = "edit-menu.html";
-    editLink.id = jsonData[i].item_id;
-    editLink.classList.add("edit-button");
-    editLink.appendChild(editLinkText);
-    newItem.appendChild(editLink);
-
-    // delete item link
-    let deleteLink = document.createElement("a");
-    let deleteLinkText = document.createTextNode("Delete");
-    deleteLink.title = "Delete Menu Item";
-    deleteLink.href = "";
-    deleteLink.id = jsonData[i].item_id;
-    deleteLink.classList.add("delete-button");
-    deleteLink.appendChild(deleteLinkText);
-    newItem.appendChild(deleteLink);
-    /*let deleteLink = document.createElement("img");
-    deleteLink.src = "delete.svg";
-    deleteLink.classList.add("delete-button");
-    newItem.appendChild(deleteLink);*/
-    
-
-    // title
-    let newTitle = document.createElement("h2");
-    newTitle.classList.add("pizzaName");
-    newTitle.appendChild(document.createTextNode(jsonData[i].pizza_name));
-    newHeader.appendChild(newTitle);
-    newItem.appendChild(newHeader);
-
-    // List of pizza style options
-    let styleTitle = document.createElement("h4");
-    styleTitle.classList.add("subTitle");
-    styleTitle.appendChild(document.createTextNode("Pizza Style"));
-    newItem.appendChild(styleTitle);
-    let styleUL = document.createElement("ul");
-
-    //styling + layout for the line that contains info regarding crust, sauce, toppings and cheese
-    let firstLI = document.createElement("li");
-    firstLI.classList.add("info");
-      //crust information
-      let crustLabel = document.createElement("a");
-      crustLabel.classList.add("labels");
-      crustLabel.appendChild(document.createTextNode("Crust: "));
-      firstLI.appendChild(crustLabel);
-      let crustInfo = document.createElement("a"); 
-      crustInfo.appendChild(document.createTextNode(jsonData[i].crust + "\t"));
-      crustInfo.classList.add("info");
-      firstLI.appendChild(crustInfo);
-
-      //sauce information
-      let sauceLabel = document.createElement("a");
-      sauceLabel.classList.add("labels");
-      sauceLabel.appendChild(document.createTextNode("Sauce: "));
-      firstLI.appendChild(sauceLabel);
-      let sauceInfo = document.createElement("a"); 
-      sauceInfo.appendChild(document.createTextNode(jsonData[i].sauce + "\t"));
-      sauceInfo.classList.add("info");
-      firstLI.appendChild(sauceInfo);
-
-      //cheese information
-      let cheeseLabel = document.createElement("a");
-      cheeseLabel.classList.add("labels");
-      cheeseLabel.appendChild(document.createTextNode("Cheese: "));
-      firstLI.appendChild(cheeseLabel);
-      let cheeseInfo = document.createElement("a"); 
-      cheeseInfo.appendChild(document.createTextNode(jsonData[i].cheese + "\t"));
-      cheeseInfo.classList.add("info");
-      firstLI.appendChild(cheeseInfo);
-
-      //toppings information
-      let toppingsLabel = document.createElement("a");
-      toppingsLabel.classList.add("labels");
-      toppingsLabel.appendChild(document.createTextNode("Toppings: "));
-      firstLI.appendChild(toppingsLabel);
-      let toppingsInfo = document.createElement("a"); 
-      toppingsInfo.appendChild(document.createTextNode(jsonData[i].toppings));
-      toppingsInfo.classList.add("info");
-      firstLI.appendChild(toppingsInfo);
-    
-    styleUL.appendChild(firstLI);
-    newItem.appendChild(styleUL);
-
-    // list of prices for item
-    let priceTitle = document.createElement("h4");
-    priceTitle.classList.add("subTitle");
-    priceTitle.appendChild(document.createTextNode("Prices"));
-    newItem.appendChild(priceTitle);
-    let priceUL = document.createElement("ul");
-
-    //labels for prices
-    let priceLabel = document.createElement("a");
-    priceLabel.classList.add("labels");
-    priceLabel.appendChild(document.createTextNode("Small/Medium/Large/XL: "));
-    let priceInfo = document.createElement("a");
-    priceInfo.classList.add("info");
-    priceInfo.appendChild(document.createTextNode("$" + jsonData[i].sm_price
-      + " / $" + jsonData[i].med_price + " / $" + jsonData[i].lg_price + " / $" + jsonData[i].xlg_price));
-
-    priceUL.appendChild(priceLabel);
-    priceUL.appendChild(priceInfo);
-    newItem.appendChild(priceUL);
-
-    // list the description for the item
-    let descTitle = document.createElement("h4");
-    descTitle.classList.add("subTitle");
-    descTitle.appendChild(document.createTextNode("Description"));
-    newItem.appendChild(descTitle);
-    let descUL = document.createElement("ul");
-    let descriptionLI = document.createElement("li");
-    descriptionLI.classList.add("info");
-    descriptionLI.appendChild(document.createTextNode(jsonData[i].description));
-    descUL.appendChild(descriptionLI);
-    newItem.appendChild(descUL);
-
-    newDiv.appendChild(newItem);
-    textBox.appendChild(newDiv);
-  }
-}
 
 const getToppingData = async(contentDiv) =>{
 
@@ -415,4 +229,227 @@ function addNewData(elementID){
 	if(inputVal != null){
 		addDatatoDB(inputVal);
 	}
+}
+
+
+/*---------------------------------------------------
+ADMIN MENU CODE
+----------------------------------------------------*/
+const getJsonToppings = async (itemInfo) => {
+  if(itemInfo === null){
+    const response = await fetch('http://localhost:3000/toppings');
+    const myJson = await response.json();
+    console.log(myJson);
+    return myJson;
+  }
+  else {
+    const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
+    const myJson = await response.json();
+  } 
+}
+
+// get toppings
+function getToppingsFromDB(item_id){
+    getJsonToppings(item_id);
+}
+// async function to retreive the json output from the database
+const getMenuItems = async (textBox) => {
+  // get menu items
+  const menuResponse = await fetch('http://localhost:3000/menuItems');
+  const menuItems = await menuResponse.json(); 
+
+  // get menu item topping list
+  const toppingIDResponse = await fetch('http://localhost:3000/menuItemToppings');
+  const toppingIDs = await toppingIDResponse.json();
+
+  //get toppings
+  const toppingResponse = await fetch('http://localhost:3000/toppings');
+  const toppings = await toppingResponse.json();
+
+  await displayAdminMenuItems(textBox, menuItems, toppingIDs, toppings);
+}
+
+// called from webpage, gets the data and it in the location given
+function getAdminMenu(elementID){
+    let location = document.getElementById(elementID);
+    // async call to get the data
+    getMenuItems(location);
+}
+
+// Converts the jsonData into menu item text for the admin panel edit view
+function displayAdminMenuItems(textBox, menuItems, toppingIDs, toppings){
+
+  // create a new div element to add contents to
+  const newDiv = document.createElement("div");
+
+  // iterate over each key value pair to output the strings
+  for(let i = 0; i < menuItems.length; i++){
+    // get toppings associated with menu item
+    let currToppings = [];                        // empty array
+    let itemToppings = toppingIDs.map(item => {   // iterates over toppingIDs
+      if(menuItems[i].menu_item_id === item.menu_item_id){   // if the menu item ids match
+        // finds the topping with the specific topping_id and adds to array
+        currToppings.push(toppings.find(topping => topping.topping_id === item.topping_id));
+      }
+    })
+
+    let newUL = document.createElement("ul");
+    newUL.classList.add("menu-item-container");
+    let newItem = document.createElement("div");
+    newItem.classList.add("row");
+    newItem.classList.add("menu-item-box");
+    let newHeader = document.createElement("div");
+
+    // edit item link
+    let editLink = document.createElement("a");
+    let editLinkText = document.createTextNode("Edit");
+    editLink.title = "Edit Menu Item";
+    editLink.setAttribute("id", menuItems[i].menu_item_id);
+    editLink.classList.add("edit-button");
+    editLink.appendChild(editLinkText);
+    newItem.appendChild(editLink);
+
+    // delete item link
+    let deleteLink = document.createElement("a");
+    let deleteLinkText = document.createTextNode("Delete");
+    deleteLink.title = "Delete Menu Item";
+    deleteLink.href = "";
+    deleteLink.id = menuItems[i].item_id;
+    deleteLink.classList.add("delete-button");
+    deleteLink.appendChild(deleteLinkText);
+    newItem.appendChild(deleteLink);
+    
+
+    // title
+    let newTitle = document.createElement("h2");
+    newTitle.classList.add("pizzaName");
+    newTitle.appendChild(document.createTextNode(menuItems[i].item_name));
+    newHeader.appendChild(newTitle);
+    newItem.appendChild(newHeader);
+
+    // List of pizza style options
+    let styleTitle = document.createElement("h4");
+    styleTitle.classList.add("subTitle");
+    styleTitle.appendChild(document.createTextNode("Pizza Style"));
+    newItem.appendChild(styleTitle);
+    let styleUL = document.createElement("ul");
+
+    //styling + layout for the line that contains info regarding crust, sauce, toppings and cheese
+    let firstLI = document.createElement("li");
+    firstLI.classList.add("info");
+      //crust information
+      let crustLabel = document.createElement("a");
+      crustLabel.classList.add("labels");
+      crustLabel.appendChild(document.createTextNode("Crust: "));
+      firstLI.appendChild(crustLabel);
+      let crustInfo = document.createElement("a"); 
+      crustInfo.appendChild(document.createTextNode(menuItems[i].crust + "\t"));
+      crustInfo.classList.add("info");
+      firstLI.appendChild(crustInfo);
+
+      //sauce information
+      let hasSauce = false;
+      let sauceLabel = document.createElement("a");
+      sauceLabel.classList.add("labels");
+      sauceLabel.appendChild(document.createTextNode("Sauce: "));
+      firstLI.appendChild(sauceLabel);
+      currToppings.map(topping => {
+        if(topping.topping_category === "sauce") {
+          let sauceInfo = document.createTextNode(topping.topping_name + ", ");
+          firstLI.appendChild(sauceInfo);
+          hasSauce = true;
+        }
+      });
+      if(!hasSauce){
+        let sauceInfo = document.createElement("a");
+        sauceInfo.appendChild(document.createTextNode("None" + "\t"));
+        sauceInfo.classList.add("info");
+        firstLI.appendChild(sauceInfo);
+      }
+
+      //cheese information
+      let hasCheese = false;
+      let cheeseLabel = document.createElement("a");
+      cheeseLabel.classList.add("labels");
+      cheeseLabel.appendChild(document.createTextNode("Cheese: "));
+      firstLI.appendChild(cheeseLabel);
+      currToppings.map(topping => {
+        if(topping.topping_category === "cheese") {
+          let cheeseInfo = document.createTextNode(topping.topping_name + ", ");
+          firstLI.appendChild(cheeseInfo);
+          hasCheese = true;
+        }
+      });
+      if(!hasCheese){
+        let cheeseInfo = document.createElement("a");
+        cheeseInfo.appendChild(document.createTextNode("None" + "\t"));
+        cheeseInfo.classList.add("info");
+        firstLI.appendChild(cheeseInfo);
+      }
+
+      //toppings information
+      let secondLI = document.createElement("li");
+      secondLI.classList.add("info");
+      let hasToppings = false;
+      let toppingsLabel = document.createElement("a");
+      toppingsLabel.classList.add("labels");
+      toppingsLabel.appendChild(document.createTextNode("Toppings: "));
+      secondLI.appendChild(toppingsLabel);
+      currToppings.map(topping => {
+        if(topping.topping_category != "cheese" && topping.topping_category != "sauce") {
+          let toppingsInfo = document.createTextNode(topping.topping_name + ", ");
+          secondLI.appendChild(toppingsInfo);
+          hasToppings = true;
+        }
+      });
+      if(!hasToppings){
+        let toppingsInfo = document.createElement("a");
+        toppingsInfo.appendChild(document.createTextNode("None" + "\t"));
+        toppingsInfo.classList.add("info");
+        secondLI.appendChild(toppingsInfo);
+      }
+
+
+    styleUL.appendChild(firstLI);
+    styleUL.appendChild(secondLI);
+    newItem.appendChild(styleUL);
+
+    // list of prices for item
+    let priceTitle = document.createElement("h4");
+    priceTitle.classList.add("subTitle");
+    priceTitle.appendChild(document.createTextNode("Prices"));
+    newItem.appendChild(priceTitle);
+    let priceUL = document.createElement("ul");
+
+    //labels for prices
+    let priceLabel = document.createElement("a");
+    priceLabel.classList.add("labels");
+    priceLabel.appendChild(document.createTextNode("Small/Medium/Large/XL: "));
+    let priceInfo = document.createElement("a");
+    priceInfo.classList.add("info");
+    priceInfo.appendChild(document.createTextNode("$" + menuItems[i].sm_price
+      + " / $" + menuItems[i].med_price + " / $" + menuItems[i].lg_price + " / $" + menuItems[i].xlg_price));
+
+    priceUL.appendChild(priceLabel);
+    priceUL.appendChild(priceInfo);
+    newItem.appendChild(priceUL);
+
+    // list the description for the item
+    let descTitle = document.createElement("h4");
+    descTitle.classList.add("subTitle");
+    descTitle.appendChild(document.createTextNode("Description"));
+    newItem.appendChild(descTitle);
+    let descUL = document.createElement("ul");
+    let descriptionLI = document.createElement("li");
+    descriptionLI.classList.add("info");
+    descriptionLI.appendChild(document.createTextNode(menuItems[i].description));
+    descUL.appendChild(descriptionLI);
+    newItem.appendChild(descUL);
+
+    newDiv.appendChild(newItem);
+    textBox.appendChild(newDiv);
+  }
+
+  // add event listeners to edit buttons
+  addEditListeners();
 }

@@ -7,6 +7,8 @@
 
     <title>Admin Menu</title>
     <link rel="stylesheet" href="admin-menu.css">
+    <link rel="stylesheet" href="my-account.css">
+    <link rel="stylesheet" href="/css/styles.css">
 
     <!--jQuery-->
     <script
@@ -54,6 +56,18 @@
 
     <!-- call footer -->
     <div id="footer"></div>
-    <body onload="getDatafromDB('admin-menu-list')">
+    <script src="js/menu-forms.js"></script>
+    <body onload="getAdminMenu('admin-menu-list')">
+    <script type="text/javascript">
+        function addEditListeners(){
+            let editButtons = document.getElementsByClassName('edit-button');
+            for(let i = 0; i < editButtons.length; i++){
+                editButtons[i].addEventListener('click', loadEditItemForm, false);
+            }
+        }
+        function editMenuItem(){
+
+        }
+    </script>
 </body>
 </html>

@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS toppings(
 	primary key (topping_id)
 );
 
-insert into menu_items values('1', 'Meat Lovers', 'thick', 'red', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
-insert into menu_items values('2','Veggie Extravaganza', 'thick', 'red', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
+insert into menu_items values('1', 'Meat Lovers', 'thick-crust', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
+insert into menu_items values('2','Veggie Extravaganza', 'thick-crust', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
 insert into toppings values('1', 'green peppers', 'vegetable', true, true);
 insert into toppings values('2', 'mushrooms', 'vegetable', true, true);
 insert into toppings values('3', 'olives', 'vegetable', true, true);

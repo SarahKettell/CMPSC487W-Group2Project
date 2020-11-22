@@ -257,11 +257,12 @@ button {
 }
 
 .main-menu-item{
-  display: flex;
   border:1px solid black;
   margin:30px;
   position: relative;
   height: auto;
+  background-image: url("/design/images/pizza-icon2.jpeg");
+  background-repeat: no-repeat;
 }
 
 .main-menu-item h2{
@@ -269,17 +270,44 @@ button {
   width: 100%;
 }
 
-.main-menu-item .image-div{
-  display: block;
-  width: 200px;
-  height:500px;
-  float: left;
-  overflow: hidden;
-  background-image: url("/design/images/pizza-icon2.jpeg");
-  background-repeat: no-repeat;
-}
-
 .main-menu-item .content-div{
+  background:white;
   display: block;
   padding: 30px;
+  margin-left:200px;
+}
+
+.main-menu-item .content-div form{
+  display:flex;
+  align-items: stretch;
+}
+
+.main-menu-item .content-div form .form-check{
+  display: block;
+  margin-right: 30px;
+}
+
+.main-menu-item .content-div form .form-check .form-check-label{
+  padding-left: 0;
+}
+
+.main-menu-item .content-div form input:checked + label{
+  font-weight: bold;
+}
+
+.main-menu-item .content-div .button-row{
+  display: flex;
+}
+
+
+.main-menu-item .content-div button{
+  flex:1;
+  background: red;
+  border:none;
+  margin-right: 10px;
+}
+
+.main-menu-item .content-div button:hover, .main-menu-item .content-div button:active {
+  background: darkred;
+  border:none;
 }

@@ -1,7 +1,27 @@
 /*************************************************************************
-* Functions to deal with creating the forms to add, update, or 
-* customize menu items
-*************************************************************************/
+ * Functions to deal with creating the forms to add, update, or
+ * customize menu items
+ *************************************************************************/
+// get all toppings, called from other function
+const getJsonToppings = async (itemInfo) => {
+	if(itemInfo === null){
+		const response = await fetch('http://localhost:3000/toppings');
+		const myJson = await response.json();
+		console.log(myJson);
+		return myJson;
+	}
+	else {
+		const response = await fetch('http://localhost:3000/toppings/' + itemInfo);
+		const myJson = await response.json();
+	}
+}
+
+// get toppings, called from html page
+function getToppingsFromDB(item_id){
+	getJsonToppings(item_id);
+}
+
+// get toppings for a specific menu item
 const getToppingsData = async (pageElement, option, itemInfo, submitAction) => {
   if(option === "new"){
     const response = await fetch('http://localhost:3000/toppings');
@@ -505,7 +525,7 @@ function generateMenuItemEditForm(textBox, itemID, menuItems, toppingIDs, toppin
 	noteInput.setAttribute("name", "itemDescription");
 	noteInput.setAttribute("id", "itemDescription");
 	noteInput.setAttribute("placeholder", currItem.description);
-	noteInput.setAttribute("value", currItem.description);
+	noteInput.value = currItem.description;
 	noteInput.classList.add("form-control");
 	noteRow.appendChild(noteLabel);
 	noteRow.appendChild(noteInput);
@@ -554,7 +574,8 @@ function saveEditedMenuItem(menuItemID) {
 	let medPrice = formData.elements.namedItem("med_price").value;
 	let lgPrice = formData.elements.namedItem("lg_price").value;
 	let xlgPrice = formData.elements.namedItem("xlg_price").value;
-	let itemDescription = document.getElementById("itemDescription").getAttribute("value");
+	console.log(xlgPrice);
+	let itemDescription = document.getElementById("itemDescription").value;
 
 	// get all included topping ids
 	let toppingList = formData.elements.namedItem("topping");

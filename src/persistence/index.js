@@ -371,7 +371,7 @@ async function updateMenuItem(item) {
     return new Promise((acc, rej) => {
         pool.query(
             'UPDATE menu_items SET item_name=?, crust=?, sm_price=?, med_price=?, lg_price=?, xlg_price=?, description=?  WHERE menu_item_id=?',
-            [item.item_name, item.crust, item.sm_price, item.med_price, item.lg_price, item.lg_price, item.description, item.menu_item_id],
+            [item.item_name, item.crust, item.sm_price, item.med_price, item.lg_price, item.xlg_price, item.description, item.menu_item_id],
             err => {
                 if (err) return rej(err);
                 acc();

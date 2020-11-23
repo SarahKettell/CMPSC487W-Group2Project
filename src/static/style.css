@@ -311,3 +311,23 @@ button {
   background: darkred;
   border:none;
 }
+
+
+.add-new-div {
+  padding: 30px;
+  text-align: center;
+}
+
+.admin-menu-body button{
+  background: red;
+  border:none;
+  color:white;
+  width: 80%;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.admin-menu-body button:hover, admin-menu-body button:active{
+  background: darkred;
+  border:none;
+}

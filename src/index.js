@@ -8,7 +8,7 @@ const menuItems = require('./routes/getMenuItems');
 const toppings = require('./routes/getToppings');
 const getOrders = require('./routes/getOrders');
 const getOrderItems = require('./routes/getOrderItems');
-const addItem = require('./routes/addItem');
+const addMenuItem = require('./routes/addMenuItem');
 const updateItem = require('./routes/updateItem');
 const updateMenuItemByID = require('./routes/updateMenuItem');
 const deleteItem = require('./routes/deleteItem');
@@ -37,8 +37,8 @@ app.get('/address', getAddrInfo);
 
 app.get('/contact', getContactInfo);
 
-// Add contents into the server from the client-side
-app.post('/menuItems', addItem);
+// Add new menu item into the db
+app.post('/menuItems', addMenuItem);
 
 // Updates contents based the id parameter given
 //app.put('/items/:id', updateItem);

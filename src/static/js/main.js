@@ -92,24 +92,7 @@ function displayToppingOptions(contentDiv){
     console.log(contentDiv);
 }
 
-// adds a menu item to the database
-const addMenuItemtoDB = async (inputData) => {
-    // input data is stored as a menu item object
 
-    // creates a post request, which is defined in the src/index.js file to call "addItem.js"
-  	const response = await fetch('http://localhost:3000/items', {
-    	method: 'POST',
-    	body: JSON.stringify(inputData), // string or object
-    	headers: {
-      		'Content-Type': 'application/json'
-    	}
-  	});
-
-  	// gets the json back if we want to do something new with it
-  	const myJson = await response.json(); //extract JSON from the http response
-  	// do something with myJson
-  	console.log(myJson);
-}
 
 //updates the address for restaurant info to the database
 const updateAddresstoDB = async (inputData) => {

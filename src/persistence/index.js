@@ -335,11 +335,11 @@ async function getItem(id) {
 
 
 // Add a NEW item to the menu_items table
-async function storeItem(item) {
+async function storeNewItem(item) {
     return new Promise((acc, rej) => {
         pool.query(
-            'INSERT INTO menu_items (item_id, pizza_name, crust, sauce, cheese, toppings, sm_price, med_price, lg_price, xlg_price, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [item.item_id, item.pizza_name, item.crust, item.sauce, item.cheese, item.toppings, item.sm_price, item.med_price, item.lg_price, item.xlg_price, item.description],
+            'INSERT INTO menu_items (menu_item_id, item_name, crust, sm_price, med_price, lg_price, xlg_price, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [item.menu_item_id, item.item_name, item.crust, item.sm_price, item.med_price, item.lg_price, item.xlg_price, item.description],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -458,7 +458,7 @@ module.exports = {
     getAddrInfo,
     getContactInfo,
     getItem,
-    storeItem,
+    storeNewItem,
     updateItem,
     updateAddrInfo,
     updateContactInfo,

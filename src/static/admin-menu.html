@@ -45,12 +45,15 @@
                     item by clicking the trash icon and add a new item.</p>    
             </div>
         <!-- menus from DB -->
+            <div class="add-new-div">
+                <button class="btn btn-primary" id="new-menu-item-button" onclick="loadNewItemForm()">
+                    Add New Menu Item
+                </button>
+            </div>
             <div id="admin-menu-list">
             </div>
 
-            <div class="add-item-button">
-                <a href="edit-menu.html" title="Add menu item">Add New Menu Item</a>
-            </div>
+
         </div>
     </div>
 
@@ -65,9 +68,6 @@
             for(let i = 0; i < editButtons.length; i++){
                 editButtons[i].addEventListener('click', loadEditItemForm, false);
             }
-        }
-        function editMenuItem(){
-
         }
     </script>
 </body>

@@ -48,10 +48,10 @@
                             View:
                         </label>
                     <div class="col-sm-4">
-                        <select id="orderView" class="form-control">
-                            <option>Current Orders</option>
-                            <option>Past Orders</option>
-                            <option>All Orders</option>
+                        <select id="orderView" class="form-control" onchange="displaySelectedOrders()">
+                            <option value="current">Current Orders</option>
+                            <option value="past">Past Orders</option>
+                            <option value="all">All Orders</option>
                         </select>
                     </div>
                     <div class="col-sm" style="text-align: right">
@@ -64,8 +64,6 @@
         <!-- menus from DB -->
             <div id="admin-order-list">
             </div>
-
-
         </div>
     </div>
 
@@ -73,12 +71,38 @@
     <div id="footer"></div>
     <script src="js/menu-forms.js"></script>
     <script src="js/menu-displays.js"></script>
-    <body onload="getAdminMenu('admin-order-list')">
+    <script src="js/order-displays.js"></script>
+    <body onload="getAdminOrders('admin-order-list')">
     <script type="text/javascript">
         function addEditListeners(){
             let editButtons = document.getElementsByClassName('edit-button');
             for(let i = 0; i < editButtons.length; i++){
                 editButtons[i].addEventListener('click', loadEditItemForm, false);
+            }
+        }
+        function displaySelectedOrders(){
+            let orderBoxes = document.getElementsByClassName('order-box');
+            let orderDisplayOptions = document.getElementById('orderView');
+            for(let i = 0; i < orderBoxes.length; i++){
+                if(orderDisplayOptions.value === 'past'){
+                    if(orderBoxes[i].getAttribute('data-status') === 'past'){
+                        orderBoxes[i].classList.remove('hide');
+                    }
+                    else {
+                        orderBoxes[i].classList.add('hide');
+                    }
+                }
+                else if (orderDisplayOptions.value === 'current'){
+                    if(orderBoxes[i].getAttribute('data-status') === 'current'){
+                        orderBoxes[i].classList.remove('hide');
+                    }
+                    else {
+                        orderBoxes[i].classList.add('hide');
+                    }
+                }
+                else{
+                    orderBoxes[i].classList.remove('hide');
+                }
             }
         }
     </script>

@@ -77,3 +77,54 @@
 	background: red;
 	padding: 16px;
 }
+
+.order-box{
+	border: 1px solid black;
+	padding: 30px;
+	margin: 30px 0 30px 0;
+}
+
+.order-box .right-align{
+	text-align: right;
+}
+
+.order-box .data-title{
+	font-weight: bold;
+}
+
+.order-box .order-item{
+	border-top: 1px solid darkgrey;
+	padding: 20px;
+	padding-bottom: 0;
+}
+
+.order-box .divider-row{
+	border-top: 1px solid darkgrey;
+	display: block;
+	padding-bottom: 20px;
+}
+
+#admin-order-list .container-fluid{
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.order-options button, .order-box button{
+	width: fit-content!important;
+	padding: .375rem 1rem!important;
+}
+
+.order-options label{
+	font-weight: bold;
+}
+
+.info-heading{
+	margin-bottom: 50px!important;
+}
+.info-heading h2{
+	margin-bottom: 30px;
+}
+
+#admin-order-list .hide{
+	display:none;
+}

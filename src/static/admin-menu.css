@@ -70,19 +70,3 @@
   color: #fff;
   text-transform: uppercase;
 }
-
-.order-options button{
-  width: fit-content!important;
-  padding: .375rem 1rem!important;
-}
-
-.order-options label{
-  font-weight: bold;
-}
-
-.info-heading{
-  margin-bottom: 50px!important;
-}
-.info-heading h2{
-  margin-bottom: 30px;
-}

@@ -1,3 +1,5 @@
+use pizza-parlor;
+
 drop table menu_items;
 drop table orders;
 drop table order_items;
@@ -105,6 +107,7 @@ insert into toppings values('16', 'red sauce', 'sauce', true, true);
 insert into toppings values('17', 'pesto', 'sauce', true, true);
 insert into toppings values('18', 'white garlic', 'sauce', true, true);
 insert into toppings values('19', 'barbeque', 'sauce', true, true);
+insert into toppings values('20', 'pineapple', 'fruit', true, true);
 insert into menu_item_toppings values('1', '1');
 insert into menu_item_toppings values('1', '2');
 insert into menu_item_toppings values('1', '3');

@@ -435,7 +435,7 @@ async function updateContactInfo(arg) {
 // TODO: Needs to be changed to match our DB
 async function removeItem(id) {
     return new Promise((acc, rej) => {
-        pool.query('DELETE FROM todo_items WHERE id = ?', [id], err => {
+        pool.query('DELETE FROM menu_items WHERE menu_item_id = ?', [id], err => {
             if (err) return rej(err);
             acc();
         });

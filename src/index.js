@@ -48,7 +48,7 @@ app.put('/address/:id', updateAddrInfo);
 app.put('/contact/:id', updateContactInfo);
 
 // Deletes contents based on the id paramter given
-//app.delete('/items/:id', deleteItem);
+app.delete('/items/:id', deleteItem);
 
 // Initializes the database connection, creates tables if needed
 db.init().then(() => {

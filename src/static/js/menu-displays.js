@@ -30,6 +30,18 @@ function getAdminMenu(elementID){
     getMenuItems(location, "admin");
 }
 
+// Launches a server command to delete an item.
+async function deleteItemData(idDel) {
+    await fetch('http://localhost:3000/items/' + idDel, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    location.reload();
+    window.alert("Item has been successfully deleted!")
+}
+
 // called from webpage, gets the data and it in the location given
 function getCustomerMenu(elementID){
     let location = document.getElementById(elementID);
@@ -74,11 +86,14 @@ function displayAdminMenuItems(textBox, menuItems, toppingIDs, toppings){
         let deleteLink = document.createElement("a");
         let deleteLinkText = document.createTextNode("Delete");
         deleteLink.title = "Delete Menu Item";
-        deleteLink.href = "";
-        deleteLink.id = menuItems[i].item_id;
+        deleteLink.href = "#";
+        deleteLink.id = menuItems[i].menu_item_id;
         deleteLink.classList.add("delete-button");
         deleteLink.appendChild(deleteLinkText);
         newItem.appendChild(deleteLink);
+        deleteLink.addEventListener('click', async function () {
+            await deleteItemData(this.id);
+        });
 
         // title
         let newTitle = document.createElement("h2");

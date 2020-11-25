@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS contact_info(
 	phone integer(10),
 	email varchar(100)
 );
+
 CREATE TABLE IF NOT EXISTS menu_items(
 	menu_item_id varchar(36),
 	item_name varchar(250) not null,
@@ -60,13 +61,13 @@ CREATE TABLE IF NOT EXISTS order_items(
 	size varchar(36) not null,
 	price decimal(10,2) not null,
 	notes varchar(500),
-	primary key (order_item_id)
+	primary key (order_item_id, order_id)
 );
 
 CREATE TABLE IF NOT EXISTS order_item_toppings(
 	order_item_id varchar(36),
 	topping_id varchar(36) not null,
-	primary key (order_item_id)
+	primary key (order_item_id, topping_id)
 );
 
 CREATE TABLE IF NOT EXISTS menu_item_toppings(
@@ -84,12 +85,14 @@ CREATE TABLE IF NOT EXISTS toppings(
 	primary key (topping_id)
 );
 
-insert into menu_items values('1', 'Meat Lovers', 'thick-crust', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
-insert into menu_items values('2','Veggie Extravaganza', 'thick-crust', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
+insert into menu_items values('1','Meat Lovers', 'thick-crust', 8.00, 10.00, 12.00, 16.00, 'A masterpiece of hearty, high-quality meats including pepperoni, savory sausage, real beef, hickory-smoked bacon, and julienne-cut Canadian bacon, all topped with real cheese made from mozzarella.');
+insert into menu_items values('2','Veggie Extravaganza', 'whole-wheat-crust', 8.00, 10.00, 12.00, 16.00,'All your favorite veggies together on a delightfully delicious pizza. Loaded with crisp green peppers, fresh-cut onions, mushrooms, ripe black olives, vine-ripened Roma tomatoes, and real cheese made from mozzarella.');
+insert into menu_items values('3','Pepperoni', 'thick-crust', 8.00, 10.00, 12.00, 16.00,'Your choice of crust covered with our signature pizza sauce, real cheese made from mozzarella, and pepperoni. With a pepperoni in almost every bite, its one of our most popular pizzas.');
+insert into menu_items values('4','The Cheese', 'thin-crust', 8.00, 10.00, 12.00, 16.00,'Simple, yet simply delicious. Real cheese made from mozzarella on top of our signature pizza sauce with your choice of crust, then baked to a golden brown. It has just what you want, and nothing you don’t.');
 insert into toppings values('1', 'green peppers', 'vegetable', true, true);
 insert into toppings values('2', 'mushrooms', 'vegetable', true, true);
 insert into toppings values('3', 'olives', 'vegetable', true, true);
-insert into toppings values('4', 'tomatos', 'vegetable', true, true);
+insert into toppings values('4', 'tomatoes', 'vegetable', true, true);
 insert into toppings values('5', 'spinach', 'vegetable', true, true);
 insert into toppings values('6', 'onions', 'vegetable', true, true);
 insert into toppings values('7', 'pepperoni', 'meat', true, true);
@@ -100,13 +103,41 @@ insert into toppings values('11', 'steak', 'meat', true, true);
 insert into toppings values('12', 'mozzarella', 'cheese', true, true);
 insert into toppings values('13', 'three-cheese blend', 'cheese', true, true);
 insert into toppings values('14', 'feta', 'cheese', true, true);
-insert into toppings values('15', 'parmasean', 'cheese', true, true);
+insert into toppings values('15', 'parmesan', 'cheese', true, true);
 insert into toppings values('16', 'red sauce', 'sauce', true, true);
 insert into toppings values('17', 'pesto', 'sauce', true, true);
 insert into toppings values('18', 'white garlic', 'sauce', true, true);
 insert into toppings values('19', 'barbeque', 'sauce', true, true);
-insert into menu_item_toppings values('1', '1');
-insert into menu_item_toppings values('1', '2');
-insert into menu_item_toppings values('1', '3');
+insert into menu_item_toppings values('1', '7');
+insert into menu_item_toppings values('1', '8');
+insert into menu_item_toppings values('1', '9');
+insert into menu_item_toppings values('1', '16');
+insert into menu_item_toppings values('1', '12');
+insert into menu_item_toppings values('2', '1');
+insert into menu_item_toppings values('2', '2');
+insert into menu_item_toppings values('2', '3');
+insert into menu_item_toppings values('2', '4');
+insert into menu_item_toppings values('2', '5');
+insert into menu_item_toppings values('2', '16');
+insert into menu_item_toppings values('2', '12');
+insert into menu_item_toppings values('3', '7');
+insert into menu_item_toppings values('3', '16');
+insert into menu_item_toppings values('3', '12');
+insert into menu_item_toppings values('4', '12');
+insert into menu_item_toppings values('4', '13');
+insert into menu_item_toppings values('4', '15');
+insert into menu_item_toppings values('4', '16');
 insert into address_info values(1, 'Company Name', '123 Pizza Street', 'Pizzatopia', 'PA', 12345);
 insert into contact_info values(1, 1234567890, 'sms7631@psu.edu');
+insert into orders values('1', '123456', '2020-11-01 13:00:01', '2020-11-01 13:20:01', '2020-11-01 13:50:01', '2020-11-01 14:00:01', 'eat-in', 'Allergic to mushrooms', 'cash', 20.00, 3.00, 6.00, 29.00, true, true);
+insert into order_items values('1', '1', 'The Cheese', 'thin-crust', 'medium', 10.00, '');
+insert into order_items values('2', '1', 'Meat Lovers', 'thick-crust', 'medium', 10.00, '');
+insert into order_item_toppings values('1', '12');
+insert into order_item_toppings values('1', '13');
+insert into order_item_toppings values('1', '15');
+insert into order_item_toppings values('1', '16');
+insert into order_item_toppings values('2', '7');
+insert into order_item_toppings values('2', '8');
+insert into order_item_toppings values('2', '9');
+insert into order_item_toppings values('2', '16');
+insert into order_item_toppings values('2', '12');

@@ -12,7 +12,7 @@
   object-fit: fill;
 }
 .admin-menu-body .wrap {
-  padding: 2% 25% 2% 25%;
+  padding: 3% 15% 3% 15%;
 }
 .admin-menu-body .wrap .info-heading h2 {
   text-transform: uppercase;
@@ -69,4 +69,20 @@
   padding: 0% 5% 0% 5%;
   color: #fff;
   text-transform: uppercase;
+}
+
+.order-options button{
+  width: fit-content!important;
+  padding: .375rem 1rem!important;
+}
+
+.order-options label{
+  font-weight: bold;
+}
+
+.info-heading{
+  margin-bottom: 50px!important;
+}
+.info-heading h2{
+  margin-bottom: 30px;
 }

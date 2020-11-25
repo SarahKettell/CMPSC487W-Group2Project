@@ -3,15 +3,16 @@
 const express = require('express');
 const app = express();
 const db = require('./persistence');
+
 // defines the paths through routes
 const menuItems = require('./routes/getMenuItems');
 const toppings = require('./routes/getToppings');
-const getOrders = require('./routes/getOrders');
-const getOrderItems = require('./routes/getOrderItems');
 const addMenuItem = require('./routes/addMenuItem');
 const updateItem = require('./routes/updateItem');
 const updateMenuItemByID = require('./routes/updateMenuItem');
 const deleteItem = require('./routes/deleteItem');
+
+const getOrders = require('./routes/getOrders');
 
 const getAddrInfo = require('./routes/getAddrInfo');
 const updateAddrInfo = require('./routes/updateAddrInfo');
@@ -30,9 +31,13 @@ app.get('/menuItemToppings', menuItems.getMenuItemToppingIds);
 app.put('/menuItems/:id', updateMenuItemByID);
 app.get('/toppings', toppings.getAllToppings);
 app.get('/toppings/:id', toppings.getMenuToppings);
-app.get('/orders', getOrders);
-app.get('/orderItems', getOrderItems);
 
+// handling order db calls
+app.get('/orders', getOrders.getOrders);
+app.get('/orderItems', getOrders.getOrderItems);
+app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
+
+// handling address and restaurant info calls
 app.get('/address', getAddrInfo);
 
 app.get('/contact', getContactInfo);

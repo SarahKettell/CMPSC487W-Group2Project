@@ -100,8 +100,13 @@
                         orderBoxes[i].classList.add('hide');
                     }
                 }
-                else{
-                    orderBoxes[i].classList.remove('hide');
+                else {
+                    if(orderBoxes[i].getAttribute('data-status') === 'not-checked-out'){
+                        orderBoxes[i].classList.add('hide');
+                    }
+                    else {
+                        orderBoxes[i].classList.remove('hide');
+                    }
                 }
             }
         }

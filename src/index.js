@@ -13,6 +13,7 @@ const updateMenuItemByID = require('./routes/updateMenuItem');
 const deleteItem = require('./routes/deleteItem');
 
 const getOrders = require('./routes/getOrders');
+const updateOrder = require('./routes/updateOrder');
 
 const getAddrInfo = require('./routes/getAddrInfo');
 const updateAddrInfo = require('./routes/updateAddrInfo');
@@ -36,6 +37,7 @@ app.get('/toppings/:id', toppings.getMenuToppings);
 app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
+app.put('/orders/:id', updateOrder.completeOrder);
 
 // handling address and restaurant info calls
 app.get('/address', getAddrInfo);

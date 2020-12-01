@@ -87,9 +87,14 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
         let orderStatus = document.createElement("h3");
         orderStatus.classList.add("col-sm");
         orderStatus.classList.add("right-align");
-        if(!currentOrder.completed){
-            orderStatus.appendChild(document.createTextNode("Status: IN PROGRESS"));
-            newOrderDiv.setAttribute("data-status", "current");
+        if(!currentOrder.completed) {
+            if (!currentOrder.checked_out) {
+                orderStatus.appendChild(document.createTextNode("Status: NOT FINALIZED"));
+                newOrderDiv.setAttribute("data-status", "not-checked-out");
+            } else {
+                orderStatus.appendChild(document.createTextNode("Status: IN PROGRESS"));
+                newOrderDiv.setAttribute("data-status", "current");
+            }
         }
         else {
             orderStatus.appendChild(document.createTextNode("Status: COMPLETE"));
@@ -317,38 +322,73 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
 
         newRow = document.createElement("div");
         newRow.classList.add("row");
-        newRow.classList.add("justify-content-between");
         // mark order complete if in process
         if(!currentOrder.completed){
+            newRow.classList.add("justify-content-between");
             let newCol = document.createElement("div");
-            newCol.classList.add("col-4");
+            newCol.classList.add("col-5");
             let markComplete = document.createElement("button");
             markComplete.classList.add("btn");
             markComplete.classList.add("btn-primary");
             markComplete.setAttribute("type", "button");
+            markComplete.setAttribute("name", currentOrder.order_id);
             markComplete.setAttribute("id", "mark-complete-button");
-            markComplete.addEventListener("click", () => {/*call function here*/}, false);
+            markComplete.addEventListener("click", async function ()
+                {markOrderComplete(this.name)}, false);
             markComplete.innerHTML = "Mark Order Complete";
             newCol.appendChild(markComplete);
             newRow.appendChild(newCol);
+            // View Order Details
+            newCol = document.createElement("div");
+            newCol.classList.add("col-5");
+            let viewOrderDetails = document.createElement("button");
+            viewOrderDetails.classList.add("btn");
+            viewOrderDetails.classList.add("btn-primary");
+            viewOrderDetails.setAttribute("name", currentOrder.order_id);
+            viewOrderDetails.setAttribute("type", "button");
+            viewOrderDetails.setAttribute("id", "view-order-details-button");
+            viewOrderDetails.addEventListener("click",
+                () => {/*add function here*/}, false);
+            viewOrderDetails.innerHTML = "View Full Order Details";
+            newCol.appendChild(viewOrderDetails);
+            newRow.appendChild(newCol);
+        } else {
+            // View Order Details
+            newRow.classList.add("justify-content-center");
+            let viewOrderDetails = document.createElement("button");
+            viewOrderDetails.classList.add("btn");
+            viewOrderDetails.classList.add("btn-primary");
+            viewOrderDetails.setAttribute("type", "button");
+            viewOrderDetails.setAttribute("id", "view-order-details-button");
+            viewOrderDetails.addEventListener("click", () => {/*call function here*/}, false);
+            viewOrderDetails.innerHTML = "View Full Order Details";
+            newRow.appendChild(viewOrderDetails);
         }
-        // View Order Details
-        let newCol = document.createElement("div");
-        newCol.classList.add("col-4");
-        let viewOrderDetails = document.createElement("button");
-        viewOrderDetails.classList.add("btn");
-        viewOrderDetails.classList.add("btn-primary");
-        viewOrderDetails.setAttribute("type", "button");
-        viewOrderDetails.setAttribute("id", "view-order-details-button");
-        viewOrderDetails.addEventListener("click", () => {/*call function here*/}, false);
-        viewOrderDetails.innerHTML = "View Full Order Details";
-        newCol.appendChild(viewOrderDetails);
-        newRow.appendChild(newCol);
+
+
         newOrderDiv.appendChild(newRow);
         textBox.appendChild(newOrderDiv);
     }
 
     displaySelectedOrders();
+}
+
+async function markOrderComplete(orderId) {
+    await fetch('http://localhost:3000/orders/' + orderId, {
+        method: 'PUT',
+        body: '',
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    });
+
+    await refreshAdminOrders();
+}
+
+function refreshAdminOrders(){
+    let currListElement = document.getElementById('admin-order-list');
+    currListElement.innerText = "";
+    getAdminOrders('admin-order-list');
 }
 
 /***************************************************************************

@@ -398,6 +398,19 @@ async function updateMenuItemToppings(item) {
     });
 }
 
+async function updateOrderAsComplete(orderId, completedTime){
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE orders SET date_time_completed=?, completed=? WHERE order_id=?',
+            [completedTime, true, orderId],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -453,6 +466,7 @@ module.exports = {
     getOrders,
     getOrderItems,
     getOrderItemToppings,
+    updateOrderAsComplete,
     getMenuItemToppings,
     getMenuItemToppingIDs,
     getAddrInfo,

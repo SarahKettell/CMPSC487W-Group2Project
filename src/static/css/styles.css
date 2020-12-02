@@ -128,3 +128,16 @@
 #admin-order-list .hide{
 	display:none;
 }
+
+.order-box .right{
+	text-align: right;
+}
+
+.btn-primary {
+	background: red!important;
+	border: none!important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+	background: darkred!important;
+}

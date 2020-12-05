@@ -401,6 +401,19 @@ const updateAddresstoDB = async (inputData) => {
     const myJson = await response.json();
 }
 
+//updates the contact for restaurant info to the database
+const updateContacttoDB = async (inputData) => {
+  const response = await fetch('http://localhost:3000/contact/1', { //url needs to match in src/index
+    method: 'PUT',
+    body: JSON.stringify(inputData),
+    headers: {
+        'Content-Type' : 'application/json'
+    }
+  });
+
+  const myJson = await response.json();
+}
+
 // called from webpage to save info to the database
 function addNewData(elementID){
 	// gets the input field value referenced by elementID

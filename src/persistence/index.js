@@ -355,7 +355,7 @@ async function updateAddrInfo(arg) {
     
     return new Promise((acc, rej) => {
         pool.query(
-            'UPDATE address_info SET company_name=?, street_address=?, city=?, state_name=?, zip_code =? WHERE id=?',
+            'UPDATE address_info SET company_name=?, street_address=?, city=?, state_name=?, zip_code=? WHERE id=?',
             [arg.company_name, arg.street_address, arg.city, arg.state_name, arg.zip_code, 1],
             err => {
                 if (err) return rej(err);

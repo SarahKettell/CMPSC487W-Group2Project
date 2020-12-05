@@ -103,15 +103,14 @@
                     <div class="heading">
                         <h2>Contact Information</h2>
                     </div>
-                    <button class="icon">
+                    <button class="icon" onClick="window.location='edit-contact.html';">
                         <svg width="30" height="30">
                             <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
                 <div class="descr">
-                    <a>123-456-7890 </a><br>
-                    <a>pizzatopia@gmail.com</a>
+                    <div class="admin-contact" id="admin-contact"></div>
                 </div>
             </div>
             <!-- reports -->
@@ -123,6 +122,7 @@
     <!-- call footer -->
     <div id="footer"></div>
     <body onload="getDatafromDB('admin-address')"></body>
+    <body onload="getDatafromDB('admin-contact')"></body>
 </body>
 
 <!-- modal

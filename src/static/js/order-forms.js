@@ -1,5 +1,5 @@
 // loads the menu items to place in the order create form
-const getMenuItems = async (textBox, type) => {
+const getMenuItems = async (textBox) => {
     // get menu items
     const menuResponse = await fetch('http://localhost:3000/menuItems');
     const menuItems = await menuResponse.json();
@@ -12,15 +12,30 @@ const getMenuItems = async (textBox, type) => {
     const toppingResponse = await fetch('http://localhost:3000/toppings');
     const toppings = await toppingResponse.json();
 
-    if(type === "admin") {
-        await displayAdminMenuItems(textBox, menuItems, toppingIDs, toppings);
-    } else {
-        await displayMenuItems(textBox, menuItems, toppingIDs, toppings);
-    }
+    await generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings);
+}
+
+function loadCreateOrderForm(formElement){
+    getMenuItems(formElement);
 }
 
 
-function generateNewAdminOrderForm(formLocation){
+function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
+
+    // sort all the menu items and related details for easy access later
+    let fullMenuDetails = [];
+    for(let i = 0; i < menuItems.length; i++) {
+        let currToppings = [];                        // empty array
+        toppingIDs.map(item => {   // iterates over toppingIDs
+            if(menuItems[i].menu_item_id === item.menu_item_id){   // if the menu item ids match
+                // finds the topping with the specific topping_id and adds to array
+                currToppings.push(toppings.find(topping => topping.topping_id === item.topping_id));
+            }
+        });
+        fullMenuDetails.push({ menuItem: menuItems[i], toppings: currToppings });
+    }
+    console.log(fullMenuDetails);
+
     // create new form element
     const newForm = document.createElement("form");
     newForm.id = "admin-new-order-form";
@@ -356,21 +371,21 @@ function generateNewAdminOrderForm(formLocation){
     let newSelect = document.createElement("select");
     newSelect.classList.add("form-control");
     newSelect.setAttribute("id", "menuItemOptions");
-    newInput = document.createElement("option");
-    newInput.innerHTML = "The Cheese";
-    newSelect.appendChild(newInput);
-    newInput = document.createElement("option");
-    newInput.innerHTML = "The Veggie";
-    newSelect.appendChild(newInput);
-    newInput = document.createElement("option");
-    newInput.innerHTML = "The Meat";
-    newSelect.appendChild(newInput);
+    // add each menu item as an option
+    fullMenuDetails.map(item => {
+        newInput = document.createElement("option");
+        newInput.setAttribute("value", item.menuItem.menu_item_id);
+        newInput.innerHTML = item.menuItem.item_name;
+        newSelect.appendChild(newInput);
+    });
     newInputGroup.appendChild(newSelect);
 
     newInput = document.createElement("button");
     newInput.classList.add("btn");
     newInput.classList.add("btn-primary");
     newInput.classList.add("col-1");
+    newInput.setAttribute("type", "button");
+    newInput.setAttribute("id", "add-menu-item-to-order");
     newInput.innerHTML = "Add";
 
     newFormRow.appendChild(newInputGroup);
@@ -444,7 +459,8 @@ function generateNewAdminOrderForm(formLocation){
 
     newForm.appendChild(newFormRow);
 
-    formLocation.appendChild(newForm);
+    textBox.appendChild(newForm);
+    setupMenuItemSelect(fullMenuDetails);
 }
 
 

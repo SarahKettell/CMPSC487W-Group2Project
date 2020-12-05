@@ -55,15 +55,25 @@
     <script src="js/menu-forms.js"></script>
     <body onload="loadForm()">
     <script type="text/javascript">
+        let menuItemInfo = [];
         function loadForm(){
             const formElement = document.getElementById('order-form');
-            generateNewAdminOrderForm(formElement);
+            loadCreateOrderForm(formElement);
             // const queryString = window.location.search;
             // const urlParams = new URLSearchParams(queryString);
         }       
-        function test(){
-            console.log(document.getElementById('item-form').getElementsByTagName("input"));
-            console.log(document.getElementById('item-form').getElementsByTagName("textarea"));
+        function setupMenuItemSelect(menuInfo){
+            menuItemInfo = JSON.parse(JSON.stringify(menuInfo));
+            console.log(menuItemInfo);
+            let addMenuItemButton = document.getElementById('add-menu-item-to-order');
+            addMenuItemButton.addEventListener('click', addMenuItemToOrder, false);
+            console.log("Got here");
+            console.log(addMenuItemButton);
+        }
+
+        function addMenuItemToOrder(){
+            const itemID = document.getElementById('menuItemOptions').value;
+            console.log(itemID);
         }
 
         function processFormContents(){

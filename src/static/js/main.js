@@ -14,9 +14,16 @@ const getJsonData = async (textBox) => {
   const addrResponse = await fetch('http://localhost:3000/address');
   const addrJson = await addrResponse.json();
 
+  //get database contact
+  const contResponse = await fetch('http://localhost:3000/contact');
+  const contJson = await contResponse.json();
+
   const textBoxID = textBox.id;
   if(textBoxID === "admin-menu-list"){
     displayAdminMenuItems(textBox, myJson);
+  } if(textBoxID === "admin-contact") {
+    displayAdminContact(textBox, contJson);
+    //displayAdminMenuItems(textBox, myJson);
   } if(textBoxID === "admin-address") {
     displayAdminAddress(textBox, addrJson);
     //displayAdminMenuItems(textBox, myJson);
@@ -199,6 +206,37 @@ function displayAdminAddress(textBox, jsonData) {
     textBox.appendChild(streetAddr);
     textBox.appendChild(cityState);
     textBox.appendChild(zipCode);
+  }
+  //console.log("Got to admin function.");
+}
+
+// Converts the jsonData into contact info text for the admin restaurant info edit view
+function displayAdminContact(textBox, jsonData) {
+  // array that stores the keys for the contact_info table
+  const contKeys = Object.keys(jsonData[0]);
+  // new array to hold the contact values corresponding to each key
+  let contValues = new Array(jsonData.length)
+
+  for(let i = 0; i < jsonData.length; i++){
+    contValues[i] = Object.values(jsonData[i]);
+  }
+
+  for(let i = 0; i < contValues.length; i++){
+    console.log('test phone: ' + jsonData[i].phone);
+
+    //phone number
+    let phone = document.createElement("a");
+    phone.appendChild(document.createTextNode(jsonData[i].phone));
+    phone.appendChild(document.createElement("br"));
+
+    //email address
+    let email = document.createElement("a");
+    email.appendChild(document.createTextNode(jsonData[i].email));
+    email.appendChild(document.createElement("br"));
+
+    //append all info to parent div which is admin-address
+    textBox.appendChild(phone);
+    textBox.appendChild(email);
   }
   //console.log("Got to admin function.");
 }

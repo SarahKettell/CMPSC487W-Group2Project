@@ -45,64 +45,21 @@
 
         <div id="order-form">
             <!-- order id will be auto-generated -->
-            <form>
-                <div class="form-row">
-                    <label>Type of Order:</label>
-                    <div class="input-group">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="type_delivery" value="delivery">
-                        <label class="form-check-label" for="type_delivery">Delivery</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="type_takeout" value="take-out">
-                        <label class="form-check-label" for="type_takeout">Take-Out</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="type_eatin" value="eat-in">
-                        <label class="form-check-label" for="type_eatin">Eat-In</label>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col">
-                        <label for="customer_id">Customer ID: </label>
-                        <input type="number" class="form-control" id="customer_id" placeholder="optional">
-                    </div>
-                    <div class="form-group col">
-                        <label for="customer_fname">Customer First Name: </label>
-                        <input type="text" class="form-control" id="customer_fname" placeholder="John">
-                    </div>
-                    <div class="form-group col">
-                        <label for="customer_lname">Customer Last Name: </label>
-                        <input type="text" class="form-control" id="customer_lname" placeholder="Smith">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <label for="notes">Order Notes:</label>
-                    <textarea class="form-control" id="notes" rows="3"></textarea>
-                </div>
-                <div class="button-row">
-                    <a class="btn btn-primary" id="admin-cancel-new-order" href="admin-orders.html">
-                        Cancel
-                    </a>
-                    <button type="submit" class="btn btn-primary">Save Order</button>
-                </div>
-            </form>
         </div>
 
     </div>
 
     <div id="footer"></div>
 
+    <script src="js/order-forms.js"></script>
     <script src="js/menu-forms.js"></script>
     <body onload="loadForm()">
     <script type="text/javascript">
         function loadForm(){
-            const formElement = document.getElementById('item-form');
-            loadAdminMenuForm(formElement, 'new', "test()");
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            console.log(urlParams.get('order'));
+            const formElement = document.getElementById('order-form');
+            generateNewAdminOrderForm(formElement);
+            // const queryString = window.location.search;
+            // const urlParams = new URLSearchParams(queryString);
         }       
         function test(){
             console.log(document.getElementById('item-form').getElementsByTagName("input"));

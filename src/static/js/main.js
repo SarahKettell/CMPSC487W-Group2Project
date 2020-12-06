@@ -28,19 +28,15 @@ const getJsonData = async (textBox) => {
   } 
   if(textBoxID === "test") {
     displayTest(textBox, addrJson, contJson);
-    //displayAdminMenuItems(textBox, myJson);
   }
   if(textBoxID === "admin-contact") {
     displayAdminContact(textBox, contJson);
-    //displayAdminMenuItems(textBox, myJson);
   }
   if(textBoxID === "admin-hours") {
     displayAdminHours(textBox, hoursJson);
-    //displayAdminMenuItems(textBox, myJson);
   }
   if(textBoxID === "admin-address") {
     displayAdminAddress(textBox, addrJson);
-    //displayAdminMenuItems(textBox, myJson);
   }
   else{
 	 displayMenuItems(textBox, myJson);
@@ -60,16 +56,15 @@ function getDatafromDB(elementID){
     getJsonData(location);
 }
 
+//this is for displaying Address to pages other than staff my account (ex home page)
 function displayAddressFooter(textBox, jsonData) {
-  // array that stores the keys for the address_info table
-  const addrKeys = Object.keys(jsonData[0]);
   // new array to hold the menu values corresponding to each key
   let addrValues = new Array(jsonData.length)
-
+  //fill the array with JSON data
   for(let i = 0; i < jsonData.length; i++){
     addrValues[i] = Object.values(jsonData[i]);
   }
-
+  //display these values to the page
   for(let i = 0; i < addrValues.length; i++){
     console.log('test compName: ' + jsonData[i].company_name);
     let ul = document.createElement("ul");
@@ -98,24 +93,19 @@ function displayAddressFooter(textBox, jsonData) {
 
     textBox.appendChild(ul);
   }
-  //console.log("Got to admin function.");
 }
 
 // Converts the jsonData into address info text for the admin restaurant info edit view
 function displayAdminAddress(textBox, jsonData) {
-  // array that stores the keys for the address_info table
-  const addrKeys = Object.keys(jsonData[0]);
   // new array to hold the menu values corresponding to each key
   let addrValues = new Array(jsonData.length)
-
+  //fill those arrays with JSON value
   for(let i = 0; i < jsonData.length; i++){
     addrValues[i] = Object.values(jsonData[i]);
   }
-
- 
+  //display the JSON values stored in the array
   for(let i = 0; i < addrValues.length; i++){
     console.log('test compName: ' + jsonData[i].company_name);
-    let lineBreak = document.createElement("br");
 
     //company name
     let compName = document.createElement("a");
@@ -143,19 +133,17 @@ function displayAdminAddress(textBox, jsonData) {
     textBox.appendChild(cityState);
     textBox.appendChild(zipCode);
   }
-  //console.log("Got to admin function.");
 }
 
 // Converts the jsonData into address info text for the admin restaurant info edit view
 function displayAdminHours(textBox, jsonData) {
   // new array to hold the menu values corresponding to each key
   let hoursValues = new Array(jsonData.length)
-
+  //fill those arrays with JSON value
   for(let i = 0; i < jsonData.length; i++){
     hoursValues[i] = Object.values(jsonData[i]);
   }
-
- 
+  //display the values in that array
   for(let i = 0; i < hoursValues.length; i++){
     console.log('test monBeg: ' + jsonData[i].mon_beg);
 
@@ -194,7 +182,7 @@ function displayAdminHours(textBox, jsonData) {
     sunday.appendChild(document.createTextNode("SUN: " + jsonData[i].sun_beg + " - " + jsonData[i].sun_end));
     sunday.appendChild(document.createElement("br"));
 
-    //append all info to parent div which is admin-address
+    //append all info to parent div which is admin-hours
     textBox.appendChild(monday);
     textBox.appendChild(tuesday);
     textBox.appendChild(wednesday);
@@ -203,18 +191,16 @@ function displayAdminHours(textBox, jsonData) {
     textBox.appendChild(saturday);
     textBox.appendChild(sunday);
   }
-  //console.log("Got to admin function.");
 }
 
 function displayAdminContact(textBox, jsonData) {
   // new array to hold the menu values corresponding to each key
   let contValues = new Array(jsonData.length)
-
+  //fill those arrays with JSON data
   for(let i = 0; i < jsonData.length; i++){
     contValues[i] = Object.values(jsonData[i]);
   }
-
- 
+  //display the values in that array to the webpage
   for(let i = 0; i < contValues.length; i++){
     console.log('test phone: ' + jsonData[i].phone);
 
@@ -228,10 +214,10 @@ function displayAdminContact(textBox, jsonData) {
     email.appendChild(document.createTextNode(jsonData[i].email));
     email.appendChild(document.createElement("br"));
 
+    //append to the parent div which is admin-contact
     textBox.appendChild(phone);
     textBox.appendChild(email);
   }
-  //console.log("Got to admin function.");
 }
 
 const getToppingData = async(contentDiv) =>{
@@ -243,8 +229,6 @@ function displayToppingOptions(contentDiv){
     // creates a post request, which is defined in the src/index.js file to call "addItem.js"
     console.log(contentDiv);
 }
-
-
 
 //updates the address for restaurant info to the database
 const updateAddresstoDB = async (inputData) => {

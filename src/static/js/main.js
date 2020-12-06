@@ -27,7 +27,16 @@ const getJsonData = async (textBox) => {
     displayAdminMenuItems(textBox, myJson);
   } 
   if(textBoxID === "test") {
-    displayTest(textBox, addrJson, contJson);
+    displayTest();
+  }
+  if(textBoxID === "home-address") {
+    displayAddress(textBox, addrJson)
+  }
+  if(textBoxID === "home-contact") {
+    displayContact(textBox, contJson)
+  }
+  if(textBoxID === "home-hours") {
+    displayHours(textBox, hoursJson)
   }
   if(textBoxID === "admin-contact") {
     displayAdminContact(textBox, contJson);
@@ -47,6 +56,9 @@ function displayTest() {
     getDatafromDB("admin-address");
     getDatafromDB("admin-contact");
     getDatafromDB("admin-hours");
+    getDatafromDB("home-address");
+    getDatafromDB("home-contact");
+    getDatafromDB("home-hours");
 }
 
 // called from webpage, gets the data and it in the location given
@@ -57,7 +69,7 @@ function getDatafromDB(elementID){
 }
 
 //this is for displaying Address to pages other than staff my account (ex home page)
-function displayAddressFooter(textBox, jsonData) {
+function displayAddress(textBox, jsonData) {
   // new array to hold the menu values corresponding to each key
   let addrValues = new Array(jsonData.length)
   //fill the array with JSON data
@@ -90,6 +102,89 @@ function displayAddressFooter(textBox, jsonData) {
     ul.appendChild(streetAddr);
     ul.appendChild(cityState);
     ul.appendChild(zipCode);
+
+    textBox.appendChild(ul);
+  }
+}
+
+//this is for displaying contact information to pages other than staff my account (ex home page)
+function displayContact(textBox, jsonData) {
+  // new array to hold the menu values corresponding to each key
+  let contValues = new Array(jsonData.length)
+  //fill those arrays with JSON data
+  for(let i = 0; i < jsonData.length; i++){
+    contValues[i] = Object.values(jsonData[i]);
+  }
+  //display the values in that array to the webpage
+  for(let i = 0; i < contValues.length; i++){
+    console.log('test phone: ' + jsonData[i].phone);
+    let ul = document.createElement("ul");
+
+    //phone number
+    let phone = document.createElement("li");
+    phone.appendChild(document.createTextNode(jsonData[i].phone));
+
+    //email address
+    let email = document.createElement("li");
+    email.appendChild(document.createTextNode(jsonData[i].email));
+
+    //append to the parent div which is admin-contact
+    ul.appendChild(phone);
+    ul.appendChild(email);
+
+    textBox.appendChild(ul);
+  }
+}
+
+//this is for displaying business hours to pages other than staff my account
+function displayHours(textBox, jsonData) {
+  // new array to hold the menu values corresponding to each key
+  let hoursValues = new Array(jsonData.length)
+  //fill those arrays with JSON value
+  for(let i = 0; i < jsonData.length; i++){
+    hoursValues[i] = Object.values(jsonData[i]);
+  }
+  //display the values in that array
+  for(let i = 0; i < hoursValues.length; i++){
+    console.log('test monBeg: ' + jsonData[i].mon_beg);
+    let ul = document.createElement("ul");
+
+    //Monday
+    let monday = document.createElement("li");
+    monday.appendChild(document.createTextNode("MON: " + jsonData[i].mon_beg + " - " + jsonData[i].mon_end));
+
+    //Tuesday 
+    let tuesday = document.createElement("li");
+    tuesday.appendChild(document.createTextNode("TUE: " + jsonData[i].tue_beg + " - " + jsonData[i].tue_end));
+
+    //Wednesday 
+    let wednesday = document.createElement("li");
+    wednesday.appendChild(document.createTextNode("WED: " + jsonData[i].wed_beg + " - " + jsonData[i].wed_end));
+
+    //Thursday 
+    let thursday = document.createElement("li");
+    thursday.appendChild(document.createTextNode("THU: " + jsonData[i].thu_beg + " - " + jsonData[i].thu_end));
+
+    //Friday 
+    let friday = document.createElement("li");
+    friday.appendChild(document.createTextNode("FRI: " + jsonData[i].fri_beg + " - " + jsonData[i].fri_end));
+
+    //Saturday 
+    let saturday = document.createElement("li");
+    saturday.appendChild(document.createTextNode("SAT: " + jsonData[i].sat_beg + " - " + jsonData[i].sat_end));
+
+    //Sunday 
+    let sunday = document.createElement("li");
+    sunday.appendChild(document.createTextNode("SUN: " + jsonData[i].sun_beg + " - " + jsonData[i].sun_end));
+
+    //append all info to parent div which is admin-hours
+    ul.appendChild(monday);
+    ul.appendChild(tuesday);
+    ul.appendChild(wednesday);
+    ul.appendChild(thursday);
+    ul.appendChild(friday);
+    ul.appendChild(saturday);
+    ul.appendChild(sunday);
 
     textBox.appendChild(ul);
   }

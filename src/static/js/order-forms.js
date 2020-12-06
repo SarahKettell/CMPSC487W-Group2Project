@@ -379,7 +379,6 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
         newSelect.appendChild(newInput);
     });
     newInputGroup.appendChild(newSelect);
-
     newInput = document.createElement("button");
     newInput.classList.add("btn");
     newInput.classList.add("btn-primary");
@@ -390,8 +389,13 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     newFormRow.appendChild(newInputGroup);
     newFormRow.appendChild(newInput);
-
     newFieldset.appendChild(newFormRow);
+
+    // where the items will be added
+    let newDiv = document.createElement("div");
+    newDiv.setAttribute("id", "add-item-location");
+    newFieldset.appendChild(newDiv);
+
     newForm.appendChild(newFieldset);
 
 
@@ -423,16 +427,24 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInputGroup.classList.add("order-prices");
     newInputGroup.classList.add("col-6");
     newLabel = document.createElement("p");
-    newLabel.innerHTML = "Subtotal: $";
+    newLabel.setAttribute("id", "order-subtotal");
+    newLabel.setAttribute("data-price", "0.00");
+    newLabel.innerHTML = "Subtotal: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
-    newLabel.innerHTML = "Tip: $";
+    newLabel.setAttribute("id", "order-tip");
+    newLabel.setAttribute("data-price", "0.00");
+    newLabel.innerHTML = "Tip: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
-    newLabel.innerHTML = "Tax: $";
+    newLabel.setAttribute("id", "order-tax");
+    newLabel.setAttribute("data-price", "0.00");
+    newLabel.innerHTML = "Tax: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
-    newLabel.innerHTML = "Total: $";
+    newLabel.setAttribute("id", "order-total");
+    newLabel.setAttribute("data-price", "0.00");
+    newLabel.innerHTML = "Total: $0.00";
     newInputGroup.appendChild(newLabel);
     newFormRow.appendChild(newInputGroup);
 
@@ -460,7 +472,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newForm.appendChild(newFormRow);
 
     textBox.appendChild(newForm);
-    setupMenuItemSelect(fullMenuDetails);
+    setupMenuItemSelect(fullMenuDetails, toppings);
 }
 
 

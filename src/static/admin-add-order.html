@@ -56,24 +56,368 @@
     <body onload="loadForm()">
     <script type="text/javascript">
         let menuItemInfo = [];
+        let allToppings = [];
+        let menuItemCount = 0;
         function loadForm(){
             const formElement = document.getElementById('order-form');
             loadCreateOrderForm(formElement);
             // const queryString = window.location.search;
             // const urlParams = new URLSearchParams(queryString);
         }       
-        function setupMenuItemSelect(menuInfo){
+        function setupMenuItemSelect(menuInfo, toppings){
             menuItemInfo = JSON.parse(JSON.stringify(menuInfo));
+            allToppings = JSON.parse(JSON.stringify(toppings));
             console.log(menuItemInfo);
+            console.log(allToppings);
             let addMenuItemButton = document.getElementById('add-menu-item-to-order');
             addMenuItemButton.addEventListener('click', addMenuItemToOrder, false);
-            console.log("Got here");
-            console.log(addMenuItemButton);
         }
 
         function addMenuItemToOrder(){
             const itemID = document.getElementById('menuItemOptions').value;
-            console.log(itemID);
+            const currMenuItem = menuItemInfo.find(item => item.menuItem.menu_item_id === itemID);
+            const itemLocation = document.getElementById('add-item-location');
+
+            let newItemRow = document.createElement("div");
+            newItemRow.classList.add("item-row");
+            newItemRow.setAttribute("id", "menu-item-" + menuItemCount);
+            let newRow = document.createElement("div");
+            newRow.classList.add("row");
+            newRow.classList.add("item-row-title");
+            newRow.setAttribute("id", "menu-item-" + menuItemCount);
+            newRow.appendChild(document.createTextNode(currMenuItem.menuItem.item_name));
+            let removeButton = document.createElement("button");
+            removeButton.setAttribute("type", "button");
+            removeButton.classList.add("remove-button");
+            removeButton.innerHTML = "Remove";
+            removeButton.addEventListener("click", () => removeMenuItemFromOrder(newItemRow.id), false);
+            newRow.appendChild(removeButton);
+            newItemRow.appendChild(newRow);
+
+            // sizeRow = Size:
+            let sizeRow = document.createElement("div");
+            sizeRow.classList.add("form-row");
+            let sizeLabel = document.createElement("label");
+            sizeLabel.innerHTML = "Crust Type:";
+            let sizeInputGroup = document.createElement("div");
+            sizeInputGroup.classList.add("input-group");
+
+            let newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            let newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.classList.add("order-item-price");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "size_sm_" + menuItemCount);
+            newInput.setAttribute("name", "size_" + menuItemCount);
+            newInput.setAttribute("value", "small");
+            newInput.setAttribute("data-sizeprice", currMenuItem.menuItem.sm_price);
+            newInput.setAttribute("checked", true);
+            newInput.addEventListener("change", () => updatePrices(), false);
+            let newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "size_sm");
+            newLabel.innerHTML = "Small: $" + currMenuItem.menuItem.sm_price.toFixed(2);
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            sizeInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.classList.add("order-item-price");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "size_med_" + menuItemCount);
+            newInput.setAttribute("name", "size_" + menuItemCount);
+            newInput.setAttribute("value", "medium");
+            newInput.setAttribute("data-sizeprice", currMenuItem.menuItem.med_price);
+            newInput.addEventListener("change", () => updatePrices(), false);
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "size_med");
+            newLabel.innerHTML = "Medium: $" + currMenuItem.menuItem.med_price.toFixed(2);
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            sizeInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.classList.add("order-item-price");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "size_lg_" + menuItemCount);
+            newInput.setAttribute("name", "size_" + menuItemCount);
+            newInput.setAttribute("value", "large");
+            newInput.setAttribute("data-sizeprice", currMenuItem.menuItem.lg_price);
+            newInput.addEventListener("change", () => updatePrices(), false);
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "size_lg");
+            newLabel.innerHTML = "Large: $" + currMenuItem.menuItem.lg_price.toFixed(2);
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            sizeInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.classList.add("order-item-price");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "size_xlg_" + menuItemCount);
+            newInput.setAttribute("value", "large");
+            newInput.setAttribute("name", "size_" + menuItemCount);
+            newInput.setAttribute("data-sizeprice", currMenuItem.menuItem.xlg_price);
+            newInput.addEventListener("change", () => updatePrices(), false);
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "size_xlg");
+            newLabel.innerHTML = "Extra Large: $" + currMenuItem.menuItem.xlg_price.toFixed(2);
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            sizeInputGroup.appendChild(newFormCheckOption);
+
+            sizeRow.appendChild(sizeLabel);
+            sizeRow.appendChild(sizeInputGroup);
+            newItemRow.appendChild(sizeRow);
+
+
+            // crustRow = Crust Type
+            let crustRow = document.createElement("div");
+            crustRow.classList.add("form-row");
+            let crustLabel = document.createElement("label");
+            crustLabel.innerHTML = "Crust Type:";
+            let crustInputGroup = document.createElement("div");
+            crustInputGroup.classList.add("input-group");
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "crust_thin_" + menuItemCount);
+            newInput.setAttribute("value", "thin-crust");
+            newInput.setAttribute("name", "crust_" + menuItemCount);
+            if(currMenuItem.menuItem.crust === "thin-crust"){
+                newInput.setAttribute("checked", true);
+            }
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "crust_thin");
+            newLabel.innerHTML = "Thin-Crust";
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            crustInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "crust_thick_" + menuItemCount);
+            newInput.setAttribute("value", "thick-crust");
+            newInput.setAttribute("name", "crust_" + menuItemCount);
+            if(currMenuItem.menuItem.crust === "thick-crust"){
+                newInput.setAttribute("checked", true);
+            }
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "crust_thick");
+            newLabel.innerHTML = "Thick-Crust";
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            crustInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "crust_wholewheat_" + menuItemCount);
+            newInput.setAttribute("value", "whole-wheat-crust");
+            newInput.setAttribute("name", "crust_" + menuItemCount);
+            if(currMenuItem.menuItem.crust === "whole-wheat-crust"){
+                newInput.setAttribute("checked", true);
+            }
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "crust_wholewheat");
+            newLabel.innerHTML = "Whole Wheat";
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            crustInputGroup.appendChild(newFormCheckOption);
+
+            newFormCheckOption = document.createElement("div");
+            newFormCheckOption.classList.add("form-check");
+            newFormCheckOption.classList.add("form-check-inline");
+            newInput = document.createElement("input");
+            newInput.classList.add("form-check-input");
+            newInput.setAttribute("type", "radio");
+            newInput.setAttribute("id", "crust_glutenfree_" + menuItemCount);
+            newInput.setAttribute("value", "gluten-free-crust");
+            newInput.setAttribute("name", "crust_" + menuItemCount);
+            if(currMenuItem.menuItem.crust === "gluten-free-crust"){
+                newInput.setAttribute("checked", true);
+            }
+            newLabel = document.createElement("label");
+            newLabel.classList.add("form-check-label");
+            newLabel.setAttribute("for", "crust_glutenfree");
+            newLabel.innerHTML = "Gluten Free";
+            newFormCheckOption.appendChild(newInput);
+            newFormCheckOption.appendChild(newLabel);
+            crustInputGroup.appendChild(newFormCheckOption);
+
+            crustRow.appendChild(crustLabel);
+            crustRow.appendChild(crustInputGroup);
+            newItemRow.appendChild(crustRow);
+
+            // sauceRow = Sauce(s)
+            let sauceRow = document.createElement("div");
+            sauceRow.classList.add("form-row");
+            let sauceLabel = document.createElement("label");
+            sauceLabel.innerHTML = "Sauce(s):";
+            let sauceInputGroup = document.createElement("div");
+            sauceInputGroup.classList.add("input-group");
+
+            // cheeseRow = Cheese(s)
+            let cheeseRow = document.createElement("div");
+            cheeseRow.classList.add("form-row");
+            let cheeseLabel = document.createElement("label");
+            cheeseLabel.innerHTML = "Cheese(s):";
+            let cheeseInputGroup = document.createElement("div");
+            cheeseInputGroup.classList.add("input-group");
+
+            // toppingRow = Topping(s)
+            let toppingRow = document.createElement("div");
+            toppingRow.classList.add("form-row");
+            let toppingLabel = document.createElement("label");
+            toppingLabel.innerHTML = "Topping(s):";
+            let toppingInputGroup = document.createElement("div");
+            toppingInputGroup.classList.add("input-group");
+
+            for(let i = 0; i < allToppings.length; i++){
+                let formCheck = document.createElement("div");
+                formCheck.classList.add("form-check");
+                formCheck.classList.add("form-check-inline");
+                let checkLabel = document.createElement("label");
+                checkLabel.classList.add("form-check-label");
+
+                if(allToppings[i].topping_category === "sauce"){
+                    checkLabel.setAttribute("for", "topping_id-" + allToppings[i].topping_id);
+                    checkLabel.innerHTML = allToppings[i].topping_name;
+                    let checkInput = document.createElement("input");
+                    checkInput.setAttribute("type", "checkbox");
+                    checkInput.setAttribute("name", "topping");
+                    checkInput.setAttribute("id", allToppings[i].topping_id);
+                    checkInput.setAttribute("value", allToppings[i].topping_name);
+                    if(currMenuItem.toppings.map(item => item.topping_id).includes(allToppings[i].topping_id)){
+                        checkInput.setAttribute("checked", true);
+                    }
+                    formCheck.appendChild(checkInput);
+                    formCheck.appendChild(checkLabel);
+                    sauceInputGroup.appendChild(formCheck);
+                }
+                else if(allToppings[i].topping_category === "cheese"){
+                    checkLabel.setAttribute("for", "topping_id-" + allToppings[i].topping_id);
+                    checkLabel.innerHTML = allToppings[i].topping_name;
+                    let checkInput = document.createElement("input");
+                    checkInput.setAttribute("type", "checkbox");
+                    checkInput.setAttribute("name", "topping");
+                    checkInput.setAttribute("id", allToppings[i].topping_id);
+                    checkInput.setAttribute("value", allToppings[i].topping_name);
+                    if(currMenuItem.toppings.map(item => item.topping_id).includes(allToppings[i].topping_id)){
+                        checkInput.setAttribute("checked", true);
+                    }
+                    formCheck.appendChild(checkInput);
+                    formCheck.appendChild(checkLabel);
+                    cheeseInputGroup.appendChild(formCheck);
+                }
+                else {
+                    checkLabel.setAttribute("for", "toppingid_" + allToppings[i].topping_id);
+                    checkLabel.innerHTML = allToppings[i].topping_name;
+                    let checkInput = document.createElement("input");
+                    checkInput.setAttribute("type", "checkbox");
+                    checkInput.setAttribute("name", "topping");
+                    checkInput.setAttribute("id", allToppings[i].topping_id);
+                    checkInput.setAttribute("value", allToppings[i].topping_name);
+                    if(currMenuItem.toppings.map(item => item.topping_id).includes(allToppings[i].topping_id)){
+                        checkInput.setAttribute("checked", true);
+                    }
+                    formCheck.appendChild(checkInput);
+                    formCheck.appendChild(checkLabel);
+                    toppingInputGroup.appendChild(formCheck);
+                }
+            }
+            sauceRow.appendChild(sauceLabel);
+            sauceRow.appendChild(sauceInputGroup);
+            cheeseRow.appendChild(cheeseLabel);
+            cheeseRow.appendChild(cheeseInputGroup);
+            toppingRow.appendChild(toppingLabel);
+            toppingRow.appendChild(toppingInputGroup);
+            newItemRow.appendChild(sauceRow);
+            newItemRow.appendChild(cheeseRow);
+            newItemRow.appendChild(toppingRow);
+
+            newRow = document.createElement("div");
+            newRow.classList.add("form-row");
+            let noteLabel = document.createElement("label");
+            noteLabel.setAttribute("for", "description");
+            noteLabel.innerHTML = "Item Notes:";
+            let noteInput = document.createElement("textarea");
+            noteInput.setAttribute("rows", "2");
+            noteInput.setAttribute("name", "notes");
+            noteInput.setAttribute("id", "notes");
+            noteInput.classList.add("form-control");
+            newRow.appendChild(noteLabel);
+            newRow.appendChild(noteInput);
+            newItemRow.appendChild(newRow);
+
+
+            itemLocation.appendChild(newItemRow);
+            menuItemCount++;
+            updatePrices();
+        }
+
+        function removeMenuItemFromOrder(itemID){
+            document.getElementById(itemID).remove();
+            updatePrices();
+        }
+
+        function updatePrices(){
+            let currentSubtotal = 0;
+            let priceOptionsList = document.getElementsByClassName('order-item-price');
+            for(let i = 0; i < priceOptionsList.length; i++){
+                if(priceOptionsList[i].checked){
+                    currentSubtotal += parseFloat(priceOptionsList[i].getAttribute("data-sizeprice"));
+                }
+            }
+            let subTotalItem = document.getElementById('order-subtotal');
+            let tipItem = document.getElementById('order-tip');
+            let taxItem = document.getElementById('order-tax');
+            let totalItem = document.getElementById('order-total');
+
+            subTotalItem.setAttribute("data-price", currentSubtotal.toString());
+            subTotalItem.innerHTML = "Subtotal: $" + currentSubtotal.toFixed(2);
+
+            // tipItem.setAttribute("data-price", tempPrice.toString());
+            // tipItem.innerHTML = "Tip: $" + tempPrice;
+
+            let newTax = currentSubtotal * .06;
+            taxItem.setAttribute("data-price", newTax.toString());
+            taxItem.innerHTML = "Tax: $" + newTax.toFixed(2);
+
+            tempPrice = currentSubtotal + newTax;
+            totalItem.setAttribute("data-price", tempPrice.toString());
+            totalItem.innerHTML = "Total: $" + tempPrice.toFixed(2);
         }
 
         function processFormContents(){

@@ -334,3 +334,32 @@ button {
   background: darkred;
   border:none;
 }
+
+#add-item-location .remove-button{
+  position: absolute;
+  top:10px;
+  right:0px;
+  color:darkred;
+  font-size: .75em;
+}
+#add-item-location .remove-button:hover{
+  color:red;
+}
+
+#add-item-location .remove-button{
+  position: absolute;
+  top:20px;
+  right:20px;
+  color:darkred;
+}
+
+#add-item-location .item-row{
+  position: relative;
+  border: 1px dotted black;
+  padding: 15px 30px 15px 30px;
+  margin: 5px 0 5px 0;
+}
+
+#add-item-location .item-row-title {
+  padding: 0 0 15px 10px;
+}

@@ -79,7 +79,7 @@ const CREATE_ADDRESS_INFO = `CREATE TABLE IF NOT EXISTS address_info(
 
 const CREATE_CONTACT_INFO = `CREATE TABLE IF NOT EXISTS contact_info(
                                 id integer,
-                                phone integer(10),
+                                phone varchar(20),
                                 email varchar(100)
                             )`;                           
 
@@ -429,7 +429,7 @@ async function updateAddrInfo(arg) {
 
 // Update a restaurant info in the DB (SURI)
 async function updateContactInfo(arg) {
-    console.log(arg);
+    console.log("updating:" + arg);
     
     return new Promise((acc, rej) => {
         pool.query(

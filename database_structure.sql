@@ -173,3 +173,4 @@ insert into order_item_toppings values('7', '4');
 insert into order_item_toppings values('7', '5');
 insert into order_item_toppings values('7', '16');
 insert into order_item_toppings values('7', '12');
+insert into contact_info values('1', '1234567890', 'suri@gmail.com');

@@ -21,6 +21,9 @@ const updateAddrInfo = require('./routes/updateAddrInfo');
 const getContactInfo = require('./routes/getContactInfo');
 const updateContactInfo = require('./routes/updateContactInfo');
 
+const getHoursInfo = require('./routes/getHoursInfo');
+const updateHoursInfo = require('./routes/updateHoursInfo');
+
 // Converts into JSON format
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/static'));
@@ -44,6 +47,8 @@ app.get('/address', getAddrInfo);
 
 app.get('/contact', getContactInfo);
 
+app.get('/hours', getHoursInfo);
+
 // Add new menu item into the db
 app.post('/menuItems', addMenuItem);
 
@@ -53,6 +58,8 @@ app.post('/menuItems', addMenuItem);
 app.put('/address/:id', updateAddrInfo);
 
 app.put('/contact/:id', updateContactInfo);
+
+app.put('/hours/:id', updateHoursInfo);
 
 // Deletes contents based on the id paramter given
 app.delete('/items/:id', deleteItem);

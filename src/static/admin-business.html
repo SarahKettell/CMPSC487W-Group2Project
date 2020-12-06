@@ -15,11 +15,18 @@
         crossorigin="anonymous"></script>
     <!-- link header.html and footer.html -->
     <script>
-        $(function() {
-            $('#header').load('header.html');
-            $('#footer').load('footer-general.html');
+        $.ajax({
+            url: 'header.html',
+            dataType: 'html',
+            success: function(html) { $('#header').html(html); }
+        });
+        $.ajax({
+            url: 'footer-general.html',
+            dataType: 'html',
+            success: function(html) { $('#footer').html(html); }
         });
     </script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <!-- call header -->
@@ -35,9 +42,9 @@
 
     <!-- actual body-->
     <div class="account-body">
-        <div class="wrap">
+        <div class="wrap" id="test">
         <!-- current orders -->
-            <div class=current-orders>
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
                         <h2>Address</h2>
@@ -52,66 +59,36 @@
                     <div class="admin-address" id="admin-address"></div>
                 </div>
             </div>
-            <!-- menu items -->
-            <div class=menu-items>
+            <!-- Business Hours -->
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
                         <h2>Business Hours</h2>
                     </div>
-                    <button class="icon">
+                    <button class="icon" onClick="window.location='edit-hours.html';">
                         <svg width="30" height="30">
                             <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
                 <div class="descr">
-                    <table>
-                        <tr>
-                            <td>Mon:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Tue:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Wed:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Thu:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Fri:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Sat:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                        <tr>
-                            <td>Sun:</td>
-                            <td>8:00 a.m. - 9:00 p.m.</td>
-                        </tr>
-                    </table>
+                    <div class="admin-hours" id="admin-hours"></div>
                 </div>
             </div>
-            <!-- business information -->
-            <div class=business-information>
+            <!-- Contact Information -->
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
-                        <h2>Contact Information</h2>
+                        <h2>Contact</h2>
                     </div>
-                    <button class="icon">
+                    <button class="icon" onClick="window.location='edit-contact.html';">
                         <svg width="30" height="30">
                             <image href="/design/edit.svg" height="30" width="30"/>
                         </svg>
                     </button>
                 </div>
                 <div class="descr">
-                    <a>123-456-7890 </a><br>
-                    <a>pizzatopia@gmail.com</a>
+                    <div class="admin-contact" id="admin-contact"></div>
                 </div>
             </div>
             <!-- reports -->
@@ -122,7 +99,8 @@
 
     <!-- call footer -->
     <div id="footer"></div>
-    <body onload="getDatafromDB('admin-address')"></body>
+    <body onload="getDatafromDB('test')"></body>
+
 </body>
 
 <!-- modal

@@ -85,6 +85,24 @@ CREATE TABLE IF NOT EXISTS toppings(
 	primary key (topping_id)
 );
 
+CREATE TABLE IF NOT EXISTS hours_info(
+    id integer,
+    mon_beg time,
+    mon_end time,
+    tue_beg time,
+	tue_end time,
+    wed_beg time,
+    wed_end time,
+    thu_beg time,
+    thu_end time,
+    fri_beg time,
+    fri_end time,
+    sat_beg time,
+    sat_end time,
+    sun_beg time,
+    sun_end time
+);
+
 insert into menu_items values('1', 'Meat Lovers', 'thick', 'red', 8.00, 10.00, 12.00, 16.00, 'It has all of the meat.');
 insert into menu_items values('2','Veggie Extravaganza', 'thick', 'red', 8.00, 10.00, 12.00, 16.00,'All of your favorite vegetables combined.');
 insert into toppings values('1', 'green peppers', 'vegetable', true, true);
@@ -111,3 +129,4 @@ insert into menu_item_toppings values('1', '2');
 insert into menu_item_toppings values('1', '3');
 insert into address_info values(1, 'Company Name', '123 Pizza Street', 'Pizzatopia', 'PA', 12345);
 insert into contact_info values(1, 1234567890, 'sms7631@psu.edu');
+insert into hours_info values(1, '11:30', '12:30', '8:30', '12:30', '4:30', '12:30', '1:30', '2:30', '1:30', '2:30', '1:30', '2:30', '1:30', '2:30', 'test');

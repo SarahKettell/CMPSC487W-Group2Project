@@ -82,7 +82,26 @@ const CREATE_CONTACT_INFO = `CREATE TABLE IF NOT EXISTS contact_info(
                                 id integer,
                                 phone integer(10),
                                 email varchar(100)
-                            )`;                           
+                            )`;
+
+const CREATE_HOURS_INFO = `CREATE TABLE IF NOT EXISTS hours_info(
+                                id integer,
+                                mon_beg varchar(20)
+                                mon_end varchar(20)
+                                tue_beg varchar(20)
+                                tue_end varchar(20)
+                                wed_beg varchar(20),
+                                wed_end varchar(20)
+                                thu_beg varchar(20)
+                                thu_end varchar(20)
+                                fri_beg varchar(20)
+                                fri_end varchar(20)
+                                sat_beg varchar(20)
+                                sat_end varchar(20)
+                                sun_beg varchar(20)
+                                sun_end varchar(20)
+                                test varchar(100)
+                            )`;                            
 
 
 const {
@@ -151,6 +170,9 @@ async function init() {
     })
     .then(() => {
         pool.query(CREATE_CONTACT_INFO);
+    })
+    .then(() => {
+        pool.query(CREATE_HOURS_INFO);
     });
     
     return promise;
@@ -240,6 +262,22 @@ async function getAddrInfo() {
 async function getContactInfo() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM contact_info', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+//Get business hours for restaurant information
+async function getHoursInfo() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM hours_info', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -365,7 +403,7 @@ async function updateAddrInfo(arg) {
     });
 }
 
-// Update a restaurant info in the DB (SURI)
+// Update a contact info in the DB (SURI)
 async function updateContactInfo(arg) {
     console.log(arg);
     
@@ -373,6 +411,22 @@ async function updateContactInfo(arg) {
         pool.query(
             'UPDATE contact_info SET phone=?, email=? WHERE id=?',
             [arg.phone, arg.email, 1],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// Update a business hours info in the DB (SURI)
+async function updateHoursInfo(arg) {
+    console.log(arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE contact_info SET mon_beg=?, mon_end=?, tue_beg=?, tue_end=?, wed_beg=?, wed_end=?,thu_beg=?, thu_end=?, fri_beg=?, fri_end=?, sat_beg=?, sat_end=?, sun_beg=?, sun_end=?, test=? WHERE id=?',
+            [arg.mon_beg, arg.mon_end, arg.tue_beg, arg.tue_end, arg.wed_beg, arg.wed_end, arg.thu_beg, arg.thu_end, arg.fri_beg, arg.fri_end, arg.sat_beg, arg.sat_end, arg.sun_beg, arg.sun_end, arg.test, 1],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -407,10 +461,12 @@ module.exports = {
     getOrderItemToppings,
     getAddrInfo,
     getContactInfo,
+    getHoursInfo,
     getItem,
     storeItem,
     updateItem,
     updateAddrInfo,
     updateContactInfo,
+    updateHoursInfo,
     removeItem,
 };

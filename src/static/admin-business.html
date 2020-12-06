@@ -35,9 +35,9 @@
 
     <!-- actual body-->
     <div class="account-body">
-        <div class="wrap">
+        <div class="wrap" id="test">
         <!-- current orders -->
-            <div class=current-orders>
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
                         <h2>Address</h2>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <!-- Business Hours -->
-            <div class=current-orders>
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
                         <h2>Business Hours</h2>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <!-- Contact Information -->
-            <div class=current-orders>
+            <div class="current-orders" id="current-orders">
                 <div class="header">
                     <div class="heading">
                         <h2>Contact</h2>
@@ -92,8 +92,8 @@
 
     <!-- call footer -->
     <div id="footer"></div>
-    <body onload="getDatafromDB('admin-address')"></body>
-    <body onload="getDatafromDB('admin-contact')"></body>
+    <body onload="getDatafromDB('test')"></body>
+
 </body>
 
 <!-- modal

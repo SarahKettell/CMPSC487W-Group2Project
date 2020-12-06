@@ -14,12 +14,28 @@ const getJsonData = async (textBox) => {
   const addrResponse = await fetch('http://localhost:3000/address');
   const addrJson = await addrResponse.json();
 
+  //get database contact
+  const contResponse = await fetch('http://localhost:3000/contact');
+  const contJson = await contResponse.json();
+
+  //get database hours
+  const hoursResponse = await fetch('http://localhost:3000/hours');
+  const hoursJson = await hoursResponse.json();
+
   const textBoxID = textBox.id;
   if(textBoxID === "admin-menu-list"){
     displayAdminMenuItems(textBox, myJson);
   } 
-  if(textBoxID === "address-info") {
-    displayAddressFooter(textBox, addrJson);
+  if(textBoxID === "test") {
+    displayTest(textBox, addrJson, contJson);
+    //displayAdminMenuItems(textBox, myJson);
+  }
+  if(textBoxID === "admin-contact") {
+    displayAdminContact(textBox, contJson);
+    //displayAdminMenuItems(textBox, myJson);
+  }
+  if(textBoxID === "admin-hours") {
+    displayAdminHours(textBox, hoursJson);
     //displayAdminMenuItems(textBox, myJson);
   }
   if(textBoxID === "admin-address") {
@@ -31,7 +47,11 @@ const getJsonData = async (textBox) => {
   }
 }
 
-
+function displayTest() {
+    getDatafromDB("admin-address");
+    getDatafromDB("admin-contact");
+    getDatafromDB("admin-hours");
+}
 
 // called from webpage, gets the data and it in the location given
 function getDatafromDB(elementID){
@@ -50,7 +70,6 @@ function displayAddressFooter(textBox, jsonData) {
     addrValues[i] = Object.values(jsonData[i]);
   }
 
- 
   for(let i = 0; i < addrValues.length; i++){
     console.log('test compName: ' + jsonData[i].company_name);
     let ul = document.createElement("ul");
@@ -127,7 +146,93 @@ function displayAdminAddress(textBox, jsonData) {
   //console.log("Got to admin function.");
 }
 
+// Converts the jsonData into address info text for the admin restaurant info edit view
+function displayAdminHours(textBox, jsonData) {
+  // new array to hold the menu values corresponding to each key
+  let hoursValues = new Array(jsonData.length)
 
+  for(let i = 0; i < jsonData.length; i++){
+    hoursValues[i] = Object.values(jsonData[i]);
+  }
+
+ 
+  for(let i = 0; i < hoursValues.length; i++){
+    console.log('test monBeg: ' + jsonData[i].mon_beg);
+
+    //Monday
+    let monday = document.createElement("a");
+    monday.appendChild(document.createTextNode("MON: " + jsonData[i].mon_beg + " - " + jsonData[i].mon_end));
+    monday.appendChild(document.createElement("br"));
+
+    //Tuesday 
+    let tuesday = document.createElement("a");
+    tuesday.appendChild(document.createTextNode("TUE: " + jsonData[i].tue_beg + " - " + jsonData[i].tue_end));
+    tuesday.appendChild(document.createElement("br"));
+
+    //Wednesday 
+    let wednesday = document.createElement("a");
+    wednesday.appendChild(document.createTextNode("WED: " + jsonData[i].wed_beg + " - " + jsonData[i].wed_end));
+    wednesday.appendChild(document.createElement("br"));
+
+    //Thursday 
+    let thursday = document.createElement("a");
+    thursday.appendChild(document.createTextNode("THU: " + jsonData[i].thu_beg + " - " + jsonData[i].thu_end));
+    thursday.appendChild(document.createElement("br"));
+
+    //Friday 
+    let friday = document.createElement("a");
+    friday.appendChild(document.createTextNode("FRI: " + jsonData[i].fri_beg + " - " + jsonData[i].fri_end));
+    friday.appendChild(document.createElement("br"));
+
+    //Saturday 
+    let saturday = document.createElement("a");
+    saturday.appendChild(document.createTextNode("SAT: " + jsonData[i].sat_beg + " - " + jsonData[i].sat_end));
+    saturday.appendChild(document.createElement("br"));
+
+    //Sunday 
+    let sunday = document.createElement("a");
+    sunday.appendChild(document.createTextNode("SUN: " + jsonData[i].sun_beg + " - " + jsonData[i].sun_end));
+    sunday.appendChild(document.createElement("br"));
+
+    //append all info to parent div which is admin-address
+    textBox.appendChild(monday);
+    textBox.appendChild(tuesday);
+    textBox.appendChild(wednesday);
+    textBox.appendChild(thursday);
+    textBox.appendChild(friday);
+    textBox.appendChild(saturday);
+    textBox.appendChild(sunday);
+  }
+  //console.log("Got to admin function.");
+}
+
+function displayAdminContact(textBox, jsonData) {
+  // new array to hold the menu values corresponding to each key
+  let contValues = new Array(jsonData.length)
+
+  for(let i = 0; i < jsonData.length; i++){
+    contValues[i] = Object.values(jsonData[i]);
+  }
+
+ 
+  for(let i = 0; i < contValues.length; i++){
+    console.log('test phone: ' + jsonData[i].phone);
+
+    //phone number
+    let phone = document.createElement("a");
+    phone.appendChild(document.createTextNode(jsonData[i].phone));
+    phone.appendChild(document.createElement("br"));
+
+    //email address
+    let email = document.createElement("a");
+    email.appendChild(document.createTextNode(jsonData[i].email));
+    email.appendChild(document.createElement("br"));
+
+    textBox.appendChild(phone);
+    textBox.appendChild(email);
+  }
+  //console.log("Got to admin function.");
+}
 
 const getToppingData = async(contentDiv) =>{
 

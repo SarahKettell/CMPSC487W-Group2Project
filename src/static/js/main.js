@@ -17,7 +17,12 @@ const getJsonData = async (textBox) => {
   const textBoxID = textBox.id;
   if(textBoxID === "admin-menu-list"){
     displayAdminMenuItems(textBox, myJson);
-  } if(textBoxID === "admin-address") {
+  } 
+  if(textBoxID === "address-info") {
+    displayAddressFooter(textBox, addrJson);
+    //displayAdminMenuItems(textBox, myJson);
+  }
+  if(textBoxID === "admin-address") {
     displayAdminAddress(textBox, addrJson);
     //displayAdminMenuItems(textBox, myJson);
   }
@@ -33,6 +38,48 @@ function getDatafromDB(elementID){
     let location = document.getElementById(elementID);
     // async call to get the data
     getJsonData(location);
+}
+
+function displayAddressFooter(textBox, jsonData) {
+  // array that stores the keys for the address_info table
+  const addrKeys = Object.keys(jsonData[0]);
+  // new array to hold the menu values corresponding to each key
+  let addrValues = new Array(jsonData.length)
+
+  for(let i = 0; i < jsonData.length; i++){
+    addrValues[i] = Object.values(jsonData[i]);
+  }
+
+ 
+  for(let i = 0; i < addrValues.length; i++){
+    console.log('test compName: ' + jsonData[i].company_name);
+    let ul = document.createElement("ul");
+
+    //company name
+    let compName = document.createElement("li");
+    compName.appendChild(document.createTextNode(jsonData[i].company_name));
+
+    //street address
+    let streetAddr = document.createElement("li");
+    streetAddr.appendChild(document.createTextNode(jsonData[i].street_address));
+
+    //city state
+    let cityState = document.createElement("li");
+    cityState.appendChild(document.createTextNode(jsonData[i].city + "," + jsonData[i].state_name));
+
+    //zip code
+    let zipCode = document.createElement("li");
+    zipCode.appendChild(document.createTextNode(jsonData[i].zip_code));
+
+    //append all info to parent div which is admin-address
+    ul.appendChild(compName);
+    ul.appendChild(streetAddr);
+    ul.appendChild(cityState);
+    ul.appendChild(zipCode);
+
+    textBox.appendChild(ul);
+  }
+  //console.log("Got to admin function.");
 }
 
 // Converts the jsonData into address info text for the admin restaurant info edit view

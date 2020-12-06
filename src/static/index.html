@@ -44,12 +44,7 @@
                     <h2 class="heading">Address</h2>
                 </div>
                 <div class="business-text">
-                    <ul>
-                        <li>Company Name</li>
-                        <li>123 Some Street</li>
-                        <li>Pizzatopia, PA</li>
-                        <li>12345</li>
-                    </ul>
+                    <div class="address-info" id="address-info"></div>
                 </div>
             </div>
             <div class="contact-wrap">
@@ -87,10 +82,9 @@
         </div>
         <div clas="map-image">
             <img src="/design/images/map.png" alt="Map"/>
+            <body onload="getDatafromDB('address-info')"></body>
         </div>
     </div>
-
-
     <div id="footer"></div>
 </body>
 </html>

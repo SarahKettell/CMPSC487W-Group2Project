@@ -29,6 +29,12 @@ const getJsonData = async (textBox) => {
   if(textBoxID === "test") {
     displayTest();
   }
+  if(textBoxID === "ftr-wrap") {
+    displayFtr();
+  }
+  if(textBoxID === "footer-contact") {
+    displayContactFooter(textBox, contJson);
+  }
   if(textBoxID === "home-address") {
     displayAddress(textBox, addrJson)
   }
@@ -47,9 +53,6 @@ const getJsonData = async (textBox) => {
   if(textBoxID === "admin-address") {
     displayAdminAddress(textBox, addrJson);
   }
-  else{
-	 displayMenuItems(textBox, myJson);
-  }
 }
 
 function displayTest() {
@@ -59,6 +62,10 @@ function displayTest() {
     getDatafromDB("home-address");
     getDatafromDB("home-contact");
     getDatafromDB("home-hours");
+}
+
+function displayFtr() {
+  getDatafromDB("footer-contact");
 }
 
 // called from webpage, gets the data and it in the location given
@@ -109,6 +116,35 @@ function displayAddress(textBox, jsonData) {
 
 //this is for displaying contact information to pages other than staff my account (ex home page)
 function displayContact(textBox, jsonData) {
+  // new array to hold the menu values corresponding to each key
+  let contValues = new Array(jsonData.length)
+  //fill those arrays with JSON data
+  for(let i = 0; i < jsonData.length; i++){
+    contValues[i] = Object.values(jsonData[i]);
+  }
+  //display the values in that array to the webpage
+  for(let i = 0; i < contValues.length; i++){
+    console.log('test phone: ' + jsonData[i].phone);
+    let ul = document.createElement("ul");
+
+    //phone number
+    let phone = document.createElement("li");
+    phone.appendChild(document.createTextNode(jsonData[i].phone));
+
+    //email address
+    let email = document.createElement("li");
+    email.appendChild(document.createTextNode(jsonData[i].email));
+
+    //append to the parent div which is admin-contact
+    ul.appendChild(phone);
+    ul.appendChild(email);
+
+    textBox.appendChild(ul);
+  }
+}
+
+//this is for displaying contact information to pages other than staff my account (ex home page)
+function displayContactFooter(textBox, jsonData) {
   // new array to hold the menu values corresponding to each key
   let contValues = new Array(jsonData.length)
   //fill those arrays with JSON data

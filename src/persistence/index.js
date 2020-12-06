@@ -488,7 +488,7 @@ async function updateHoursInfo(arg) {
     return new Promise((acc, rej) => {
         pool.query(
             'UPDATE hours_info SET mon_beg=?, mon_end=?, tue_beg=?, tue_end=?, wed_beg=?, wed_end=?, thu_beg=?, thu_end=?, fri_beg=?, fri_end=?, sat_beg=?, sat_end=?, sun_beg=?, sun_end=? WHERE id=?',
-            [arg.mon_beg, arg.mon_end, arg.tue_beg, arg.tue_end, arg.wed_beg, arg.wed_end, arg.thu_beg, arg.thu_end, arg.fri_beg, arg.fri_end, arg.sat_bed, arg.sat_end, arg.sun_beg, arg.sun_end, 1],
+            [arg.mon_beg, arg.mon_end, arg.tue_beg, arg.tue_end, arg.wed_beg, arg.wed_end, arg.thu_beg, arg.thu_end, arg.fri_beg, arg.fri_end, arg.sat_beg, arg.sat_end, arg.sun_beg, arg.sun_end, 1],
             err => {
                 if (err) return rej(err);
                 acc();

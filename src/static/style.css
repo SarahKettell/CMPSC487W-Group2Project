@@ -28,13 +28,16 @@ button {
   width: 100%;
 }
 .hdr .hdr-wrap .logo {
-  border: 1px solid;
+  border: 4px double darkred;
   text-transform: uppercase;
-  line-height: 40px;
+  line-height: 3em;
 }
 .hdr .hdr-wrap .logo a {
   font-weight: bold;
+  font-size: 2em;
   padding: 20px;
+  color: darkred;
+  font-style: italic;
 }
 .hdr .hdr-wrap .checkbtn {
   font-size: 20px;
@@ -330,4 +333,37 @@ button {
 .admin-menu-body button:hover, admin-menu-body button:active{
   background: darkred;
   border:none;
+}
+
+#add-item-location .remove-button{
+  position: absolute;
+  top:10px;
+  right:0px;
+  color:darkred;
+  font-size: .75em;
+}
+#add-item-location .remove-button:hover{
+  color:red;
+}
+
+#add-item-location .remove-button{
+  position: absolute;
+  top:20px;
+  right:20px;
+  color:darkred;
+}
+
+#add-item-location .item-row{
+  position: relative;
+  border: 1px dotted black;
+  padding: 15px 30px 15px 30px;
+  margin: 5px 0 5px 0;
+}
+
+#add-item-location .item-row .form-row{
+  margin:0 0 15px 0!important;
+}
+
+#add-item-location .item-row-title {
+  padding: 0 0 15px 10px;
 }

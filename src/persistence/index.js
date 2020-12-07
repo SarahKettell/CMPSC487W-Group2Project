@@ -197,9 +197,7 @@ async function getMenuItems() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -214,9 +212,7 @@ async function getToppings() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -230,9 +226,7 @@ async function getMenuItemToppingIDs() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -247,9 +241,7 @@ async function getMenuItemToppings(id) {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -263,9 +255,7 @@ async function getAddrInfo() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -279,9 +269,7 @@ async function getContactInfo() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -312,9 +300,7 @@ async function getOrders() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -328,9 +314,7 @@ async function getOrderItems() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -344,9 +328,7 @@ async function getOrderItemToppings() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -362,9 +344,7 @@ async function getItem(id) {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 )[0],
             );
         });

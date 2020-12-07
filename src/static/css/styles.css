@@ -141,3 +141,30 @@
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
 	background: darkred!important;
 }
+
+.top-button button{
+	padding: 5px!important;
+	background: none!important;
+}
+.top-button button:hover{
+	padding: 5px!important;
+	background: darkred!important;
+	background: none!important;
+}
+
+#order-form .form-row, #order-form .form-group.col{
+	margin-bottom: 0!important;
+}
+
+#order-form fieldset{
+	margin-top:20px!important;
+}
+
+#order-form .order-prices{
+	margin-top:1.5em;
+}
+#order-form .order-prices p{
+	text-align: right!important;
+	margin-bottom: 0;
+	font-weight: bold;
+}

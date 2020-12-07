@@ -417,6 +417,30 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
 
         let newRow = document.createElement("div");
         newRow.classList.add("row");
+        newRow.classList.add("justify-content-center");
+
+        if(!currentOrder.completed) {
+            let newCol = document.createElement("div");
+            newCol.classList.add("col-10");
+            newCol.classList.add("btn");
+            newCol.classList.add("btn-primary");
+            newCol.classList.add("btn-sm");
+            newCol.classList.add("top-button");
+            let markComplete = document.createElement("button");
+            markComplete.setAttribute("type", "button");
+            markComplete.setAttribute("name", currentOrder.order_id);
+            markComplete.setAttribute("id", "mark-complete-button-top");
+            markComplete.addEventListener("click", async function() {
+                markOrderComplete(this.name)
+            }, false);
+            markComplete.innerHTML = "Mark Order Complete";
+            newCol.appendChild(markComplete);
+            newRow.appendChild(newCol);
+            textBox.insertBefore(newRow, textBox.firstChild);
+        }
+
+        newRow = document.createElement("div");
+        newRow.classList.add("row");
 
         let newHeader = document.createElement("h3");
         newHeader.classList.add("col");

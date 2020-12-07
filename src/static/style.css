@@ -360,6 +360,10 @@ button {
   margin: 5px 0 5px 0;
 }
 
+#add-item-location .item-row .form-row{
+  margin:0 0 15px 0!important;
+}
+
 #add-item-location .item-row-title {
   padding: 0 0 15px 10px;
 }

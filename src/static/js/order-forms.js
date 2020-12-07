@@ -159,6 +159,51 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newRow.appendChild(newFieldset);
     newForm.appendChild(newRow);
 
+    // Scheduled For Time ----------------------------------------------
+    newFieldset = document.createElement("fieldset");
+    newFieldset.classList.add("col");
+    newLegend = document.createElement("legend");
+    newLegend.appendChild(document.createTextNode("Schedule Date & Time"));
+    newFormRow = document.createElement("div");
+    newFormRow.classList.add("form-row");
+    newInputGroup = document.createElement("div");
+    newInputGroup.classList.add("input-group");
+
+    let date = new Date();
+    let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
+    let day = date.getDate() < 9 ? "0" + (date.getDate()+1) : date.getDate()+1;
+    let hour = date.getHours() < 9 ? "0" + (date.getHours()+1) : date.getHours()+1;
+    let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()+1) : date.getMinutes()+1;
+    console.log(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate());
+    newFormCheckOption = document.createElement("div");
+    newFormCheckOption.classList.add("row");
+    newInput = document.createElement("input");
+    newInput.setAttribute("type", "date");
+    newInput.setAttribute("id", "scheduled_date");
+    newInput.setAttribute("name", "scheduled_date");
+    newInput.setAttribute("value", date.getFullYear() + "-" + month + "-" + day);
+    newInput.setAttribute("min", date.getFullYear() + "-" + month + "-" + day);
+    newInput.setAttribute("max", date.getFullYear()+1 + "-" + month + "-" + day);
+    newInput.classList.add("form-control");
+    newInput.classList.add("col");
+    newFormCheckOption.appendChild(newInput);
+    newInput = document.createElement("input");
+    newInput.setAttribute("type", "time");
+    newInput.setAttribute("id", "scheduled_time");
+    newInput.setAttribute("name", "scheduled_time");
+    newInput.setAttribute("value", hour + ":" + minutes);
+    newInput.setAttribute("min", "08:00");
+    newInput.setAttribute("max", "21:00");
+    newInput.classList.add("form-control");
+    newInput.classList.add("col");
+    newFormCheckOption.appendChild(newInput);
+
+    newFieldset.appendChild(newLegend);
+    newFieldset.appendChild(newFormCheckOption);
+
+    newRow.appendChild(newFieldset);
+    newForm.appendChild(newRow);
+
 
     // CUSTOMER INFORMATION ----------------------------------------------
     newFieldset = document.createElement("fieldset");
@@ -199,40 +244,6 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     newFormRow.appendChild(newInputGroup);
     newFieldset.appendChild(newLegend);
-    newFieldset.appendChild(newFormRow);
-
-    newFormRow = document.createElement("div");
-    newFormRow.classList.add("form-row");
-
-    newInputGroup = document.createElement("div");
-    newInputGroup.classList.add("form-group");
-    newInputGroup.classList.add("col");
-    newLabel = document.createElement("label");
-    newLabel.setAttribute("for", "customer_id");
-    newLabel.innerHTML = "Customer ID";
-    newInput = document.createElement("input");
-    newInput.classList.add("form-control");
-    newInput.setAttribute("type", "text");
-    newInput.setAttribute("id", "customer_id");
-    newInput.setAttribute("placeholder", "optional");
-    newInputGroup.appendChild(newLabel);
-    newInputGroup.appendChild(newInput);
-    newFormRow.appendChild(newInputGroup);
-
-    newInputGroup = document.createElement("div");
-    newInputGroup.classList.add("form-group");
-    newInputGroup.classList.add("col");
-    newLabel = document.createElement("label");
-    newLabel.setAttribute("for", "customer_email");
-    newLabel.innerHTML = "Email";
-    newInput = document.createElement("input");
-    newInput.classList.add("form-control");
-    newInput.setAttribute("type", "text");
-    newInput.setAttribute("id", "customer_email");
-    newInput.setAttribute("placeholder", "email@domain.com");
-    newInputGroup.appendChild(newLabel);
-    newInputGroup.appendChild(newInput);
-    newFormRow.appendChild(newInputGroup);
     newFieldset.appendChild(newFormRow);
 
     newFormRow = document.createElement("div");
@@ -462,6 +473,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.setAttribute("id", "admin-cancel-new-order");
     newInput.innerHTML = "Cancel";
     newFormRow.appendChild(newInput);
+    newFormRow.appendChild(document.createTextNode(" "));
     newInput = document.createElement("button");
     newInput.classList.add("btn");
     newInput.classList.add("btn-primary");

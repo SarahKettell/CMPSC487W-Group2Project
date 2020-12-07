@@ -22,6 +22,24 @@ CREATE TABLE IF NOT EXISTS contact_info(
 	email varchar(100)
 );
 
+CREATE TABLE IF NOT EXISTS hours_info(
+	id integer,
+	mon_beg varchar(10),
+	mon_end varchar(10),
+	tue_beg varchar(10),
+	tue_end varchar(10),
+	wed_beg varchar(10),
+	wed_end varchar(10),
+	thu_beg varchar(10),
+	thu_end varchar(10),
+	fri_beg varchar(10),
+	fri_end varchar(10),
+	sat_beg varchar(10),
+	sat_end varchar(10),
+	sun_beg varchar(10),
+	sun_end varchar(10)
+);
+
 CREATE TABLE IF NOT EXISTS menu_items(
 	menu_item_id varchar(36),
 	item_name varchar(250) not null,
@@ -173,3 +191,5 @@ insert into order_item_toppings values('7', '4');
 insert into order_item_toppings values('7', '5');
 insert into order_item_toppings values('7', '16');
 insert into order_item_toppings values('7', '12');
+insert into contact_info values('1', '1234567890', 'suri@gmail.com');
+insert into hours_info values('1', '10:30', '11:30', '9:30', '11:30', '12:30', '2:30', '1:30', '7:30', '3:30', '10:30', '5:30', '6:30', '3:30', '4:30');

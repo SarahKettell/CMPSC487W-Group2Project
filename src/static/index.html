@@ -35,7 +35,7 @@
 
     <!-- Restaurant Information -->
     <div class="restaurant-info-body">
-        <div class=text-wrap>
+        <div class=text-wrap id="test">
             <div class="address-wrap">
                 <div class="header">
                     <svg width="30" height="30">
@@ -44,12 +44,7 @@
                     <h2 class="heading">Address</h2>
                 </div>
                 <div class="business-text">
-                    <ul>
-                        <li>Company Name</li>
-                        <li>123 Some Street</li>
-                        <li>Pizzatopia, PA</li>
-                        <li>12345</li>
-                    </ul>
+                    <div class="home-address" id="home-address"></div>
                 </div>
             </div>
             <div class="contact-wrap">
@@ -57,13 +52,10 @@
                     <svg width="30" height="30">
                         <image href="/design/contact.svg" height="30" width="30"/>
                     </svg>
-                    <h2 class="heading">Test Info</h2>
+                    <h2 class="heading">Contact Info</h2>
                 </div>
                 <div class="business-text">
-                    <ul>
-                        <li>Phone Number: 123-456-7890</li>
-                        <li>Email Address: pizzatopia@gmail.com</li>
-                    </ul>
+                    <div class="home-contact" id="home-contact"></div>
                 </div>
             </div>
             <div class="hours-wrap">
@@ -74,23 +66,15 @@
                     <h2 class="heading">Business Hours</h2>
                 </div>
                 <div class="business-text">
-                    <ul>
-                        <li>Mon: 8:00 a.m. - 9:00 p.m.</li>
-                        <li>Tue: 8:00 a.m. - 9:00 p.m.</li>
-                        <li>Wed: 8:00 a.m. - 9:00 p.m.</li>
-                        <li>Thu: 8:00 a.m. - 9:00 p.m.</li>
-                        <li>Fri: 8:00 a.m. - 7:00 p.m.</li>
-                        <li>Sat: 8:00 a.m. - 9:00 p.m.</li>
-                    </ul>
+                    <div class="home-hours" id="home-hours"></div>
                 </div>
             </div>
         </div>
         <div clas="map-image">
             <img src="/design/images/map.png" alt="Map"/>
+            <body onload="getDatafromDB('test')"></body>
         </div>
     </div>
-
-
     <div id="footer"></div>
 </body>
 </html>

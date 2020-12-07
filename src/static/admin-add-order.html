@@ -291,6 +291,8 @@
             crustRow.appendChild(crustInputGroup);
             newItemRow.appendChild(crustRow);
 
+            let toppingOptions = document.createElement("div");
+            toppingOptions.classList.add("topping-options-div");
             // sauceRow = Sauce(s)
             let sauceRow = document.createElement("div");
             sauceRow.classList.add("form-row");
@@ -374,9 +376,10 @@
             cheeseRow.appendChild(cheeseInputGroup);
             toppingRow.appendChild(toppingLabel);
             toppingRow.appendChild(toppingInputGroup);
-            newItemRow.appendChild(sauceRow);
-            newItemRow.appendChild(cheeseRow);
-            newItemRow.appendChild(toppingRow);
+            toppingOptions.appendChild(sauceRow);
+            toppingOptions.appendChild(cheeseRow);
+            toppingOptions.appendChild(toppingRow);
+            newItemRow.appendChild(toppingOptions);
 
             newRow = document.createElement("div");
             newRow.classList.add("form-row");
@@ -530,13 +533,19 @@
                     price: itemPrice,
                     notes: orderItemDivs[i].getElementsByTagName("textarea")[0].value,
                 }
-                orderItems.push(newItem);
+                // get toppings for item
+                let toppingIdList = [];
+                let toppingElements = orderItemDivs[i].getElementsByClassName('topping-options-div')[0].getElementsByTagName("input");
+                for(let j = 0; j < toppingElements.length; j++){
+                    if(toppingElements[j].checked){
+                        toppingIdList.push(toppingElements[j].id);
+                    }
+                }
+                orderItems.push({orderItem: newItem, toppings: toppingIdList});
             }
             console.log(orderItems);
-
             console.log(newOrder);
             console.log(orderCustomerInfo);
-
         }
 
 

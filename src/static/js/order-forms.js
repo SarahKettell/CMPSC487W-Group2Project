@@ -46,6 +46,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     // TYPE OF ORDER ----------------------------------------------
     let newFieldset = document.createElement("fieldset");
     newFieldset.classList.add("col");
+    newFieldset.setAttribute("id", "order_type");
     let newLegend = document.createElement("legend");
     newLegend.appendChild(document.createTextNode("Type of Order"));
     let newFormRow = document.createElement("div");
@@ -94,8 +95,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-check-input");
     newInput.setAttribute("type", "radio");
     newInput.setAttribute("id", "type_eatin");
-    newInput.setAttribute("value", "eatin");
+    newInput.setAttribute("value", "eat-in");
     newInput.setAttribute("name", "type");
+    newInput.setAttribute("checked", true);
     newLabel = document.createElement("label");
     newLabel.classList.add("form-check-label");
     newLabel.setAttribute("for", "type_eatin");
@@ -112,6 +114,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     // MODE OF PAYMENT ----------------------------------------------
     newFieldset = document.createElement("fieldset");
     newFieldset.classList.add("col");
+    newFieldset.setAttribute("id", "payment");
     newLegend = document.createElement("legend");
     newLegend.appendChild(document.createTextNode("Mode of Payment"));
     newFormRow = document.createElement("div");
@@ -128,6 +131,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.setAttribute("id", "payment_cash");
     newInput.setAttribute("value", "cash");
     newInput.setAttribute("name", "payment");
+    newInput.setAttribute("checked", true);
     newLabel = document.createElement("label");
     newLabel.classList.add("form-check-label");
     newLabel.setAttribute("for", "payment_cash");
@@ -162,6 +166,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     // Scheduled For Time ----------------------------------------------
     newFieldset = document.createElement("fieldset");
     newFieldset.classList.add("col");
+    newFieldset.setAttribute("id", "schedule");
     newLegend = document.createElement("legend");
     newLegend.appendChild(document.createTextNode("Schedule Date & Time"));
     newFormRow = document.createElement("div");
@@ -207,6 +212,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     // CUSTOMER INFORMATION ----------------------------------------------
     newFieldset = document.createElement("fieldset");
+    newFieldset.setAttribute("id", "customer_info");
     newLegend = document.createElement("legend");
     newLegend.appendChild(document.createTextNode("Customer Information"));
 
@@ -223,7 +229,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_fname");
+    newInput.setAttribute("name", "customer_fname")
     newInput.setAttribute("placeholder", "John");
+    newInput.setAttribute("required", true);
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
     newFormRow.appendChild(newInputGroup);
@@ -238,7 +246,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_lname");
+    newInput.setAttribute("name", "customer_lname");
     newInput.setAttribute("placeholder", "Smith");
+    newInput.setAttribute("required", true);
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
 
@@ -259,6 +269,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_id");
+    newInput.setAttribute("name", "customer_id");
     newInput.setAttribute("placeholder", "optional");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -274,6 +285,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_email");
+    newInput.setAttribute("name", "customer_email");
     newInput.setAttribute("placeholder", "email@domain.com");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -293,6 +305,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_addr");
+    newInput.setAttribute("name", "customer_addr");
     newInput.setAttribute("placeholder", "1234 Main St");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -308,6 +321,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_addr2");
+    newInput.setAttribute("name", "customer_addr2");
     newInput.setAttribute("placeholder", "Apartment, studio, or floor");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -327,6 +341,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_city");
+    newInput.setAttribute("name", "customer_city");
     newInput.setAttribute("placeholder", "Harrisburg");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -342,6 +357,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_state");
+    newInput.setAttribute("name", "customer_state");
     newInput.setAttribute("placeholder", "Pennsylvania");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -357,6 +373,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "customer_zip");
+    newInput.setAttribute("name", "customer_zip");
     newInput.setAttribute("placeholder", "12345");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -412,6 +429,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     // ORDER INFORMATION ----------------------------------------------
     newFieldset = document.createElement("fieldset");
+    newFieldset.setAttribute("id", "order_info");
     newLegend = document.createElement("legend");
     newLegend.appendChild(document.createTextNode("Order Information"));
     newFieldset.appendChild(newLegend);
@@ -429,6 +447,7 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.classList.add("form-control");
     newInput.setAttribute("type", "text");
     newInput.setAttribute("id", "order_notes");
+    newInput.setAttribute("name", "order_notes");
     newInput.setAttribute("rows", "3");
     newInputGroup.appendChild(newLabel);
     newInputGroup.appendChild(newInput);
@@ -439,21 +458,25 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInputGroup.classList.add("col-6");
     newLabel = document.createElement("p");
     newLabel.setAttribute("id", "order-subtotal");
+    newLabel.setAttribute("name", "order-subtotal");
     newLabel.setAttribute("data-price", "0.00");
     newLabel.innerHTML = "Subtotal: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
     newLabel.setAttribute("id", "order-tip");
+    newLabel.setAttribute("name", "order-tip");
     newLabel.setAttribute("data-price", "0.00");
     newLabel.innerHTML = "Tip: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
     newLabel.setAttribute("id", "order-tax");
+    newLabel.setAttribute("name", "order-tax");
     newLabel.setAttribute("data-price", "0.00");
     newLabel.innerHTML = "Tax: $0.00";
     newInputGroup.appendChild(newLabel);
     newLabel = document.createElement("p");
     newLabel.setAttribute("id", "order-total");
+    newLabel.setAttribute("name", "order-total");
     newLabel.setAttribute("data-price", "0.00");
     newLabel.innerHTML = "Total: $0.00";
     newInputGroup.appendChild(newLabel);
@@ -477,8 +500,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput = document.createElement("button");
     newInput.classList.add("btn");
     newInput.classList.add("btn-primary");
-    newInput.setAttribute("type", "submit");
+    newInput.setAttribute("type", "button");
     newInput.innerHTML = "Save Order";
+    newInput.addEventListener('click', () => processFormContents(), false);
     newFormRow.appendChild(newInput);
 
     newForm.appendChild(newFormRow);
@@ -487,6 +511,19 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     setupMenuItemSelect(fullMenuDetails, toppings);
 }
 
+function addAdminOrderToDB(orderInfo, orderItems, customerInfo){
+    saveAdminOrder(orderInfo, orderItems, customerInfo);
+}
 
+const saveAdminOrder = async (orderInfo, orderItems) => {
+    const combinedOrder = {order: orderInfo, items: orderItems};
+    const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        body: JSON.stringify(combinedOrder), // string or object
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 
 

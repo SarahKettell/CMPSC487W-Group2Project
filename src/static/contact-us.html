@@ -48,16 +48,16 @@
     <form action="https://formspree.io/f/mwkwrkoa" method="POST">
         <div class="form-heading">
             <h2>
-                Contact Us!
+                Contact Us Here!
             </h2>
         </div>
         <table style="width: 100%">
             <tr>
                 <th>
-                    <label for="name" class="label">First Name:</label>
+                    <label for="name" class="label">First Name</label>
                 </th>
                 <th>
-                    <label for="name" class="lname">Last Name:</label>
+                    <label for="name" class="lname">Last Name</label>
                 </th>
             </tr>
             <tr>
@@ -70,7 +70,7 @@
             </tr>
             <tr>
                 <th>
-                    <label for="phone" class="label">Phone:</label>
+                    <label for="phone" class="label">Phone</label>
                 </th>
             </tr>
             <tr>
@@ -80,22 +80,27 @@
             </tr>
             <tr>
                 <th>
-                    <label for="phone" class="label">Email Address:</label>
+                    <label for="phone" class="label"><span class="mandatory">*</span>Email Address</label>
                 </th>
             </tr>
             <tr>
                 <th>
-                    <input type="text" id="email" name="_replyto" class="email">
+                    <input type="text" id="email" name="_replyto" class="email" required>
                 </th>
             </tr>
             <tr>
                 <th>
-                    <label for="msg" class="label">Message:</label>
+                    <label for="msg" class="label"><span class="mandatory">*</span>Message</label>
                 </th>
             </tr>
             <tr>
                 <th>
-                    <textarea id="msg" name="message" class="msg"></textarea>
+                    <textarea type="text" id="msg" name="message" class="msg" required></textarea>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <span class="mandatory">*</span><span class="sub-text">Indicates Required Field</span>
                 </th>
             </tr>
         </table>

@@ -8,6 +8,7 @@
     <title>Log In</title>
     <link rel="stylesheet" href="my-account.css">
     <link rel="stylesheet" href="log-in.css">
+    <script src="js/account.js"></script>
 
 
     <!--jQuery-->
@@ -71,7 +72,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <input type="email" id="email" name="email" class="emailInput" required>
+                            <input type="email" id="emailInput" name="email" class="emailInput" required>
                         </th>
                     </tr>
                     <tr>
@@ -84,10 +85,10 @@
                     </tr>
                     <tr>
                         <th>
-                            <input type="password" id="password" name="password" class="passInput" required>
+                            <input type="password" id="passwordInput" name="password" class="passInput" required>
                         </th>
                         <th class="req-padding">
-                            <input type="confirmPassword" id="confirmPassword" name="confirmPassword" class="confirmPassInput" required>
+                            <input type="password" id="confirmPasswordInput" name="confirmPassword" class="confirmPassInput" required>
                         </th>
                     </tr>
                     <tr>
@@ -104,12 +105,39 @@
                     </div>
                     <div class ="two-buttons">
                         <button onclick="location.href='log-in.html'">Sign In</button>
-                        <button type=submit>Create Account</button>
+                        <button type=submit onclick="processFormContents()">Create Account</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
     <div id="footer"></div>
+    <script type="text/javascript">
+        function processFormContents(){
+            var fname = (document.getElementById('fnameInput')).value;
+            var lname = (document.getElementById('lnameInput')).value;
+            var email = (document.getElementById('emailInput')).value;
+            var password = (document.getElementById('passwordInput')).value;
+            var confirmPassword = (document.getElementById('confirmPasswordInput')).value;
+
+            /*if (password == confirmPassword) {
+                console.log("True is pass=confirm: " + (password == confirmPassword));*/
+                const newAccountInfo = {
+                    id: 0,
+                    fname: fname,
+                    lname: lname,
+                    email: email,
+                    password: password,
+                    acct_type: 'customer',
+                };
+            //}   
+
+            // save new item
+            addAccounttoDB(newAccountInfo);
+
+            window.location.href("admin-business.html");
+
+        }
+    </script>
 </body>
 </html>

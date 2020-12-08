@@ -47,9 +47,23 @@
   font-weight: bold;
   border-radius: 4px;
 }
+.main-wrap .bottom-row .column .two-buttons button a,
+.main-wrap-create-account .bottom-row .column .two-buttons button a {
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+}
+.main-wrap .bottom-row .column .two-buttons button .sign-in,
+.main-wrap-create-account .bottom-row .column .two-buttons button .sign-in {
+  margin-right: 20%;
+}
 .main-wrap .bottom-row .column .two-buttons button:hover,
 .main-wrap-create-account .bottom-row .column .two-buttons button:hover {
   background-color: #a00000;
+  text-decoration: underline;
+}
+.main-wrap .bottom-row .column .two-buttons button:hover a:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons button:hover a:hover {
   text-decoration: underline;
 }
 .main-wrap-create-account {

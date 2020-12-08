@@ -1,0 +1,360 @@
+/*Emily's Stylesheet*/
+
+/*Some portions are from the original stylesheet made by Suri*/
+/*Suri's Reused Stylesheet*/
+/* HEADER */
+.hdr {
+    background-color: #fff;
+    position: relative;
+}
+.hdr .hdr-wrap {
+    display: flex;
+    align-items: center;
+    position: unset;
+    justify-content: center;
+    width: 100%;
+}
+.hdr .hdr-wrap .logo {
+    border: 1px solid;
+    text-transform: uppercase;
+    line-height: 40px;
+}
+.hdr .hdr-wrap .logo a {
+    font-weight: bold;
+    padding: 20px;
+}
+.hdr .hdr-wrap .checkbtn {
+    font-size: 20px;
+    cursor: pointer;
+}
+.hdr .hdr-wrap #check {
+    display: none;
+}
+@media only screen and (min-width: 980px) {
+    .hdr .nav-wrap {
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+.hdr .nav-wrap .menu ul {
+    display: flex !important;
+    align-items: center;
+    margin-left: 3rem;
+}
+.hdr .nav-wrap .menu ul li a {
+    padding: 0 2rem 0 0;
+    text-transform: uppercase;
+    color: #000;
+}
+.hdr .nav-wrap .menu ul li a:hover {
+    font-weight: bold;
+}
+.hdr .nav-wrap .menu ul li .sign a {
+    text-transform: none;
+    font-style: italic;
+    text-decoration: underline;
+}
+.hdr .nav-wrap .menu ul li .cart {
+    border: 1px solid;
+    padding: 6px 6px 3px 6px;
+    border-radius: 50%;
+}
+/* GENERAL FOOTER */
+.ftr {
+    background: #D50000;
+    position: relative;
+}
+.ftr .ftr-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+    width: 100%;
+    color: #fff;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.ftr .ftr-wrap .left {
+    display: flex;
+    flex-direction: row;
+}
+.ftr .ftr-wrap .left .address-info ul li {
+    font-size: 14px;
+}
+.ftr .ftr-wrap .left .contact-info ul li {
+    font-size: 14px;
+}
+.ftr .ftr-wrap .center .description {
+    padding-bottom: 0.5rem;
+    font-size: 14px;
+}
+.ftr .ftr-wrap .center .join-me-button {
+    color: #fff;
+    background: none;
+    border: 1px solid;
+    text-transform: uppercase;
+    line-height: 30px;
+    cursor: pointer;
+    outline: inherit;
+}
+.ftr .ftr-wrap .center .join-me-button a {
+    font-weight: bold;
+    padding: 20px;
+}
+.ftr .ftr-wrap .social-nav .social-desc a {
+    font-size: 14px;
+}
+.ftr .ftr-wrap .social-nav button {
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+}
+/* HOME FOOTER */
+.home-ftr {
+    background: #D50000;
+    position: relative;
+}
+.home-ftr .home-ftr-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    color: #fff;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+.home-ftr .home-ftr-wrap .description h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.home-ftr .home-ftr-wrap .description h3 {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+    margin-left: 4rem;
+}
+.home-ftr .home-ftr-wrap .join-me-button {
+    border: 1px solid;
+    text-transform: uppercase;
+    line-height: 30px;
+    cursor: pointer;
+    margin-left: 3rem;
+}
+.home-ftr .home-ftr-wrap .join-me-button a {
+    font-weight: bold;
+    padding: 20px;
+}
+
+
+/* MENU PAGE STYLES */
+.menu-item-box{
+    margin-top: 30px;
+    display: block;
+    padding: 3% 5% 3% 5%;
+    outline: 1px solid;
+    display: block;
+}
+
+.pizzaName{
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.subTitle{
+    text-decoration: underline;
+    font-weight: bold;
+    color: #D50000;
+    font-size: 18px;
+}
+.menu-item-container{
+    padding: 30px 0 30px 0;
+}
+
+.info{
+    font-size: 16px;
+    color: black;
+    padding-right: 2rem;
+}
+
+.labels{
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    font-style: italic;
+}
+
+.labels:hover, .info:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.edit-button{
+    display:inline-block;
+    width:50%;
+    margin-bottom: 20px;
+}
+.delete-button{
+    display:inline-block;
+    width:50%;
+    text-align: right;
+    margin-bottom: 20px;
+    background-image: url(/design/instagram.svg);
+}
+
+.add-item-button{
+    display:inline-block;
+    background: red;
+    color: white;
+    text-transform: uppercase;
+    margin-right: 30px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.add-item-button a{
+    color: white;
+    font-size: 14pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.submit-confirmation{
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+}
+
+.submit-button button{
+    padding-top:20px!important;
+    padding-bottom:20px!important;
+    font-size: 16pt;
+}
+
+#form-add-menu-item h2{
+    margin:30px;
+}
+
+#menu-contents{
+    display: block;
+    width:100%;
+}
+
+.main-menu-item{
+    border:1px solid black;
+    margin:30px;
+    position: relative;
+    height: auto;
+    background-image: url("/design/images/pizza-icon2.jpeg");
+    background-repeat: no-repeat;
+}
+
+.main-menu-item h2{
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.main-menu-item .content-div{
+    background:white;
+    display: block;
+    padding: 30px;
+    margin-left:200px;
+}
+
+.main-menu-item .content-div form{
+    display:flex;
+    align-items: stretch;
+}
+
+.main-menu-item .content-div form .form-check{
+    display: block;
+    margin-right: 30px;
+}
+
+.main-menu-item .content-div form .form-check .form-check-label{
+    padding-left: 0;
+}
+
+.main-menu-item .content-div form input:checked + label{
+    font-weight: bold;
+}
+
+.main-menu-item .content-div .button-row{
+    display: flex;
+}
+
+
+.main-menu-item .content-div button{
+    flex:1;
+    background: red;
+    border:none;
+    margin-right: 10px;
+}
+
+.main-menu-item .content-div button:hover, .main-menu-item .content-div button:active {
+    background: darkred;
+    border:none;
+}
+
+
+.add-new-div {
+    padding: 30px;
+    text-align: center;
+}
+
+.admin-menu-body button{
+    background: red;
+    border:none;
+    color:white;
+    width: 50%;
+    padding: 20px;
+    text-transform: uppercase;
+}
+
+.admin-menu-body button:hover, admin-menu-body button:active{
+    background: darkred;
+    border:none;
+}
+
+/*Submit Button*/
+/*Added by Emily*/
+.submit-button {
+    background-color: #D50000;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.cent {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.border {
+    background-color: white;
+    border-size:2px;
+    border-style:solid;
+    border-color:black;
+}
+
+.background {
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+}
+
+.customer-message textarea {
+    resize: none;
+    align: center;
+}

@@ -5,8 +5,9 @@ const uuid = require('uuid/v4');
 // menu items and toppings
 const addNewOrder = async (req, res) => {
     const cust_id = req.body.order.customer_id ? req.body.order.customer_id : uuid();
+    const orderID = uuid();
     const order = {
-        order_id: uuid(),
+        order_id: orderID,
         customer_id: cust_id,
         first_name: req.body.order.first_name,
         last_name: req.body.order.last_name,
@@ -29,17 +30,32 @@ const addNewOrder = async (req, res) => {
         checked_out: req.body.order.checked_out,
         completed: req.body.order.completed,
     }
-    console.log(order);
+    await db.addNewAdminOrder(order);
+    // send the order to be saved here
     for(let i = 0; i < req.body.items.length; i++){
         // create a new order item for each in this order
         let currItem = req.body.items[i];
-        console.log(currItem);
+        let newItemID =  uuid();
+        const newItem = {
+            order_item_id: newItemID,
+            order_id: orderID,
+            item_name: currItem.orderItem.item_name,
+            crust: currItem.orderItem.crust,
+            size: currItem.orderItem.size,
+            price: currItem.orderItem.price,
+            notes: currItem.orderItem.notes
+        }
+        await db.addNewAdminOrderItem(newItem);
+        // send the item to be saved here
         for(let j = 0; j < req.body.items[i].toppings.length; j++){
-            console.log(currItem.toppings[j]);
+            let topping_info = {
+                order_item_id: newItemID,
+                topping_id: currItem.toppings[j]
+            };
+            await db.updateOrderItemToppings(topping_info);
         }
     }
-    // const orders = await db.getOrders();
-    // res.send(orders);
+    res.send(order);
 };
 
 module.exports = {

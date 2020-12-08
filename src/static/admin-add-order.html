@@ -468,7 +468,7 @@
             let hour = date.getHours() < 9 ? "0" + (date.getHours()+1) : date.getHours()+1;
             let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()+1) : date.getMinutes()+1;
 
-            let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + minutes + ":00.0Z";
+            let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
             let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
             let order_stime = scheduleInfo.namedItem("scheduled_time").value;
 
@@ -485,7 +485,7 @@
                 zip: customerInfo.namedItem('customer_zip').value,
                 date_time_created: order_cdatetime,
                 date_time_checked_out: null,
-                date_time_scheduled: order_sdate + "T" + order_stime + ":00.0Z",
+                date_time_scheduled: order_sdate + " " + order_stime + ":00",
                 order_type: order_type,
                 notes: orderInfo.namedItem('order_notes').value,
                 payment_type: order_payment,

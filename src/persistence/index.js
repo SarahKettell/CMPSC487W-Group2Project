@@ -522,7 +522,7 @@ async function takeoutOrderForm(args) {
     return new Promise()
     {
         pool.query(
-            'INSERT INTO create_customer_info'
+            'INSERT INTO create_orders'
         )
     }
 }
@@ -531,7 +531,7 @@ async function takeoutOrderForm(args) {
         return new Promise()
         {
             pool.query(
-                'INSERT INTO create_customer_info'
+                'INSERT INTO create_orders'
             )
         }
     }
@@ -540,7 +540,7 @@ async function takeoutOrderForm(args) {
         return new Promise()
         {
             pool.query(
-                'INSERT INTO create_customer_info'
+                'INSERT INTO create_orders'
             )
         }
 
@@ -550,7 +550,7 @@ async function takeoutOrderForm(args) {
         return new Promise()
         {
             pool.query(
-                'UPDATE create_customer_info SET '
+                'UPDATE create_orders SET '
             )
         }
 

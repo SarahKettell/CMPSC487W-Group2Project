@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Contact Us</title>
+    <title>Edit Contact</title>
+    <link rel="stylesheet" href="my-account.css">
+    <link rel="stylesheet" href="edit-menu.css">
+    <link rel="stylesheet" href="contact-us.css">
 
     <!--jQuery-->
     <script
@@ -25,10 +28,87 @@
             success: function(html) { $('#footer').html(html); }
         });
     </script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <!-- call header and footer -->
     <div id="header"></div>
+
+    <!-- Hero module -->
+    <div class=banner>
+        <div class="banner-img">
+            <img class="bimg" src="/design/images/my-account-banner.png">
+            </img>
+        </div>
+    </div>
+
+    <!-- edit form -->
+    <!-- modify this form HTML and place wherever you want your form -->
+
+    <form action="https://formspree.io/f/mwkwrkoa" method="POST">
+        <div class="form-heading">
+            <h2>
+                Contact Us Here!
+            </h2>
+        </div>
+        <table style="width: 100%">
+            <tr>
+                <th>
+                    <label for="name" class="label">First Name</label>
+                </th>
+                <th>
+                    <label for="name" class="lname">Last Name</label>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" id="name" name="first-name" class="input">
+                </th>
+                <th>
+                    <input type="text" id="name" name="last-name" class="lname">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label for="phone" class="label">Phone</label>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" id="phone" name="phone" class="phone">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label for="phone" class="label"><span class="mandatory">*</span>Email Address</label>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" id="email" name="_replyto" class="email" required>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label for="msg" class="label"><span class="mandatory">*</span>Message</label>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <textarea type="text" id="msg" name="message" class="msg" required></textarea>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <span class="mandatory">*</span><span class="sub-text">Indicates Required Field</span>
+                </th>
+            </tr>
+        </table>
+        <div class="submit-button" id="submit-button-ref">
+            <button type="submit">Submit Now</button>
+        </div>
+    </form>
+
     <div id="footer"></div>
 </body>
 </html>

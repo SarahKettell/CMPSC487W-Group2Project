@@ -1,0 +1,75 @@
+/* media queries */
+/* THEME COLORS */
+.main-wrap,
+.main-wrap-create-account {
+  z-index: 99;
+  margin: 2% 0% 5% 32%;
+  width: 30%;
+  outline: 1px solid;
+  padding: 1%;
+}
+.main-wrap h2,
+.main-wrap-create-account h2 {
+  padding: 2% 0% 4% 0%;
+}
+.main-wrap .inner-wrap,
+.main-wrap-create-account .inner-wrap {
+  margin-left: 22%;
+}
+.main-wrap .bottom-row,
+.main-wrap-create-account .bottom-row {
+  padding-top: 15%;
+  font-size: 12px;
+}
+.main-wrap .bottom-row .column,
+.main-wrap-create-account .bottom-row .column {
+  display: flex;
+  flex-direction: column;
+}
+.main-wrap .bottom-row .column .label a,
+.main-wrap-create-account .bottom-row .column .label a {
+  font-size: 14px;
+}
+.main-wrap .bottom-row .column .two-buttons,
+.main-wrap-create-account .bottom-row .column .two-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.main-wrap .bottom-row .column .two-buttons button,
+.main-wrap-create-account .bottom-row .column .two-buttons button {
+  font-size: 14px;
+  padding: 2%;
+  /*outline: 1px solid;*/
+  background-color: #D50000;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.main-wrap .bottom-row .column .two-buttons button:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons button:hover {
+  background-color: #a00000;
+  text-decoration: underline;
+}
+.main-wrap-create-account {
+  width: 43%;
+  margin: 2% 0% 5% 29%;
+}
+.main-wrap-create-account .inner-wrap {
+  margin-left: 5%;
+}
+.main-wrap-create-account .inner-wrap .req-padding label,
+.main-wrap-create-account .inner-wrap .req-padding input {
+  margin-left: 10%;
+}
+.main-wrap-create-account .inner-wrap input {
+  margin-bottom: 10%;
+}
+span.mandatory {
+  color: #D50000;
+}
+span.sub-text {
+  font-size: 16px;
+  font-weight: normal;
+}

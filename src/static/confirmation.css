@@ -1,0 +1,31 @@
+/* media queries */
+/* THEME COLORS */
+.icon {
+  margin: 10% 0% 0% 31%;
+}
+.icon .right {
+  margin-left: 40%;
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1% 0% 10% 0%;
+}
+.wrap h2 {
+  text-transform: uppercase;
+}
+.wrap button {
+  padding: 1%;
+  border: none;
+  background-color: #D50000;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.wrap button:hover {
+  background-color: #a00000;
+  text-decoration: underline;
+}

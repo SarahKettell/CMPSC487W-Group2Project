@@ -472,26 +472,21 @@
             let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
             let order_stime = scheduleInfo.namedItem("scheduled_time").value;
 
-
-            let orderCustomerInfo = {
-                fname: customerInfo.namedItem('customer_fname').value,
-                lname: customerInfo.namedItem('customer_lname').value,
-                cust_id: customerInfo.namedItem('customer_id').value,
+            let newOrder = {
+                order_id: 0,
+                customer_id: customerInfo.namedItem('customer_id').value,
+                first_name: customerInfo.namedItem('customer_fname').value,
+                last_name: customerInfo.namedItem('customer_lname').value,
                 email: customerInfo.namedItem('customer_email').value,
                 addr: customerInfo.namedItem('customer_addr').value,
                 addr2: customerInfo.namedItem('customer_addr2').value,
                 city: customerInfo.namedItem('customer_city').value,
                 state: customerInfo.namedItem('customer_state').value,
-                zip: customerInfo.namedItem('customer_zip').value
-            }
-
-            let newOrder = {
-                order_id: 0,
-                customer_id: customerInfo.namedItem('customer_id').value,
+                zip: customerInfo.namedItem('customer_zip').value,
                 date_time_created: order_cdatetime,
                 date_time_checked_out: null,
                 date_time_scheduled: order_sdate + "T" + order_stime + ":00.0Z",
-                type: order_type,
+                order_type: order_type,
                 notes: orderInfo.namedItem('order_notes').value,
                 payment_type: order_payment,
                 sub_total_price: parseFloat(document.getElementById('order-subtotal').getAttribute('data-price')),
@@ -543,9 +538,7 @@
                 }
                 orderItems.push({orderItem: newItem, toppings: toppingIdList});
             }
-            console.log(orderItems);
-            console.log(newOrder);
-            console.log(orderCustomerInfo);
+            addAdminOrderToDB(newOrder, orderItems);
         }
 
 

@@ -52,14 +52,36 @@ CREATE TABLE IF NOT EXISTS menu_items(
 	primary key(menu_item_id)
 );
 
+CREATE TABLE IF NOT EXISTS customers(
+    customer_id varchar(36),
+    first_name varchar(50) not null,
+    last_name varchar(50) not null,
+    email varchar(50),
+    address1 varchar(50),
+    address2 varchar(50),
+    city varchar(50),
+    state varchar(50),
+    zip varchar(50),
+    note varchar(500),
+    primary key(customer_id)
+);
+
 CREATE TABLE IF NOT EXISTS orders(
 	order_id varchar(36),
 	customer_id varchar(36),
+    first_name varchar(50) not null,
+    last_name varchar(50) not null,
+    email varchar(50),
+    address1 varchar(50),
+    address2 varchar(50),
+    addr_city varchar(50),
+    addr_state varchar(50),
+    addr_zip varchar(50),
 	date_time_created datetime not null,
 	date_time_checked_out datetime,
 	date_time_scheduled datetime,
 	date_time_completed datetime,
-	type varchar(36),
+	order_type varchar(36),
 	notes varchar(500),
 	payment_type varchar(36),
 	sub_total_price decimal(10,2) not null,

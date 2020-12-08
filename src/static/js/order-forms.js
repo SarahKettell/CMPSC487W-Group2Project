@@ -511,6 +511,19 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     setupMenuItemSelect(fullMenuDetails, toppings);
 }
 
+function addAdminOrderToDB(orderInfo, orderItems, customerInfo){
+    saveAdminOrder(orderInfo, orderItems, customerInfo);
+}
 
+const saveAdminOrder = async (orderInfo, orderItems) => {
+    const combinedOrder = {order: orderInfo, items: orderItems};
+    const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        body: JSON.stringify(combinedOrder), // string or object
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 
 

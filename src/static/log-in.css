@@ -14,7 +14,7 @@
 }
 .main-wrap .inner-wrap,
 .main-wrap-create-account .inner-wrap {
-  margin-left: 22%;
+  margin-left: 18%;
 }
 .main-wrap .bottom-row,
 .main-wrap-create-account .bottom-row {
@@ -40,7 +40,7 @@
 .main-wrap-create-account .bottom-row .column .two-buttons button {
   font-size: 14px;
   padding: 2%;
-  /*outline: 1px solid;*/
+  border: none;
   background-color: #D50000;
   color: #fff;
   text-transform: uppercase;

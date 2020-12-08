@@ -43,44 +43,46 @@
     </div>
 
     <!-- actual login -->
-    <div class="main-wrap">
-        <div class="inner-wrap">
-            <h2>Sign In</h2>
-            <table>
-                <tr>
-                    <th>
-                        <label for="email" class="email">Email Address:</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <input type="text" id="email" name="email" class="emailInput">
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label for="password" class="password">Password:</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <input type="password" id="password" name="password" class="passInput">
-                    </th>
-                </tr>
-            </table>
-        </div>
-        <div class="bottom-row">
-            <div class="column">
-                <div class="label">
-                    <a>Don't Have an Account?</a>
-                </div>
-                <div class ="two-buttons">
-                    <button onclick="location.href='create-account-cust.html'">Create Account</button>
-                    <button>Sign In</button>
+    <form>
+        <div class="main-wrap">
+            <div class="inner-wrap">
+                <h2>Sign In</h2>
+                <table>
+                    <tr>
+                        <th>
+                            <label for="email" class="email">Email Address:</label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="email" id="email" name="email" class="emailInput" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="password" class="password">Password:</label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="password" id="password" name="password" class="passInput" required>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="bottom-row">
+                <div class="column">
+                    <div class="label">
+                        <a>Don't Have an Account?</a>
+                    </div>
+                    <div class ="two-buttons">
+                        <button onclick="location.href='create-account-cust.html'">Create Account</button>
+                        <button type="submit">Sign In</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <div id="footer"></div>
 </body>

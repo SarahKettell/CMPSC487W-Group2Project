@@ -43,72 +43,73 @@
     </div>
 
     <!-- actual login -->
-    <div class="main-wrap-create-account">
-        <div class="inner-wrap">
-            <h2>Create Account</h2>
-            <table>
-                <tr>
-                    <th>
-                        <label for="fname" class="fname"><span class="mandatory">*</span>First Name:</label>
-                    </th>
-                    <th class="req-padding">
-                        <label for="lname" class="lname"><span class="mandatory">*</span>Last Name:</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <input type="text" id="fnameInput" name="fnameInput" class="fnameInput" required>
-                    </th>
-                    <th class="req-padding">
-                        <input type="text" id="lnameInput" name="lnameInput" class="lnameInput" required>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label for="email" class="email"><span class="mandatory">*</span>Email Address:</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <input type="text" id="email" name="email" class="emailInput" required>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <label for="password" class="password"><span class="mandatory">*</span>Password:</label>
-                    </th>
-                    <th class="req-padding">
-                        <label for="confirmPassword" class="confirmPassword"><span class="mandatory">*</span>Confirm Password:</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <input type="password" id="password" name="password" class="passInput" required>
-                    </th>
-                    <th class="req-padding">
-                        <input type="confirmPassword" id="confirmPassword" name="confirmPassword" class="confirmPassInput" required>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <span class="mandatory">*</span><span class="sub-text">Indicates Required Field</span>
-                    </th>
-                </tr>
-            </table>
-        </div>
-        <div class="bottom-row">
-            <div class="column">
-                <div class="label">
-                    <a>Already have an Account?</span>
-                </div>
-                <div class ="two-buttons">
-                    <button onclick="location.href='log-in.html'">Sign In</button>
-                    <button>Create Account</button>
+    <form>
+        <div class="main-wrap-create-account">
+            <div class="inner-wrap">
+                <h2>Create Account</h2>
+                <table>
+                    <tr>
+                        <th>
+                            <label for="fname" class="fname"><span class="mandatory">*</span>First Name:</label>
+                        </th>
+                        <th class="req-padding">
+                            <label for="lname" class="lname"><span class="mandatory">*</span>Last Name:</label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="text" id="fnameInput" name="fnameInput" class="fnameInput" required>
+                        </th>
+                        <th class="req-padding">
+                            <input type="text" id="lnameInput" name="lnameInput" class="lnameInput" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="email" class="email"><span class="mandatory">*</span>Email Address:</label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="email" id="email" name="email" class="emailInput" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="password" class="password"><span class="mandatory">*</span>Password:</label>
+                        </th>
+                        <th class="req-padding">
+                            <label for="confirmPassword" class="confirmPassword"><span class="mandatory">*</span>Confirm Password:</label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="password" id="password" name="password" class="passInput" required>
+                        </th>
+                        <th class="req-padding">
+                            <input type="confirmPassword" id="confirmPassword" name="confirmPassword" class="confirmPassInput" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span class="mandatory">*</span><span class="sub-text">Indicates Required Field</span>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="bottom-row">
+                <div class="column">
+                    <div class="label">
+                        <a>Already have an Account?</span>
+                    </div>
+                    <div class ="two-buttons">
+                        <button onclick="location.href='log-in.html'">Sign In</button>
+                        <button type=submit>Create Account</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
     <div id="footer"></div>
 </body>
 </html>

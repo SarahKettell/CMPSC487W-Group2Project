@@ -31,7 +31,9 @@ const addNewOrder = async (req, res) => {
     }
     console.log(order);
     for(let i = 0; i < req.body.items.length; i++){
+        // create a new order item for each in this order
         let currItem = req.body.items[i];
+        console.log(currItem);
         for(let j = 0; j < req.body.items[i].toppings.length; j++){
             console.log(currItem.toppings[j]);
         }

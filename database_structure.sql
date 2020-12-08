@@ -93,6 +93,8 @@ CREATE TABLE IF NOT EXISTS orders(
 	primary key(order_id)
 );
 
+
+
 CREATE TABLE IF NOT EXISTS order_items(
 	order_item_id varchar(36),
 	order_id varchar(36) not null,
@@ -169,7 +171,7 @@ insert into menu_item_toppings values('4', '15');
 insert into menu_item_toppings values('4', '16');
 insert into address_info values(1, 'Company Name', '123 Pizza Street', 'Pizzatopia', 'PA', 12345);
 insert into contact_info values(1, 1234567890, 'sms7631@psu.edu');
-insert into orders values('1', '123456', '2020-11-01 13:00:01', '2020-11-01 13:20:01', '2020-11-01 13:50:01', '2020-11-01 14:00:01', 'eat-in', 'Allergic to mushrooms', 'cash', 20.00, 3.00, 6.00, 29.00, true, true);
+insert into orders values('1', '123456', 'John', 'Smith', 'email@host.com', '123 Some St', null , 'Harrisburg', 'PA', '12345', '2020-11-01 13:00:01', '2020-11-01 13:20:01', '2020-11-01 13:50:01', '2020-11-01 14:00:01', 'eat-in', 'Allergic to mushrooms', 'cash', 20.00, 3.00, 6.00, 29.00, true, true);
 insert into order_items values('1', '1', 'The Cheese', 'thin-crust', 'medium', 10.00, '');
 insert into order_items values('2', '1', 'Meat Lovers', 'thick-crust', 'medium', 10.00, '');
 insert into order_item_toppings values('1', '12');
@@ -181,7 +183,7 @@ insert into order_item_toppings values('2', '8');
 insert into order_item_toppings values('2', '9');
 insert into order_item_toppings values('2', '16');
 insert into order_item_toppings values('2', '12');
-insert into orders values('2', NULL, '2020-11-25 13:00:01', '2020-11-25 13:20:01', '2020-11-25 13:50:01', NULL, 'eat-in', 'Cook pizzas well done', 'cash', 20.00, 3.00, 6.00, 29.00, true, false);
+insert into orders values('2', NULL, 'Jill', 'Smith','another@email.com', null, null, null, null, null, '2020-11-25 13:00:01', '2020-11-25 13:20:01', '2020-11-25 13:50:01', NULL, 'eat-in', 'Cook pizzas well done', 'cash', 20.00, 3.00, 6.00, 29.00, true, false);
 insert into order_items values('3', '2', 'The Cheese', 'thin-crust', 'medium', 10.00, '');
 insert into order_items values('4', '2', 'Meat Lovers', 'thick-crust', 'medium', 10.00, 'Pepperoni on left half');
 insert into order_item_toppings values('3', '12');
@@ -193,7 +195,7 @@ insert into order_item_toppings values('4', '8');
 insert into order_item_toppings values('4', '9');
 insert into order_item_toppings values('4', '16');
 insert into order_item_toppings values('4', '12');
-INSERT INTO orders VALUES('3', '123456', now(),  null,  null, null,'eat-in', 'this order is not submitted',  'cc',  20.00, 3.00, 6.00, 29.00, false, false);
+INSERT INTO orders VALUES('3', '1234567', 'Adam', 'Smith','another@gmail.com', NULL, NULL, NULL, NULL, null, '2020-11-25 13:00:01',  NULL,  NULL, NULL, 'eat-in', 'this order is not submitted',  'cc',  20.00, 3.00, 6.00, 29.00, false, false);
 insert into order_items values('5', '3', 'The Cheese', 'thin-crust', 'medium', 10.00, '');
 insert into order_items values('6', '3', 'Meat Lovers', 'thick-crust', 'medium', 10.00, '');
 insert into order_items values('7','3',  'Veggie Extravaganza', 'whole-wheat-crust', 'large',  12.00, '');

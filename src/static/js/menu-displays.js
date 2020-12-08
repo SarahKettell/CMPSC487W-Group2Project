@@ -369,7 +369,7 @@ function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
         addPizzaButton.classList.add("btn-primary");
         addPizzaButton.setAttribute("type", "button");
         addPizzaButton.setAttribute("id", "add-to-cart-button");
-        addPizzaButton.addEventListener("click", () => {/*call function here*/}, false);
+        addPizzaButton.addEventListener("click", () => {testingAdd()}, false);
         addPizzaButton.innerHTML = "Add to Cart";
         buttonRow.appendChild(addPizzaButton);
 

@@ -24,6 +24,9 @@ const updateContactInfo = require('./routes/updateContactInfo');
 const getHoursInfo = require('./routes/getHoursInfo');
 const updateHoursInfo = require('./routes/updateHoursInfo');
 
+const addOrders = require('./routes/addOrder');
+const addOrderItem = require('./routes/addOrderItem');
+
 // Converts into JSON format
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/static'));
@@ -41,6 +44,9 @@ app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
+
+app.post('/orders', addOrders);
+app.post('/orderItems', addOrderItem);
 
 // handling address and restaurant info calls
 app.get('/address', getAddrInfo);

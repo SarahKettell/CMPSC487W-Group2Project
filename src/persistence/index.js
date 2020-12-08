@@ -101,18 +101,6 @@ const CREATE_HOURS_INFO = `CREATE TABLE IF NOT EXISTS hours_info(
                                 sun_end varchar(10)
                             )`;
 
-//----------------------------------------------------------------
-//TODO: Emily's Order Table
-//-------------------------
-const CREATE_CUSTOMER_INFO = `CREATE TABLE IF NOT EXISTS customer_info(
-                                customer_id 
-                                customer_name varchar(20),
-                                customer_address varchar(20),
-                                customer_apartmt varchar(20),
-                                customer_city varchar(20),
-                                customer_state varchar(20),
-                                customer_zip char(5)  
-                              )`;
 
 // DB connection constants, do not change
 const {
@@ -527,7 +515,6 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
-    create_customer_info
 };
 //-------------------------
 //TODO: Emily's Functions

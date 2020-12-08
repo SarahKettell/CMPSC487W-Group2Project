@@ -1,0 +1,47 @@
+@import 'variables';
+
+.main-wrap{
+    h2{
+        padding: 2% 0% 4% 0%;
+    }
+    z-index: 99;
+    margin: 2% 0% 5% 32%; 
+    width: 30%;
+    outline: 1px solid;
+    padding: 1%;
+
+    .inner-wrap{
+        margin-left: 22%;
+    }
+
+    .bottom-row{
+        padding-top: 15%;
+        font-size: 12px;
+        .column{
+            display: flex;
+            flex-direction: column;
+            .label a{
+                font-size: 14px;
+            }
+            .two-buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                button{
+                    font-size: 14px;
+                    padding: 2%;
+                    /*outline: 1px solid;*/
+                    background-color: @site-red;
+                    color: @white;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    border-radius: 4px;
+                }
+                button:hover{
+                    background-color: #a00000;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

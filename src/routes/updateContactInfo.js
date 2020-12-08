@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         phone: req.body.phone,
         email: req.body.email,
     });
-    console.log(contact_info);
+    console.log("updateContactInfo.js from routes: " + contact_info);
     await db.updateContactInfo(contact_info);
     res.send(contact_info);
 };

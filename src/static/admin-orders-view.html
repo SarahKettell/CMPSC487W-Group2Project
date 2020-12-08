@@ -45,31 +45,26 @@
     <div class="admin-menu-body">
         <div class="wrap">
             <div class=info-heading>
-                <h2>Orders</h2>
-                <p>View all orders, past and present, in the system.</p>
+                <h2 id="order-header">Full Details for Order: </h2>
             </div>
+        <!-- menus from DB -->
+            <div id="admin-order-view">
+            </div>
+
             <form class="order-options">
                 <div class="form-group row">
-                        <label for="orderView" class="col-sm-1 col-form-label">
-                            View:
-                        </label>
                     <div class="col-sm-4">
-                        <select id="orderView" class="form-control" onchange="displaySelectedOrders()">
-                            <option value="current">Current Orders</option>
-                            <option value="past">Past Orders</option>
-                            <option value="all">All Orders</option>
-                        </select>
+                        <a class="btn btn-primary" href="admin-orders.html" id="delete-order-button">
+                            BACK TO ORDER LIST
+                        </a>
                     </div>
                     <div class="col-sm" style="text-align: right">
-                        <a class="btn btn-primary" id="admin-new-order-button" href="admin-add-order.html">
-                            +  Create New Order
-                        </a>
+                        <button class="btn btn-primary" id="edit-order-button">
+                            Edit Order
+                        </button>
                     </div>
                 </div>
             </form>
-        <!-- menus from DB -->
-            <div id="admin-order-list">
-            </div>
         </div>
     </div>
 
@@ -78,13 +73,17 @@
     <script src="js/menu-forms.js"></script>
     <script src="js/menu-displays.js"></script>
     <script src="js/order-displays.js"></script>
-    <body onload="getAdminOrders('admin-order-list')">
+    <body onload="getOrderDetails()">
     <script type="text/javascript">
-        function addEditListeners(){
-            let editButtons = document.getElementsByClassName('edit-button');
-            for(let i = 0; i < editButtons.length; i++){
-                editButtons[i].addEventListener('click', loadEditItemForm, false);
-            }
+        function getOrderDetails(){
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            let orderID = urlParams.get('view_order');
+            let header = document.getElementById('order-header');
+            header.appendChild(document.createTextNode(orderID));
+            let editButton = document.getElementById('edit-order-button');
+            // set on click handler here
+            getSpecificOrder('admin-order-view', orderID);
         }
         // function testLinkParamFunc(){
         //     let linkObj = document.getElementById('test-varlink');

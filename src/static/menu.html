@@ -16,11 +16,18 @@
         crossorigin="anonymous"></script>
     <!-- link header.html and footer.html -->
     <script>
-        $(function() {
-            $('#header').load('header.html');
-            $('#footer').load('footer-general.html');
+        $.ajax({
+            url: 'header.html',
+            dataType: 'html',
+            success: function(html) { $('#header').html(html); }
+        });
+        $.ajax({
+            url: 'footer-general.html',
+            dataType: 'html',
+            success: function(html) { $('#footer').html(html); }
         });
     </script>
+    <script src="js/main.js"></script>
 </head>
 <body style="width:100%">
     <!-- call header and footer -->

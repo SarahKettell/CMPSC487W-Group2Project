@@ -367,6 +367,7 @@ function generateMenuItemEditForm(textBox, itemID, menuItems, toppingIDs, toppin
 	let sauceInputGroup = document.createElement("div");
 	sauceInputGroup.classList.add("input-group");
 
+	// cheeseRow = Cheese(s)
 	let cheeseRow = document.createElement("div");
 	cheeseRow.classList.add("form-row");
 	let cheeseLabel = document.createElement("label");
@@ -374,6 +375,7 @@ function generateMenuItemEditForm(textBox, itemID, menuItems, toppingIDs, toppin
 	let cheeseInputGroup = document.createElement("div");
 	cheeseInputGroup.classList.add("input-group");
 
+	// toppingRow = Topping(s)
 	let toppingRow = document.createElement("div");
 	toppingRow.classList.add("form-row");
 	let toppingLabel = document.createElement("label");

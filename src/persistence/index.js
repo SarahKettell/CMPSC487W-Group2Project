@@ -79,9 +79,27 @@ const CREATE_ADDRESS_INFO = `CREATE TABLE IF NOT EXISTS address_info(
 
 const CREATE_CONTACT_INFO = `CREATE TABLE IF NOT EXISTS contact_info(
                                 id integer,
-                                phone integer(10),
+                                phone varchar(20),
                                 email varchar(100)
-                            )`;                           
+                            )`;
+
+const CREATE_HOURS_INFO = `CREATE TABLE IF NOT EXISTS hours_info(
+                                id integer,
+                                mon_beg varchar(10),
+                                mon_end varchar(10),
+                                tue_beg varchar(10),
+                                tue_end varchar(10),
+                                wed_beg varchar(10),
+                                wed_end varchar(10),
+                                thu_beg varchar(10),
+                                thu_end varchar(10),
+                                fri_beg varchar(10),
+                                fri_end varchar(10),
+                                sat_beg varchar(10),
+                                sat_end varchar(10),
+                                sun_beg varchar(10),
+                                sun_end varchar(10)
+                            )`;
 
 // DB connection constants, do not change
 const {
@@ -150,6 +168,9 @@ async function init() {
     })
     .then(() => {
         pool.query(CREATE_CONTACT_INFO);
+    })
+    .then(() => {
+        pool.query(CREATE_HOURS_INFO);
     });
     
     return promise;
@@ -176,9 +197,7 @@ async function getMenuItems() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -193,9 +212,7 @@ async function getToppings() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -209,9 +226,7 @@ async function getMenuItemToppingIDs() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -226,9 +241,7 @@ async function getMenuItemToppings(id) {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -242,9 +255,7 @@ async function getAddrInfo() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -255,6 +266,21 @@ async function getAddrInfo() {
 async function getContactInfo() {
     return new Promise((acc, rej) => {
         pool.query('SELECT * FROM contact_info', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item),
+                ),
+            );
+        });
+    });
+}
+
+//Get business hours for restaurant information
+async function getHoursInfo() {
+    console.log("displaying Hours from persistence/index.js:");
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM hours_info', (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
@@ -274,9 +300,7 @@ async function getOrders() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -290,9 +314,7 @@ async function getOrderItems() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -306,9 +328,7 @@ async function getOrderItemToppings() {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 ),
             );
         });
@@ -324,9 +344,7 @@ async function getItem(id) {
             if (err) return rej(err);
             acc(
                 rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                    Object.assign({}, item),
                 )[0],
             );
         });
@@ -398,6 +416,19 @@ async function updateMenuItemToppings(item) {
     });
 }
 
+async function updateOrderAsComplete(orderId, completedTime){
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE orders SET date_time_completed=?, completed=? WHERE order_id=?',
+            [completedTime, true, orderId],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -416,7 +447,7 @@ async function updateAddrInfo(arg) {
 
 // Update a restaurant info in the DB (SURI)
 async function updateContactInfo(arg) {
-    console.log(arg);
+    console.log("updating Contact Info from persistence/index.js:" + arg);
     
     return new Promise((acc, rej) => {
         pool.query(
@@ -430,6 +461,21 @@ async function updateContactInfo(arg) {
     });
 }
 
+// Update business hours in the DB (SURI)
+async function updateHoursInfo(arg) {
+    console.log("updating Hours Info from persistence/index.js:" + arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE hours_info SET mon_beg=?, mon_end=?, tue_beg=?, tue_end=?, wed_beg=?, wed_end=?, thu_beg=?, thu_end=?, fri_beg=?, fri_end=?, sat_beg=?, sat_end=?, sun_beg=?, sun_end=? WHERE id=?',
+            [arg.mon_beg, arg.mon_end, arg.tue_beg, arg.tue_end, arg.wed_beg, arg.wed_end, arg.thu_beg, arg.thu_end, arg.fri_beg, arg.fri_end, arg.sat_beg, arg.sat_end, arg.sun_beg, arg.sun_end, 1],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
 
 // Remove an item from the database
 // TODO: Needs to be changed to match our DB
@@ -453,15 +499,18 @@ module.exports = {
     getOrders,
     getOrderItems,
     getOrderItemToppings,
+    updateOrderAsComplete,
     getMenuItemToppings,
     getMenuItemToppingIDs,
     getAddrInfo,
     getContactInfo,
+    getHoursInfo,
     getItem,
     storeNewItem,
     updateItem,
     updateAddrInfo,
     updateContactInfo,
+    updateHoursInfo,
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,

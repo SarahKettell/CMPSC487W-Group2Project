@@ -300,6 +300,7 @@ async function getAccountById(id){
 }
 
 async function getAccountByEmail(email){
+    console.log("Email: " + email);
     return new Promise((acc, rej) => {
         pool.query('SELECT * from account_info WHERE email=?',
          [email], (err, rows) => {

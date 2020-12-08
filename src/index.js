@@ -53,8 +53,8 @@ app.get('/contact', getContactInfo);
 app.get('/hours', getHoursInfo);
 
 // handling account info calls
-app.get('/accountByEmail', getAccountByEmail);
-app.get('/accountById', getAccountById);
+app.get('/account/:id', getAccountByEmail);
+//app.get('/accountById', getAccountById);
 app.get('/account', getAllAccounts);
 
 // Add new menu item into the db

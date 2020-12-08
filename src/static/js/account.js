@@ -43,7 +43,7 @@ const updateAccounttoDBbyId = async (inputData) => {
 //updates the account info to database by Email
 const updateAccounttoDBbyEmail = async (inputData) => {
     const response = await fetch('http://localhost:3000/account/' + inputData.email, { //url needs to match in src/index
-      method: 'PUT',
+      method: 'GET',
       body: JSON.stringify(inputData),
       headers: {
           'Content-Type' : 'application/json'

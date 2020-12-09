@@ -39,6 +39,14 @@
   color: #000;
   font-size: 18px;
 }
+.account-body .descr a .label {
+  color: #D50000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.account-body .descr a .label:hover {
+  text-decoration: none;
+}
 .account-body .descr .link {
   font-style: italic;
   text-decoration: underline;

@@ -13,7 +13,17 @@ const getJsonData = async (textBox) => {
   const textBoxID = textBox.id;
   if(textBoxID === "account-list"){
     displayAllAccounts(textBox, myJson);
-  } 
+  }
+}
+
+const getData = async (textBox, arg) => {
+  const accResponse = await fetch('http://localhost:3000/account');
+  const accJson = await accResponse.json();
+
+  const textBoxID = textBox.id;
+  if(textBoxID === "cust-data"){
+    displayCertainAccount(textBox, accJson, arg);
+  }
 }
 
 // called from webpage, gets the data and it in the location given
@@ -21,6 +31,57 @@ function getDatafromDB(elementID){
     let location = document.getElementById(elementID);
     // async call to get the data
     getJsonData(location);
+}
+
+function getAccountFromDB(elementID, arg){
+  let location = document.getElementById(elementID);
+    // async call to get the data
+    getData(location, arg);
+}
+
+function displayCertainAccount(textBox, jsonData, arg){
+  // new array to hold the menu values corresponding to each key
+  let accValues = new Array(jsonData.length);
+  //fill those arrays with JSON data
+  for(let i = 0; i < jsonData.length; i++){
+    accValues[i] = Object.values(jsonData[i]);
+  }
+
+  //iterate through array
+  for(let i = 0; i < accValues.length; i++){
+    if (jsonData[i].email == arg) {
+      let fname = document.createElement("a");
+      /*fname.appendChild(document.createTextNode("First Name: "));*/
+        let fnamelabel = document.createElement("a");
+        fnamelabel.appendChild(document.createTextNode("First Name: "));
+        fnamelabel.classList.add("label");
+      fname.appendChild(fnamelabel);
+      fname.appendChild(document.createTextNode(jsonData[i].fname));
+      fname.appendChild(document.createElement("br"));
+
+      //street address
+      let lname = document.createElement("a");
+        let lnamelabel = document.createElement("a");
+        lnamelabel.appendChild(document.createTextNode("Last Name: "));
+        lnamelabel.classList.add("label");
+      lname.appendChild(lnamelabel);
+      lname.appendChild(document.createTextNode(jsonData[i].lname));
+      lname.appendChild(document.createElement("br"));
+
+      //city state
+      let email = document.createElement("a");
+        let emaillabel = document.createElement("a");
+        emaillabel.appendChild(document.createTextNode("Email: "));
+        emaillabel.classList.add("label");
+      email.appendChild(emaillabel);
+      email.appendChild(document.createTextNode(jsonData[i].email));
+      email.appendChild(document.createElement("br"));
+
+      textBox.appendChild(fname);
+      textBox.appendChild(lname);
+      textBox.appendChild(email);
+    }
+  }
 }
 
 function displayAllAccounts(textBox, jsonData){

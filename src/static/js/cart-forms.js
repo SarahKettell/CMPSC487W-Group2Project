@@ -31,7 +31,7 @@ var newOrder = {
 };
 
 var newOrderItem = {
-	order_id: '8f894acb-2311-4560-8f0d-68450df13c4a',
+	order_id: 'test',
 	item_name: 'test',
 	crust: 'thick-crust',
 	size: 'medium',
@@ -55,14 +55,15 @@ function findCustomerCart(orders){
             	console.log(currentOrder.order_id);
             	newOrderItem.order_id = currentOrder.order_id;
             	addOrderItemtoDB(newOrderItem);
+            	
             }
         }
     }
-    let toAdd = {
-    	...newOrder,
-    	...newOrderItem
-    };
-    addOrdertoDB(toAdd);
+   // let toAdd = {
+   // 	...newOrder,
+  //  	...newOrderItem
+  //  };
+   // addOrdertoDB(toAdd);
 }
 
 

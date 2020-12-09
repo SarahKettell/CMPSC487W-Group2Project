@@ -25,16 +25,16 @@ const updateContactInfo = require('./routes/updateContactInfo');
 const getHoursInfo = require('./routes/getHoursInfo');
 const updateHoursInfo = require('./routes/updateHoursInfo');
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 const addOrders = require('./routes/addOrder');
 const addOrderItem = require('./routes/addOrderItem');
-=======
+//=======
 const addAccount = require('./routes/addAccount');
 const getAllAccounts = require('./routes/getAllAccounts');
 const getAccountByEmail = require('./routes/getAccountByEmail');
 const getAccountById = require('./routes/getAccountById');
 const updateCustAccountInfo = require('./routes/updateCustAccountInfo');
->>>>>>> origin/master
+//>>>>>>> origin/master
 
 // Converts into JSON format
 app.use(require('body-parser').json());

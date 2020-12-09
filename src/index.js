@@ -14,6 +14,7 @@ const deleteItem = require('./routes/deleteItem');
 
 const getOrders = require('./routes/getOrders');
 const updateOrder = require('./routes/updateOrder');
+const addOrder = require('./routes/addAdminOrder');
 
 const getAddrInfo = require('./routes/getAddrInfo');
 const updateAddrInfo = require('./routes/updateAddrInfo');
@@ -46,6 +47,7 @@ app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
+app.post('/orders', addOrder.addNewOrder);
 
 // handling restaurant info calls
 app.get('/address', getAddrInfo);

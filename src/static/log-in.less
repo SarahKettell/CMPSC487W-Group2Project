@@ -11,7 +11,7 @@
     padding: 1%;
 
     .inner-wrap{
-        margin-left: 22%;
+        margin-left: 18%;
     }
 
     .bottom-row{
@@ -27,19 +27,30 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                button{
+                button, .btn, .btn input{
                     font-size: 14px;
                     padding: 2%;
-                    /*outline: 1px solid;*/
+                    border: none;
                     background-color: @site-red;
                     color: @white;
                     text-transform: uppercase;
                     font-weight: bold;
                     border-radius: 4px;
+                    a{
+                        color:@white;
+                        font-size: 14px;
+                        text-decoration: none;
+                    }
+                    .sign-in{
+                        margin-right: 20%;
+                    }
                 }
-                button:hover{
+                button:hover, .btn:hover, .btn input:hover{
                     background-color: #a00000;
                     text-decoration: underline;
+                    a:hover{
+                        text-decoration: underline;
+                    }
                 }
             }
         }

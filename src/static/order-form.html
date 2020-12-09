@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Language" content="en-us">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <title>Delivery Order</title>
-    <link rel="stylesheet" href="stylesheet.css">    <!-- meta tags-->
+    <link rel="stylesheet" href="/static/stylesheet.css"> <!-- Figure out what's wrong -->
+    <!-- meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- test change -->
@@ -34,64 +35,44 @@
     <div class="cent">
         <form method="POST" action="submitted.html" name="form">
             <table border="0" cellpadding="0" width="400" id="client-info">
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
                 <p style="text-align: center">Please fill out the necessary order informaiton:</p>
                 <!-- Order's Name -->
                 <tr>
                     <td width="340" align="left"><b><font color="#8B0000">*</font>First Name</b></td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id= "cust-fname" name="First Name" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="First Name" size="30" tabindex="1"></td>
                 </tr>
                 <tr>
                     <td width="340" align="left"><b><font color="#8B0000">*</font> Last Name</b></td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id= "cust-lname" name="Last Name" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="Last Name" size="30" tabindex="1"></td>
                 </tr>
                 <!-- Order's Street Address -->
                 <tr>
                     <td width="340" align="left"><b><font color="#8B0000">*</font> Street Address</b>
                     </td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id= "cust-address" name="Street Address" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="Street Address" size="30" tabindex="1"></td>
                 </tr>
                 <!-- Order's Optional Suite/Apartment -->
                 <tr>
                     <td width="340" align="left"><b>&nbsp;Suite/Apartment</b></td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id= "cust-aprtmt" name="Suite/Apartment" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="Suite/Apartment" size="30" tabindex="1"></td>
                 </tr>
                 <!-- Order's Origin State -->
                 <tr>
                     <td width="340" align="left"><b><font color="#8B0000">*</font> State</b>
                     </td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id ="cust-state" name="State" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="State" size="30" tabindex="1"></td>
                 </tr>
                 <!-- Order's Zip Code -->
                 <tr>
                     <td width="340" align="left"><b><font color="#8B0000">*</font> Zip Code: </b>
                     </td>
                     <td width="10">&nbsp;</td>
-                    <td width="200"><input type="text" id = "cust-zip" name="Zip Code" size="30" tabindex="1"></td>
+                    <td width="200"><input type="text" name="Zip Code" size="30" tabindex="1"></td>
                 </tr>
             </table>
 
@@ -99,23 +80,23 @@
                 <td width="563">
                     <p>Would you like to eat-in, take-out, or schedule a delivery?</p>
                     <label class="radio">
-                        <input type="radio" id = "eatin-select" name="eatin-select">
+                        <input type="radio" name="eatin-select">
                         Eat-In
                     </label>
                     <label class="radio">
-                        <input type="radio" id = "takeout-select" name="takeout-select">
+                        <input type="radio" name="takeout-select">
                         Take-Out
                     </label>
                     <label class="radio">
-                        <input type="radio" id = "delivery-select" name="delivery-select">
+                        <input type="radio" name="delivery-select">
                         Delivery
                     </label>
 
                     <p style="text-align: center">Please tell us when you would like schedule your delivery:</p>
 
-                    <label for="order-date">Date:</label>
-                    <input type="date" id="order-date" name="order-date">
-                    <select id = "order-time">
+                    <label for="orderDate">Date:</label>
+                    <input type="date" id="orderDate" name="orderDate">
+                    <select>
                         <option value="ASAP">ASAP</option>
                         <option value="8-9am">8-9am</option>
                         <option value="9-10am">9-10am</option>
@@ -131,69 +112,12 @@
                         <option value="7-8pm">7-8pm</option>
                         <option value="8-9pm">8-9pm</option>
                     </select>
-                    <a href="order-confirmation-message.html" class="submit-button"> Submit </a>
+                    <input type="submit">
                 </td>
             </tr>
         </form>
     </div>
 </div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
 <div id="footer"></div>
-
-
-<script type="text/javascript">
-    function orderFormContents(){
-        var cust_fname = (document.getElementById('cust-fname')).value;
-        var cust_lname = (document.getElementById('cust-lname')).value;
-        var cust_address = (document.getElementById('cust-address')).value;
-        var cust_aprtmt = (document.getElementById('cust-aprtmt')).value;
-        var cust_state = (document.getElementById('cust-state')).value;
-        var cust_zip = (document.getElementById('cust-zip')).value;
-        var cust_eatin = (document.getElementById('eatin-select')).value;
-        var cust_takeout = (document.getElementById('takeout-select')).value;
-        var cust_delivery = (document.getElementById('delivery-select')).value;
-        var order_date = (document.getElementById('order-date')).value;
-        var order_time = (document.getElementById('order-time')).value;
-
-        const newOrderInfo = {
-            id: 1,
-            cust_fname: cust_fname,
-            cust_lname: cust_lname,
-            cust_address: cust_address,
-            cust_aprtmt: cust_aprtmt,
-            cust_state: cust_state,
-            cust_zip: cust_zip,
-            cust_eatin: cust_eatin,
-            cust_takeout: cust_takeout,
-            cust_delivery: cust_delivery,
-            order_date: order_date,
-            order_time: order_time,
-        };
-
-        // save new item
-        updateOrdertoDB(newOrderInfo);
-
-        window.location.href("order-form.html");
-    }
-</script>
 </body>
 </html>

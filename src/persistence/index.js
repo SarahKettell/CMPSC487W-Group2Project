@@ -20,11 +20,19 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
                         order_id varchar(36),
                         customer_id varchar(36),
+                        first_name varchar(50) not null,
+                        last_name varchar(50) not null,
+                        email varchar(50),
+                        address1 varchar(50),
+                        address2 varchar(50),
+                        addr_city varchar(50),
+                        addr_state varchar(50),
+                        addr_zip varchar(50),
                         date_time_created datetime not null,
                         date_time_checked_out datetime,
                         date_time_scheduled datetime,
                         date_time_completed datetime,
-                        type varchar(36),
+                        order_type varchar(36),
                         notes varchar(500),
                         payment_type varchar(36),
                         sub_total_price decimal(10,2) not null,
@@ -100,6 +108,7 @@ const CREATE_HOURS_INFO = `CREATE TABLE IF NOT EXISTS hours_info(
                                 sun_beg varchar(10),
                                 sun_end varchar(10)
                             )`;
+
 
 // DB connection constants, do not change
 const {
@@ -546,24 +555,24 @@ async function orderForm(order) {
     }
 }
 
-//async function viewConfirmationMessage() {
-//    return new Promise();
-//    {
-//        pool.query(
-//            'update create_orders set {} '
-//        )
-//    }
+async function viewConfirmationMessage() {
+    return new Promise();
+    {
+        pool.query(
+            'update create_orders set {} '
+        )
+    }
 
-//}
+}
 
-//async function linkSurvey() {
-//    return new Promise();
-//    {
-//        pool.query(
-//            '//Statement'
-//        )
-//    }
-//}
+async function linkSurvey() {
+    return new Promise();
+    {
+        pool.query(
+            '//Statement'
+        )
+    }
+}
 //End of Emily's Functions
 
 

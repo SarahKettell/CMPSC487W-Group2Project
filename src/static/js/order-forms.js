@@ -517,7 +517,7 @@ function addAdminOrderToDB(orderInfo, orderItems, customerInfo){
 
 const saveAdminOrder = async (orderInfo, orderItems) => {
     const combinedOrder = {order: orderInfo, items: orderItems};
-    const response = await fetch('http://localhost:3000/orders', {
+    const response = await fetch('http://localhost:3000/orders/admin', {
         method: 'POST',
         body: JSON.stringify(combinedOrder), // string or object
         headers: {

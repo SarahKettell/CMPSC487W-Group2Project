@@ -691,11 +691,9 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
-//<<<<<<< HEAD
     addNewOrder,
     addNewOrderItem,
     updateOrderItemToppings,
-//=======
     getAllAccounts,
     getAccountById,
     getAccountByEmail,
@@ -704,5 +702,4 @@ module.exports = {
     addNewAdminOrderItem,
     addNewAdminOrder,
     updateCustAccountInfo
-//>>>>>>> origin/master
 };

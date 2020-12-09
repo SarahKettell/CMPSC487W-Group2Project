@@ -55,15 +55,15 @@ function findCustomerCart(orders){
             	console.log(currentOrder.order_id);
             	newOrderItem.order_id = currentOrder.order_id;
             	addOrderItemtoDB(newOrderItem);
-            	
+            	return;
             }
         }
     }
-   // let toAdd = {
-   // 	...newOrder,
-  //  	...newOrderItem
-  //  };
-   // addOrdertoDB(toAdd);
+    let toAdd = {
+    	...newOrder,
+    	...newOrderItem
+    };
+    addOrdertoDB(toAdd);
 }
 
 

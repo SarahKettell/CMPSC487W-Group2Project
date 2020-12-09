@@ -367,3 +367,11 @@ button {
 #add-item-location .item-row-title {
   padding: 0 0 15px 10px;
 }
+
+.admin-order-view-id{
+  font-size: 1.2em!important;
+}
+
+.button-float-right{
+  float:right;
+}

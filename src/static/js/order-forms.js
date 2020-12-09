@@ -176,9 +176,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     let date = new Date();
     let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-    let day = date.getDate() < 9 ? "0" + (date.getDate()+1) : date.getDate()+1;
-    let hour = date.getHours() < 9 ? "0" + (date.getHours()+1) : date.getHours()+1;
-    let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()+1) : date.getMinutes()+1;
+    let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
+    let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
+    let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
     console.log(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate());
     newFormCheckOption = document.createElement("div");
     newFormCheckOption.classList.add("row");
@@ -524,6 +524,16 @@ const saveAdminOrder = async (orderInfo, orderItems) => {
             'Content-Type': 'application/json'
         }
     });
+
+    await document.getElementById("admin-new-order-form").reset();
+    if(orderInfo.payment_type === "cash"){
+        alert("Your order has been saved.");
+        window.location.replace("admin-orders.html");
+    }
+    else {
+        alert("Your order has been saved. To accept payment, click here.");
+        window.location.replace("admin-orders.html");
+    }
 }
 
 

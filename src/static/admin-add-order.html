@@ -464,9 +464,9 @@
             // get current date info for created time
             let date = new Date();
             let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-            let day = date.getDate() < 9 ? "0" + (date.getDate()+1) : date.getDate()+1;
-            let hour = date.getHours() < 9 ? "0" + (date.getHours()+1) : date.getHours()+1;
-            let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()+1) : date.getMinutes()+1;
+            let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
+            let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
+            let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
 
             let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
             let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
@@ -484,7 +484,7 @@
                 state: customerInfo.namedItem('customer_state').value,
                 zip: customerInfo.namedItem('customer_zip').value,
                 date_time_created: order_cdatetime,
-                date_time_checked_out: null,
+                date_time_checked_out: order_cdatetime,
                 date_time_scheduled: order_sdate + " " + order_stime + ":00",
                 order_type: order_type,
                 notes: orderInfo.namedItem('order_notes').value,
@@ -493,7 +493,7 @@
                 tax_price: parseFloat(document.getElementById('order-tax').getAttribute('data-price')),
                 tip_price: parseFloat(document.getElementById('order-tip').getAttribute('data-price')),
                 total_price: parseFloat(document.getElementById('order-total').getAttribute('data-price')),
-                checked_out: false,
+                checked_out: true,
                 completed: false,
             }
 
@@ -539,82 +539,6 @@
                 orderItems.push({orderItem: newItem, toppings: toppingIdList});
             }
             addAdminOrderToDB(newOrder, orderItems);
-        }
-
-
-        function processFormContentsOld(){
-            // get the form fields and store them in an array
-            const formData = document.getElementById('admin-new-order-form').getElementsByTagName("itemName");
-
-
-            var name = document.getElementById('itemName');
-            var crust = document.getElementById('itemCrust');
-            var sauce = document.getElementById('itemSauce');
-            var cheese = document.getElementById('itemCheese');
-            var toppings = document.getElementById('itemToppings');
-            var smallPrice = document.getElementById('smallPrice');
-            var mediumPrice = document.getElementById('mediumPrice');
-            var largePrice = document.getElementById('largePrice');
-            var extraLargePrice = document.getElementById('extraLargePrice');
-            var description = document.getElementById('itemDesc');
-
-            var nameInfo = name.value;
-            var crustInfo = crust.value;
-            var sauceInfo = sauce.value;
-            var cheeseInfo = cheese.value;
-            var toppingsInfo = toppings.value;
-            var smallPriceInfo = smallPrice.value;
-            var mediumPriceInfo = mediumPrice.value;
-            var largePriceInfo = largePrice.value;
-            var extraLargePriceInfo = extraLargePrice.value;
-            var descriptionInfo = description.value;
-
-            const newMenuItem = {
-                item_id: 0,
-                pizza_name: nameInfo,
-                crust: crustInfo,
-                sauce: sauceInfo,
-                cheese: cheeseInfo,
-                toppings: toppingsInfo,
-                sm_price: smallPriceInfo,
-                med_price: mediumPriceInfo,
-                lg_price: largePriceInfo,
-                xlg_price: extraLargePriceInfo,
-                description: descriptionInfo
-            };
-
-            // save new item
-            addMenuItemtoDB(newMenuItem);
-
-            // Clear form after submitted
-            name.value = "";
-            crust.value = "";
-            sauce.value = "";
-            cheese.value = "";
-            toppings.value = "";
-            smallPrice.value = "";
-            mediumPrice.value = "";
-            largePrice.value = "";
-            extraLargePrice.value = "";
-            description.value = "";
-
-            // create confirmation message
-            if(!document.getElementById('confirmation-message')){
-                var formDiv = document.getElementById('form-add-menu-item');
-                formDiv.id = "confirmation-message";
-                const message = document.createElement('h4');
-                message.classList.add('submit-confirmation');
-                message.appendChild(document.createTextNode("Item added successfully!"));
-                let backLink = document.createElement('a');
-                backLink.classList.add('submit-confirmation');
-                let backLinkText = document.createTextNode("Back to Menu >>");
-                backLink.title = "Go back to menu";
-                backLink.href = "admin-menu.html";
-                backLink.appendChild(backLinkText);
-                formDiv.appendChild(message);
-                formDiv.appendChild(backLink);
-            }
-
         }
     </script>
 </body>

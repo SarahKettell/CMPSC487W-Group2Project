@@ -17,7 +17,9 @@
 .account-body .wrap .current-orders,
 .account-body .wrap .menu-items,
 .account-body .wrap .business-information,
-.account-body .wrap .reports {
+.account-body .wrap .account-information,
+.account-body .wrap .reports,
+.account-body .wrap .general {
   padding: 2% 5% 5% 5%;
   outline: 1px solid;
   margin-top: 1rem;
@@ -36,6 +38,14 @@
 .account-body .descr a {
   color: #000;
   font-size: 18px;
+}
+.account-body .descr a .label {
+  color: #D50000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.account-body .descr a .label:hover {
+  text-decoration: none;
 }
 .account-body .descr .link {
   font-style: italic;

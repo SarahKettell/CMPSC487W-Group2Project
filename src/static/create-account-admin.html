@@ -19,7 +19,7 @@
     <!-- link header.html and footer.html -->
     <script>
         $.ajax({
-            url: 'header-sign-in.html',
+            url: 'header.html',
             dataType: 'html',
             success: function(html) { $('#header').html(html); }
         });
@@ -47,7 +47,9 @@
     <form>
         <div class="main-wrap-create-account">
             <div class="inner-wrap">
-                <h2>Create Account</h2>
+                <h2>Create Admin Account</h2>
+                <p>Please fill in the following fields to register an additional admin account. 
+                    Note that admins will be able to create orders and change restaurant information. </p>
                 <table>
                     <tr>
                         <th>
@@ -101,11 +103,10 @@
             <div class="bottom-row">
                 <div class="column">
                     <div class="label">
-                        <a>Already have an Account?</a>
                     </div>
                     <div class ="two-buttons">
-                        <button><a href="log-in.html">Sign In</a></button>
-                        <button type="submit" onclick="processFormContents()"><a href="account-confirmation-cust.html">Create Account</a></button>
+                        <button type="submit" onclick="processFormContents()" class="admin-add" style="
+                        margin-left: 35%;"><a href="account-confirmation.html">Create Account</a></button>
                     </div>
                 </div>
             </div>
@@ -128,7 +129,7 @@
                     lname: lname,
                     email: email,
                     password: password,
-                    acct_type: 'customer',
+                    acct_type: 'admin',
                 };
             //}   
 

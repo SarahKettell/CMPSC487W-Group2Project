@@ -109,6 +109,15 @@ const CREATE_HOURS_INFO = `CREATE TABLE IF NOT EXISTS hours_info(
                                 sun_end varchar(10)
                             )`;
 
+const CREATE_ACCOUNT_INFO = `CREATE TABLE IF NOT EXISTS account_info(
+                                id varchar(50),
+                                fname varchar(50),
+                                lname varchar(50),
+                                email varchar(100),
+                                password varchar(50),
+                                acct_type varchar(10)
+                            )`;
+
 // DB connection constants, do not change
 const {
     MYSQL_HOST: HOST,
@@ -179,6 +188,9 @@ async function init() {
     })
     .then(() => {
         pool.query(CREATE_HOURS_INFO);
+    })
+    .then(() => {
+        pool.query(CREATE_ACCOUNT_INFO);
     });
     
     return promise;
@@ -250,6 +262,53 @@ async function getMenuItemToppings(id) {
             acc(
                 rows.map(item =>
                     Object.assign({}, item),
+                ),
+            );
+        });
+    });
+}
+
+async function getAllAccounts(){
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM account_info', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+async function getAccountById(id){
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * from account_info WHERE id=?',
+         [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
+async function getAccountByEmail(email){
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * from account_info WHERE email=?',
+         [email], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(item =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
                 ),
             );
         });
@@ -374,6 +433,20 @@ async function storeNewItem(item) {
     });
 }
 
+// Add a NEW account to the account_info table
+async function storeNewAccount(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO account_info (id, fname, lname, email, password, acct_type) VALUES (?, ?, ?, ?, ?, ?)',
+            [item.id, item.fname, item.lname, item.email, item.password, item.acct_type],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 
 // Update a specific item in the DB
 // TODO: Needs to be changed to match our DB
@@ -478,6 +551,22 @@ async function updateOrderItemToppings(item) {
     });
 }
 
+// Update cust account_info in the DB (SURI)
+async function updateCustAccountInfo(arg) {
+    console.log(arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE account_info SET fname=?, lname=?, email=? WHERE email=?',
+            [arg.fname, arg.lname, arg.email, 'customer@email.com'],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -537,6 +626,57 @@ async function removeItem(id) {
     });
 }
 
+async function addNewOrder(item){
+    return new Promise((acc, rej) => {
+        pool.query('INSERT INTO orders(order_id, customer_id, first_name, last_name, email, address1, address2, addr_city, addr_state, addr_zip, date_time_created, date_time_checked_out, date_time_scheduled, date_time_completed, order_type, notes, payment_type, sub_total_price, tax_price, tip_price, total_price, checked_out, completed) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [item.order_id, item.customer_id, item.first_name, item.last_name, item.email, item.address1, item.address2, item.addr_city, item.addr_state, item.addr_zip, item.date_time_created, item.date_time_checked_out, item.date_time_scheduled, item.date_time_completed, item.order_type, item.notes, item.payment_type, item.sub_total_price, item.tax_price, item.tip_price, item.total_price, item.checked_out, item.completed],
+             err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+async function addNewOrderItem(item){
+    return new Promise((acc, rej) =>{
+        pool.query('INSERT INTO order_items(order_item_id, order_id, item_name, crust, size, price, notes) VALUES(?, ?, ?, ?, ?, ?, ?)',
+        [item.order_item_id, item.order_id, item.item_name, item.crust, item.size, item.price, item.item_notes],
+        err => {
+            if (err) return rej(err);
+            acc();
+            },
+        );
+    });
+}
+
+async function updateOrderItemToppings(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO order_item_toppings(order_item_id, topping_id) VALUES(?,?)',
+            [item.order_item_id, item.topping_id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+async function removeOrderItem(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM order_items WHERE order_item_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+
+    }).then(()=> {
+        pool.query(
+            'DELETE FROM order_item_toppings WHERE order_item_id = ?', [id]
+            );
+    });
+}
+
 
 // Defines the export functions above
 // Need to change this if you create more
@@ -563,7 +703,16 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
+    addNewOrder,
+    addNewOrderItem,
+    updateOrderItemToppings,
+    getAllAccounts,
+    getAccountById,
+    getAccountByEmail,
+    storeNewAccount,
     updateOrderItemToppings,
     addNewAdminOrderItem,
-    addNewAdminOrder
-}
+    addNewAdminOrder,
+    updateCustAccountInfo,
+    removeOrderItem
+};

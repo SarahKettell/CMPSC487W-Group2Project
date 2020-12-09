@@ -25,6 +25,10 @@ const updateContactInfo = require('./routes/updateContactInfo');
 const getHoursInfo = require('./routes/getHoursInfo');
 const updateHoursInfo = require('./routes/updateHoursInfo');
 
+const addOrders = require('./routes/addOrder');
+const addOrderItem = require('./routes/addOrderItem');
+const deleteOrderItem = require('./routes/deleteOrderItem')
+
 const addAccount = require('./routes/addAccount');
 const getAllAccounts = require('./routes/getAllAccounts');
 const getAccountByEmail = require('./routes/getAccountByEmail');
@@ -48,7 +52,11 @@ app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
-app.post('/orders', addOrder.addNewOrder);
+app.post('/orders/admin', addOrder.addNewOrder);
+
+app.post('/orders', addOrders);
+app.post('/orderItems', addOrderItem);
+app.delete('/orderItems/:id', deleteOrderItem)
 
 // handling restaurant info calls
 app.get('/address', getAddrInfo);

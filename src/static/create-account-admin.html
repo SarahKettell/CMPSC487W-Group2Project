@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Log In</title>
+    <title>Create Admin</title>
     <link rel="stylesheet" href="my-account.css">
     <link rel="stylesheet" href="log-in.css">
     <script src="js/account.js"></script>
@@ -105,8 +105,8 @@
                     <div class="label">
                     </div>
                     <div class ="two-buttons">
-                        <button type="submit" onclick="processFormContents()" class="admin-add" style="
-                        margin-left: 35%;"><a href="account-confirmation.html">Create Account</a></button>
+                        <button type="button" onclick="processFormContents()" class="admin-add" style="
+                        margin-left: 35%;"><a href="account-confirmation-admin.html">Create Account</a></button>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
             // save new item
             addAccounttoDB(newAccountInfo);
 
-            window.location.href("admin-business.html");
+            document.location.href("account-confirmation-admin.html");
 
         }
     </script>

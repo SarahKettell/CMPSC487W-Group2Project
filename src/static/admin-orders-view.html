@@ -133,7 +133,7 @@
             let order_stime = scheduleInfo.namedItem("scheduled_time").value;
 
             let newOrder = {
-                order_id: 0,
+                order_id: orderDetails.order_id,
                 customer_id: customerInfo.namedItem('customer_id').value,
                 first_name: customerInfo.namedItem('customer_fname').value,
                 last_name: customerInfo.namedItem('customer_lname').value,
@@ -181,7 +181,7 @@
                 }
                 let newItem = {
                     order_item_id: 0,
-                    order_id: 0,
+                    order_id: orderDetails.order_id,
                     item_name: orderItemDivs[i].getElementsByClassName("item-row-title")[0].getAttribute("data-name"),
                     crust: chosenCrust,
                     size: chosenSize,
@@ -198,7 +198,7 @@
                 }
                 orderItems.push({orderItem: newItem, toppings: toppingIdList});
             }
-            addAdminOrderToDB(newOrder, orderItems);
+            updateAdminOrder(newOrder, orderItems);
         }
 
         function setupMenuItemSelect(menuInfo, toppings, menuItemCount){

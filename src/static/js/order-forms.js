@@ -1381,4 +1381,25 @@ const saveAdminOrder = async (orderInfo, orderItems) => {
     }
 }
 
+const updateAdminOrder = async (orderInfo, orderItems) => {
+    const combinedOrder = {order: orderInfo, items: orderItems};
+    const response = await fetch('http://localhost:3000/orders/admin/' + orderInfo.order_id, {
+        method: 'PUT',
+        body: JSON.stringify(combinedOrder), // string or object
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    await document.getElementById("admin-new-order-form").reset();
+    if(orderInfo.payment_type === "cash"){
+        alert("Your order has been updated.");
+        window.location.replace("admin-orders.html");
+    }
+    else {
+        alert("Your order has been updated. To accept payment, click here.");
+        window.location.replace("admin-orders.html");
+    }
+}
+
 

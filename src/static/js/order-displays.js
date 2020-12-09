@@ -820,7 +820,7 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
 }
 
 async function markOrderComplete(orderId) {
-    await fetch('http://localhost:3000/orders/' + orderId, {
+    await fetch('http://localhost:3000/orders/admin/' + orderId, {
         method: 'PUT',
         body: '',
         headers: {

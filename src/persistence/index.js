@@ -497,6 +497,24 @@ async function updateMenuItemToppings(item) {
     });
 }
 
+async function deleteAdminOrder(orderId){
+    return new Promise((acc, rej) => {
+        pool.query(
+            'DELETE FROM orders WHERE order_id = ?',
+            [orderId],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    }).then(() => {
+        pool.query(
+            'DELETE FROM order_items WHERE order_id =?',
+            [orderId]
+        );
+    });
+}
+
 async function updateOrderAsComplete(orderId, completedTime){
     return new Promise((acc, rej) => {
         pool.query(
@@ -659,5 +677,6 @@ module.exports = {
     updateOrderItemToppings,
     addNewAdminOrderItem,
     addNewAdminOrder,
-    updateCustAccountInfo
+    updateCustAccountInfo,
+    deleteAdminOrder
 };

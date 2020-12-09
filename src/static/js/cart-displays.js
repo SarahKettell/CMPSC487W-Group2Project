@@ -233,8 +233,3 @@ function displayCustomerCart(textBox, orders, orderItems, orderItemIDs, toppings
     }
 
 }
-
-
-
-
-

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Language" content="en-us">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <title>Customer Survey</title>
-    <link rel="stylesheet" href="static/stylesheet.css"> <!-- Figure out what's wrong -->
+    <link rel="stylesheet" href="stylesheet.css"> <!-- Figure out what's wrong -->
     <!-- meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,46 +38,46 @@
 
     <div class="control" align="center">
         <p>Are you satisfied with your order with Pizzatopia?</p>
-        <label class="radio">
-            <input type="radio" name="yes-select">
+        <label class="radio" id= "satisfied-select">
+            <input type="radio" id= "y-select" name="yes-select">
             Yes
         </label>
         <label class="radio">
-            <input type="radio" name="no-select">
+            <input type="radio" id= "n-select" name="no-select">
             No
         </label>
 
         <p>Will you be ordering again from us?</p>
-        <label class="radio">
-            <input type="radio" name="yes-select">
+        <label class="radio" id= "again-select">
+            <input type="radio" id= "yes-select" name="yes-select">
             Yes
         </label>
         <label class="radio">
-            <input type="radio" name="no-select">
+            <input type="radio" id= "no-select" name="no-select">
             No
         </label>
 
         <p>How many stars would you give, ranked 1-5, on Pizzatopia's performance?</p>
-        <label class="radio">
-            <input type="radio" name="1-select">
+        <label class="radio" id= "star-select">
+            <input type="radio" id= "one-select" name="1-select">
             1
         </label>
         <label class="radio">
-            <input type="radio" name="2-select">
+            <input type="radio" id= "two-select" name="2-select">
             2
         </label>
         <label class="radio">
-            <input type="radio" name="3-select">
+            <input type="radio" id= "three-select" name="3-select">
             3
         </label>
 
         <label class="radio">
-            <input type="radio" name="4-select">
+            <input type="radio" id= "four-select" name="4-select">
             4
         </label>
 
         <label class="radio">
-            <input type="radio" name="5-select">
+            <input type="radio" id= "five-select" name="5-select">
             5
         </label>
 
@@ -93,13 +93,45 @@
     </tr>
 
     <div align="center">
-        <button class="submit-button" type="button">
-            <a>Submit</a>
-        </button>
-    </div>
+        <a href="order-confirmation-message.html" class="submit-button"> Submit </a>
     <div>&nbsp;</div>
-
 </form>
 <div id="footer"></div>
+<script type="text/javascript">
+    function surveyFormContents() {
+        var satisfied_select = (document.getElementById('satisfied-select')).value;
+        var y_select = (document.getElementById('y-select')).value;
+        var n_select = (document.getElementById('n-select')).value;
+        var again_select = (document.getElementById('again-select')).value;
+        var yes_select = (document.getElementById('yes-select')).value;
+        var no_select = (document.getElementById('no-select')).value;
+        var star_select = (document.getElementById('star-select')).value;
+        var one_select = (document.getElementById('one-select')).value;
+        var two_select = (document.getElementById('two-select')).value;
+        var three_select = (document.getElementById('three-select')).value;
+        var four_select = (document.getElementById('four-select')).value;
+        var five_select = (document.getElementById('five-select')).value;
+
+        const newOrderInfo = {
+            id: 1,
+            satisfied_select: satisfied_select,
+            y_select: y_select,
+            n_select: n_select,
+            again_select: again_select,
+            yes_select: yes_select,
+            no_select: no_select,
+            star_select: star_select,
+            one_select: one_select,
+            two_select: two_select,
+            three_select: three_select,
+            four_select: four_select,
+        };
+
+        // save new item
+        updateSurveytoDB(newOrderInfo);
+
+        window.location.href("customer-survey.html");
+    }
+</script>
 </body>
 </html>

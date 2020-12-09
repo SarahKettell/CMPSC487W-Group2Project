@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Language" content="en-us">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <title>Delivery Order</title>
-    <link rel="stylesheet" href="/static/stylesheet.css"> <!-- Figure out what's wrong -->
+    <link rel="stylesheet" href="stylesheet.css"> <!-- Figure out what's wrong -->
     <!-- meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,27 @@
     <div class="cent">
         <form method="POST" action="submitted.html" name="form">
             <table border="0" cellpadding="0" width="400" id="client-info">
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
                 <p style="text-align: center">Please fill out the necessary order informaiton:</p>
                 <!-- Order's Name -->
                 <tr>
@@ -112,12 +133,68 @@
                         <option value="7-8pm">7-8pm</option>
                         <option value="8-9pm">8-9pm</option>
                     </select>
-                    <input type="submit">
+                    <a href="order-confirmation-message.html" class="submit-button"> Submit </a>
                 </td>
             </tr>
         </form>
     </div>
 </div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 <div id="footer"></div>
+<script type="text/javascript">
+    function orderFormContents() {
+        var cust_fname = (document.getElementById('cust-fname')).value;
+        var cust_lname = (document.getElementById('cust-lname')).value;
+        var cust_address = (document.getElementById('cust-address')).value;
+        var cust_aprtmt = (document.getElementById('cust-aprtmt')).value;
+        var cust_state = (document.getElementById('cust-state')).value;
+        var cust_zip = (document.getElementById('cust-zip')).value;
+        var cust_eatin = (document.getElementById('eatin-select')).value;
+        var cust_takeout = (document.getElementById('takeout-select')).value;
+        var cust_delivery = (document.getElementById('delivery-select')).value;
+        var order_date = (document.getElementById('order-date')).value;
+        var order_time = (document.getElementById('order-time')).value;
+
+        const newOrderInfo = {
+            id: 1,
+            cust_fname: cust_fname,
+            cust_lname: cust_lname,
+            cust_address: cust_address,
+            cust_aprtmt: cust_aprtmt,
+            cust_state: cust_state,
+            cust_zip: cust_zip,
+            cust_eatin: cust_eatin,
+            cust_takeout: cust_takeout,
+            cust_delivery: cust_delivery,
+            order_date: order_date,
+            order_time: order_time,
+        };
+
+        // save new item
+        updateOrdertoDB(newOrderInfo);
+
+        window.location.href("order-form.html");
+    }
+</script>
 </body>
 </html>

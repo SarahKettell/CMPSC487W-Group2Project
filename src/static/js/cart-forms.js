@@ -21,13 +21,6 @@ var newOrder = {
         total_price: 12.00,
         checked_out: false,
         completed: false,
-        //item_name: 'Meat Lovers',
-        //crust: 'thick-crust',
-        //size: 'medium',
-        //price: 10.00,
-        //item_notes: 'this is a test',
-
-        //toppings: [7, 8, 9, 16, 12]
 };
 
 var newOrderItem = {
@@ -76,7 +69,7 @@ function testingAdd(){
     };
     console.log(toAdd);
 }
-function getshitTest(item_name, crust, size, price, toppings) {
+function getMenuInfo(item_name, crust, size, price, toppings) {
 	console.log(item_name);
 	newOrderItem.item_name = item_name;
 	console.log(crust);

@@ -369,7 +369,7 @@ function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
         addPizzaButton.classList.add("btn-primary");
         addPizzaButton.setAttribute("type", "button");
         addPizzaButton.setAttribute("id", "add-to-cart-button");
-        addPizzaButton.addEventListener("click", () => {getshitTest(menuItems[i].item_name, menuItems[i].crust, sizecheck(smallOption, mediumOption, largeOption, xlargeOption), priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2)), currToppings)}, false);
+        addPizzaButton.addEventListener("click", () => {getMenuInfo(menuItems[i].item_name, menuItems[i].crust, sizecheck(smallOption, mediumOption, largeOption, xlargeOption), priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2)), currToppings)}, false);
         addPizzaButton.innerHTML = "Add to Cart";
         buttonRow.appendChild(addPizzaButton);
 
@@ -378,8 +378,6 @@ function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
         textBox.appendChild(newItem);
     }
 }
-//getshitTest(menuItems[i].item_name, menuItems[i].crust, sizecheck(smallOption, mediumOption, largeOption, xlargeOption), priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2)), currToppings)
-//priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2))
 function sizecheck(small, med, lrg, xlrg){
     if(small.checked) {
         //console.log('small');

@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Menu</title>
+    <title>Congratulations</title>
     <link rel="stylesheet" href="my-account.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="confirmation.css">
+
 
     <!--jQuery-->
     <script
@@ -15,7 +16,6 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
     <!-- link header.html and footer.html -->
-
     <script>
         $.ajax({
             url: 'header.html',
@@ -30,24 +30,32 @@
     </script>
     <script src="js/main.js"></script>
 </head>
-<body style="width:100%">
+<body>
     <!-- call header and footer -->
     <div id="header"></div>
 
-     <!-- Hero module -->
-     <img class="bimg" style="width:inherit;" src="/design/images/my-account-banner.png">
+    <!-- Hero module -->
+    <div class=banner>
+        <div class="banner-img">
+            <img class="bimg" src="/design/images/confirmation.png">
             </img>
-    
-    <div class="container">
-            <div id="menu-contents"></div>
+        </div>
     </div>
-    
-    <div id="footer"></div>
-    <script src="js/menu-forms.js"></script>
-    <script src="js/menu-displays.js"></script>
-    <script src="js/cart-forms.js"></script>
-    <!-- data from DB is fetched when page is loaded -->
-    <body onload="getCustomerMenu('menu-contents')">
-</body>
 
+    <div class="icon">
+        <svg width="60" height="60" class="left">
+            <image href="/design/celebration.svg" height="60" width="60"/>
+        </svg>
+        <svg width="60" height="60" class="right">
+            <image href="/design/celebration2.svg" height="60" width="60"/>
+        </svg>
+    </div>
+    <div class="wrap">
+        <h2>Congratulations!</h2>
+        <p>Your account has been created!</p>
+        <button onclick="location.href='log-in.html'">Log In!</button>
+    </div>
+
+    <div id="footer"></div>
+</body>
 </html>

@@ -189,6 +189,18 @@ function displayCustomerCart(textBox, orders, orderItems, orderItemIDs, toppings
                 newRow.appendChild(orderItem);
                 itemRow.appendChild(newRow);
 
+                newRow = document.createElement("div");
+                newRow.classList.add("row");
+                let trashItem = document.createElement("button");
+                trashItem.classList.add("btn");
+                trashItem.classList.add("btn-primary");
+                trashItem.setAttribute("type", "button");
+                trashItem.setAttribute("id", "deleteButton");
+                trashItem.addEventListener("click", () => {deleteItemData(item.orderItem.order_item_id)}, false);
+                trashItem.innerHTML = "Delete";
+                newRow.appendChild(trashItem);
+                itemRow.appendChild(newRow);
+
                 newOrderDiv.appendChild(itemRow);
                 itemCount++;
                 });
@@ -233,8 +245,13 @@ function displayCustomerCart(textBox, orders, orderItems, orderItemIDs, toppings
     }
 
 }
-
-
-
-
-
+async function deleteItemData(idDel) {
+    await fetch('http://localhost:3000/orderItems/' + idDel, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    location.reload();
+    window.alert("Item has been successfully deleted!")
+}

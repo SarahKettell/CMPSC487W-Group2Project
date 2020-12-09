@@ -14,7 +14,7 @@
 }
 .main-wrap .inner-wrap,
 .main-wrap-create-account .inner-wrap {
-  margin-left: 22%;
+  margin-left: 18%;
 }
 .main-wrap .bottom-row,
 .main-wrap-create-account .bottom-row {
@@ -37,19 +37,53 @@
   justify-content: space-between;
 }
 .main-wrap .bottom-row .column .two-buttons button,
-.main-wrap-create-account .bottom-row .column .two-buttons button {
+.main-wrap-create-account .bottom-row .column .two-buttons button,
+.main-wrap .bottom-row .column .two-buttons .btn,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn,
+.main-wrap .bottom-row .column .two-buttons .btn input,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn input {
   font-size: 14px;
   padding: 2%;
-  /*outline: 1px solid;*/
+  border: none;
   background-color: #D50000;
   color: #fff;
   text-transform: uppercase;
   font-weight: bold;
   border-radius: 4px;
 }
+.main-wrap .bottom-row .column .two-buttons button a,
+.main-wrap-create-account .bottom-row .column .two-buttons button a,
+.main-wrap .bottom-row .column .two-buttons .btn a,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn a,
+.main-wrap .bottom-row .column .two-buttons .btn input a,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn input a {
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+}
+.main-wrap .bottom-row .column .two-buttons button .sign-in,
+.main-wrap-create-account .bottom-row .column .two-buttons button .sign-in,
+.main-wrap .bottom-row .column .two-buttons .btn .sign-in,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn .sign-in,
+.main-wrap .bottom-row .column .two-buttons .btn input .sign-in,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn input .sign-in {
+  margin-right: 20%;
+}
 .main-wrap .bottom-row .column .two-buttons button:hover,
-.main-wrap-create-account .bottom-row .column .two-buttons button:hover {
+.main-wrap-create-account .bottom-row .column .two-buttons button:hover,
+.main-wrap .bottom-row .column .two-buttons .btn:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn:hover,
+.main-wrap .bottom-row .column .two-buttons .btn input:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn input:hover {
   background-color: #a00000;
+  text-decoration: underline;
+}
+.main-wrap .bottom-row .column .two-buttons button:hover a:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons button:hover a:hover,
+.main-wrap .bottom-row .column .two-buttons .btn:hover a:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn:hover a:hover,
+.main-wrap .bottom-row .column .two-buttons .btn input:hover a:hover,
+.main-wrap-create-account .bottom-row .column .two-buttons .btn input:hover a:hover {
   text-decoration: underline;
 }
 .main-wrap-create-account {

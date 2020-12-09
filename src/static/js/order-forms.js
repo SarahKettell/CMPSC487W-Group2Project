@@ -176,9 +176,9 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     let date = new Date();
     let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-    let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
-    let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
-    let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
+    let day = date.getDate() <= 9 ? "0" + (date.getDate()) : date.getDate();
+    let hour = date.getHours() <= 9 ? "0" + (date.getHours()) : date.getHours();
+    let minutes = date.getMinutes() <= 9 ? "0" + (date.getMinutes()) : date.getMinutes();
     console.log(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate());
     newFormCheckOption = document.createElement("div");
     newFormCheckOption.classList.add("row");

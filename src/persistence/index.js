@@ -20,11 +20,19 @@ const CREATE_MENU_ITEMS = `CREATE TABLE IF NOT EXISTS menu_items(
 const CREATE_ORDERS = `CREATE TABLE IF NOT EXISTS orders(
                         order_id varchar(36),
                         customer_id varchar(36),
+                        first_name varchar(50) not null,
+                        last_name varchar(50) not null,
+                        email varchar(50),
+                        address1 varchar(50),
+                        address2 varchar(50),
+                        addr_city varchar(50),
+                        addr_state varchar(50),
+                        addr_zip varchar(50),
                         date_time_created datetime not null,
                         date_time_checked_out datetime,
                         date_time_scheduled datetime,
                         date_time_completed datetime,
-                        type varchar(36),
+                        order_type varchar(36),
                         notes varchar(500),
                         payment_type varchar(36),
                         sub_total_price decimal(10,2) not null,
@@ -429,6 +437,47 @@ async function updateOrderAsComplete(orderId, completedTime){
     });
 }
 
+// Add a NEW item to the menu_items table
+async function addNewAdminOrder(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO orders (order_id, customer_id, first_name, last_name, email, address1, address2, addr_city, addr_state, addr_zip, date_time_created, date_time_checked_out, date_time_scheduled, date_time_completed, order_type, notes, payment_type, sub_total_price, tax_price, tip_price, total_price, checked_out, completed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [item.order_id, item.customer_id, item.first_name, item.last_name, item.email, item.address1, item.address2, item.addr_city, item.addr_state, item.addr_zip, item.date_time_created, item.date_time_checked_out, item.date_time_scheduled, item.date_time_completed, item.order_type, item.notes, item.payment_type, item.sub_total_price, item.tax_price, item.tip_price, item.total_price, item.checked_out, item.completed],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// Add a NEW item to the menu_items table
+async function addNewAdminOrderItem(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO order_items (order_item_id, order_id, item_name, crust, size, price, notes) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [item.order_item_id, item.order_id, item.item_name, item.crust, item.size, item.price, item.notes],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+async function updateOrderItemToppings(item) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT INTO order_item_toppings (order_item_id, topping_id) VALUES(?,?)',
+            [item.order_item_id, item.topping_id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -514,4 +563,7 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
-};
+    updateOrderItemToppings,
+    addNewAdminOrderItem,
+    addNewAdminOrder
+}

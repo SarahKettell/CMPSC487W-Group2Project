@@ -45,7 +45,6 @@
     <div class="admin-menu-body">
         <div class="wrap">
             <div class=info-heading>
-                <h2 id="order-header">Full Details for Order: </h2>
             </div>
         <!-- menus from DB -->
             <div id="admin-order-view">
@@ -80,46 +79,9 @@
             const urlParams = new URLSearchParams(queryString);
             let orderID = urlParams.get('view_order');
             let header = document.getElementById('order-header');
-            header.appendChild(document.createTextNode(orderID));
             let editButton = document.getElementById('edit-order-button');
             // set on click handler here
             getSpecificOrder('admin-order-view', orderID);
-        }
-        // function testLinkParamFunc(){
-        //     let linkObj = document.getElementById('test-varlink');
-        //     let url = new URL("http://localhost:3000/admin-add-order.html");
-        //     url.searchParams.append('order', '1234');
-        //     linkObj.setAttribute('href', url);
-        // }
-        function displaySelectedOrders(){
-            let orderBoxes = document.getElementsByClassName('order-box');
-            let orderDisplayOptions = document.getElementById('orderView');
-            for(let i = 0; i < orderBoxes.length; i++){
-                if(orderDisplayOptions.value === 'past'){
-                    if(orderBoxes[i].getAttribute('data-status') === 'past'){
-                        orderBoxes[i].classList.remove('hide');
-                    }
-                    else {
-                        orderBoxes[i].classList.add('hide');
-                    }
-                }
-                else if (orderDisplayOptions.value === 'current'){
-                    if(orderBoxes[i].getAttribute('data-status') === 'current'){
-                        orderBoxes[i].classList.remove('hide');
-                    }
-                    else {
-                        orderBoxes[i].classList.add('hide');
-                    }
-                }
-                else {
-                    if(orderBoxes[i].getAttribute('data-status') === 'not-checked-out'){
-                        orderBoxes[i].classList.add('hide');
-                    }
-                    else {
-                        orderBoxes[i].classList.remove('hide');
-                    }
-                }
-            }
         }
     </script>
 </body>

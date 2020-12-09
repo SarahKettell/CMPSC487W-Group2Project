@@ -90,6 +90,7 @@
             let newRow = document.createElement("div");
             newRow.classList.add("row");
             newRow.classList.add("item-row-title");
+            newRow.setAttribute("data-name", currMenuItem.menuItem.item_name);
             newRow.setAttribute("id", "menu-item-" + menuItemCount);
             newRow.appendChild(document.createTextNode(currMenuItem.menuItem.item_name));
             let removeButton = document.createElement("button");
@@ -207,6 +208,7 @@
             newFormCheckOption.classList.add("form-check-inline");
             newInput = document.createElement("input");
             newInput.classList.add("form-check-input");
+            newInput.classList.add("crust-type");
             newInput.setAttribute("type", "radio");
             newInput.setAttribute("id", "crust_thin_" + menuItemCount);
             newInput.setAttribute("value", "thin-crust");
@@ -227,6 +229,7 @@
             newFormCheckOption.classList.add("form-check-inline");
             newInput = document.createElement("input");
             newInput.classList.add("form-check-input");
+            newInput.classList.add("crust-type");
             newInput.setAttribute("type", "radio");
             newInput.setAttribute("id", "crust_thick_" + menuItemCount);
             newInput.setAttribute("value", "thick-crust");
@@ -247,6 +250,7 @@
             newFormCheckOption.classList.add("form-check-inline");
             newInput = document.createElement("input");
             newInput.classList.add("form-check-input");
+            newInput.classList.add("crust-type");
             newInput.setAttribute("type", "radio");
             newInput.setAttribute("id", "crust_wholewheat_" + menuItemCount);
             newInput.setAttribute("value", "whole-wheat-crust");
@@ -267,6 +271,7 @@
             newFormCheckOption.classList.add("form-check-inline");
             newInput = document.createElement("input");
             newInput.classList.add("form-check-input");
+            newInput.classList.add("crust-type");
             newInput.setAttribute("type", "radio");
             newInput.setAttribute("id", "crust_glutenfree_" + menuItemCount);
             newInput.setAttribute("value", "gluten-free-crust");
@@ -286,6 +291,8 @@
             crustRow.appendChild(crustInputGroup);
             newItemRow.appendChild(crustRow);
 
+            let toppingOptions = document.createElement("div");
+            toppingOptions.classList.add("topping-options-div");
             // sauceRow = Sauce(s)
             let sauceRow = document.createElement("div");
             sauceRow.classList.add("form-row");
@@ -369,9 +376,10 @@
             cheeseRow.appendChild(cheeseInputGroup);
             toppingRow.appendChild(toppingLabel);
             toppingRow.appendChild(toppingInputGroup);
-            newItemRow.appendChild(sauceRow);
-            newItemRow.appendChild(cheeseRow);
-            newItemRow.appendChild(toppingRow);
+            toppingOptions.appendChild(sauceRow);
+            toppingOptions.appendChild(cheeseRow);
+            toppingOptions.appendChild(toppingRow);
+            newItemRow.appendChild(toppingOptions);
 
             newRow = document.createElement("div");
             newRow.classList.add("form-row");
@@ -427,78 +435,110 @@
         }
 
         function processFormContents(){
-            // get the form fields and store them in an array
-            const formData = document.getElementById('item-form').getElementsByTagName("itemName");
+            const orderType = document.getElementById('order_type').elements;
+            console.log(orderType);
+            const paymentType = document.getElementById('payment').elements;
+            console.log(paymentType);
+            const scheduleInfo = document.getElementById('schedule').elements;
+            console.log(scheduleInfo);
+            const customerInfo = document.getElementById('customer_info').elements;
+            console.log(customerInfo);
+            const orderMenuItems = document.getElementById('order-menu-options').elements;
+            console.log(orderMenuItems);
+            const orderInfo = document.getElementById('order_info').elements;
+            console.log(orderInfo);
 
-
-            var name = document.getElementById('itemName');
-            var crust = document.getElementById('itemCrust');
-            var sauce = document.getElementById('itemSauce');
-            var cheese = document.getElementById('itemCheese');
-            var toppings = document.getElementById('itemToppings');
-            var smallPrice = document.getElementById('smallPrice');
-            var mediumPrice = document.getElementById('mediumPrice');
-            var largePrice = document.getElementById('largePrice');
-            var extraLargePrice = document.getElementById('extraLargePrice');
-            var description = document.getElementById('itemDesc');
-
-            var nameInfo = name.value;
-            var crustInfo = crust.value;
-            var sauceInfo = sauce.value;
-            var cheeseInfo = cheese.value;
-            var toppingsInfo = toppings.value;
-            var smallPriceInfo = smallPrice.value;
-            var mediumPriceInfo = mediumPrice.value;
-            var largePriceInfo = largePrice.value;
-            var extraLargePriceInfo = extraLargePrice.value;
-            var descriptionInfo = description.value;
-
-            const newMenuItem = {
-                item_id: 0,
-                pizza_name: nameInfo,
-                crust: crustInfo,
-                sauce: sauceInfo,
-                cheese: cheeseInfo,
-                toppings: toppingsInfo,
-                sm_price: smallPriceInfo,
-                med_price: mediumPriceInfo,
-                lg_price: largePriceInfo,
-                xlg_price: extraLargePriceInfo,
-                description: descriptionInfo
-            };
-
-            // save new item
-            addMenuItemtoDB(newMenuItem);
-
-            // Clear form after submitted
-            name.value = "";
-            crust.value = "";
-            sauce.value = "";
-            cheese.value = "";
-            toppings.value = "";
-            smallPrice.value = "";
-            mediumPrice.value = "";
-            largePrice.value = "";
-            extraLargePrice.value = "";
-            description.value = "";
-
-            // create confirmation message
-            if(!document.getElementById('confirmation-message')){
-                var formDiv = document.getElementById('form-add-menu-item');
-                formDiv.id = "confirmation-message";
-                const message = document.createElement('h4');
-                message.classList.add('submit-confirmation');
-                message.appendChild(document.createTextNode("Item added successfully!"));
-                let backLink = document.createElement('a');
-                backLink.classList.add('submit-confirmation');
-                let backLinkText = document.createTextNode("Back to Menu >>");
-                backLink.title = "Go back to menu";
-                backLink.href = "admin-menu.html";
-                backLink.appendChild(backLinkText);
-                formDiv.appendChild(message);
-                formDiv.appendChild(backLink);
+            let order_type = "";
+            for(let i = 0; i < orderType.length; i++){
+                if(orderType[i].checked){
+                    order_type = orderType[i].value;
+                }
+            }
+            let order_payment = "";
+            for(let i = 0; i < paymentType.length; i++){
+                if(paymentType[i].checked){
+                    order_payment = paymentType[i].value;
+                }
             }
 
+            // get current date info for created time
+            let date = new Date();
+            let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
+            let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
+            let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
+            let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
+
+            let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
+            let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
+            let order_stime = scheduleInfo.namedItem("scheduled_time").value;
+
+            let newOrder = {
+                order_id: 0,
+                customer_id: customerInfo.namedItem('customer_id').value,
+                first_name: customerInfo.namedItem('customer_fname').value,
+                last_name: customerInfo.namedItem('customer_lname').value,
+                email: customerInfo.namedItem('customer_email').value,
+                addr: customerInfo.namedItem('customer_addr').value,
+                addr2: customerInfo.namedItem('customer_addr2').value,
+                city: customerInfo.namedItem('customer_city').value,
+                state: customerInfo.namedItem('customer_state').value,
+                zip: customerInfo.namedItem('customer_zip').value,
+                date_time_created: order_cdatetime,
+                date_time_checked_out: order_cdatetime,
+                date_time_scheduled: order_sdate + " " + order_stime + ":00",
+                order_type: order_type,
+                notes: orderInfo.namedItem('order_notes').value,
+                payment_type: order_payment,
+                sub_total_price: parseFloat(document.getElementById('order-subtotal').getAttribute('data-price')),
+                tax_price: parseFloat(document.getElementById('order-tax').getAttribute('data-price')),
+                tip_price: parseFloat(document.getElementById('order-tip').getAttribute('data-price')),
+                total_price: parseFloat(document.getElementById('order-total').getAttribute('data-price')),
+                checked_out: true,
+                completed: false,
+            }
+
+            // get order items
+            let orderItemDivs= document.getElementsByClassName("item-row");
+            let orderItems = [];
+            for(let i = 0; i < orderItemDivs.length; i++){
+                // get size & price
+                let sizeOptions = orderItemDivs[i].getElementsByClassName("order-item-price");
+                let chosenSize = "";
+                let itemPrice = 0;
+                for(let j = 0; j < sizeOptions.length; j++){
+                    if(sizeOptions[j].checked){
+                        chosenSize = sizeOptions[j].value;
+                        itemPrice = parseFloat(sizeOptions[j].getAttribute("data-sizeprice"));
+                    }
+                }
+                // get crust type
+                let crustOptions = orderItemDivs[i].getElementsByClassName("crust-type");
+                let chosenCrust = "";
+                for(let j = 0; j < crustOptions.length; j++){
+                    if(crustOptions[j].checked){
+                        chosenCrust = crustOptions[j].value;
+                    }
+                }
+                let newItem = {
+                    order_item_id: 0,
+                    order_id: 0,
+                    item_name: orderItemDivs[i].getElementsByClassName("item-row-title")[0].getAttribute("data-name"),
+                    crust: chosenCrust,
+                    size: chosenSize,
+                    price: itemPrice,
+                    notes: orderItemDivs[i].getElementsByTagName("textarea")[0].value,
+                }
+                // get toppings for item
+                let toppingIdList = [];
+                let toppingElements = orderItemDivs[i].getElementsByClassName('topping-options-div')[0].getElementsByTagName("input");
+                for(let j = 0; j < toppingElements.length; j++){
+                    if(toppingElements[j].checked){
+                        toppingIdList.push(toppingElements[j].id);
+                    }
+                }
+                orderItems.push({orderItem: newItem, toppings: toppingIdList});
+            }
+            addAdminOrderToDB(newOrder, orderItems);
         }
     </script>
 </body>

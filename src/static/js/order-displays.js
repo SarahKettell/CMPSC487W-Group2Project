@@ -123,26 +123,26 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Scheduled For: "));
             orderTimes.appendChild(dataTitle);
-            let date = currentOrder.date_time_scheduled.split('T')[0];
-            let time = currentOrder.date_time_scheduled.split('T')[1].split('.')[0];
-            orderTimes.appendChild(document.createTextNode(date + " at " + time));
+            //let date = currentOrder.date_time_scheduled.split('T')[0];
+            //let time = currentOrder.date_time_scheduled.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode("date" + " at " + "time"));
             orderTimes.appendChild(document.createElement("br"));
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Checked Out At: "));
             orderTimes.appendChild(dataTitle);
-            date = currentOrder.date_time_checked_out.split('T')[0];
-            time = currentOrder.date_time_checked_out.split('T')[1].split('.')[0];
-            orderTimes.appendChild(document.createTextNode(date + " at " + time));
+            //date = currentOrder.date_time_checked_out.split('T')[0];
+            //time = currentOrder.date_time_checked_out.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode("date" + " at " + "time"));
         }
         else {
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Completed At: "));
             orderTimes.appendChild(dataTitle);
-            let date = currentOrder.date_time_completed.split('T')[0];
-            let time = currentOrder.date_time_completed.split('T')[1].split('.')[0];
-            orderTimes.appendChild(document.createTextNode(date + " at " + time));
+            //let date = currentOrder.date_time_completed.split('T')[0];
+            //let time = currentOrder.date_time_completed.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode("date" + " at " + "time"));
         }
         newRow.appendChild(orderTimes);
         newOrderDiv.appendChild(newRow);

@@ -6,6 +6,7 @@ drop table menu_item_toppings;
 drop table toppings;
 drop table address_info;
 drop table contact_info;
+drop table hours_info;
 
 CREATE TABLE IF NOT EXISTS address_info(
 	id integer,

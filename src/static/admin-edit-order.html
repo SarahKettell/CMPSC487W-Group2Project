@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>View Orders</title>
-    <link rel="stylesheet" href="admin-menu.css">
+    <title>Create New Order</title>
     <link rel="stylesheet" href="my-account.css">
+<!--     <link rel="stylesheet" href="edit-menu.css"> -->
     <link rel="stylesheet" href="/css/styles.css">
 
     <!--jQuery-->
@@ -30,7 +30,7 @@
     </script>
 </head>
 <body>
-    <!-- call header -->
+    <!-- call header and footer -->
     <div id="header"></div>
 
     <!-- Hero module -->
@@ -41,40 +41,26 @@
         </div>
     </div>
 
-    <!-- actual body-->
-    <div class="admin-menu-body">
-        <div class="wrap">
-            <div class=info-heading>
-            </div>
-        <!-- menus from DB -->
-            <div id="admin-order-view">
-            </div>
-
-            <form class="order-options">
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <a class="btn btn-primary" href="admin-orders.html" id="delete-order-button">
-                            BACK TO ORDER LIST
-                        </a>
-                    </div>
-                    <div class="col-sm" style="text-align: right">
-                        <button type="button" class="btn btn-primary" id="edit-order-button">
-                            Edit Order
-                        </button>
-                    </div>
-                </div>
-            </form>
+    <!-- edit form -->
+    <div class="container">
+    
+        <div class="form-heading">
+                <h2>Create an Order</h2>
+                <p>Fill out the form below to create a new order for a customer.</p>
         </div>
+
+        <div id="order-form">
+            <!-- order id will be auto-generated -->
+        </div>
+
     </div>
 
-    <!-- call footer -->
     <div id="footer"></div>
-    <script src="js/order-displays.js"></script>
+
     <script src="js/order-forms.js"></script>
-    <body onload="getOrderDetails()">
+    <script src="js/menu-forms.js"></script>
+    <body onload="loadForm()">
     <script type="text/javascript">
-        let orderDetails = [];
-        let orderItems = [];
         let menuItemInfo = [];
         let allToppings = [];
         let menuItemCount = 0;
@@ -84,134 +70,23 @@
             let orderID = urlParams.get('view_order');
             let header = document.getElementById('order-header');
             let editButton = document.getElementById('edit-order-button');
-            editButton.addEventListener('click', switchToEditView, false);
+            // set on click handler here
             getSpecificOrder('admin-order-view', orderID);
         }
-        function loadOrderDataToPage(currentOrder, currentOrderItems){
-            orderDetails = currentOrder;
-            orderItems = currentOrderItems;
-            const formLocation = document.getElementById('admin-order-view');
-            loadCreateOrderForm(formLocation, currentOrder, currentOrderItems);
-        }
-        async function switchToEditView(){
-            const formLocation = document.getElementById('admin-order-view');
-            await loadCreateOrderForm(formLocation);
-            console.log(orderDetails);
-            console.log(orderItems);
-            updateEditForm();
-        }
-        function processFormContents(){
-            const orderType = document.getElementById('order_type').elements;
-            const paymentType = document.getElementById('payment').elements;
-            const scheduleInfo = document.getElementById('schedule').elements;
-            const customerInfo = document.getElementById('customer_info').elements;
-            const orderMenuItems = document.getElementById('order-menu-options').elements;
-            const orderInfo = document.getElementById('order_info').elements;
 
-            let order_type = "";
-            for(let i = 0; i < orderType.length; i++){
-                if(orderType[i].checked){
-                    order_type = orderType[i].value;
-                }
-            }
-            let order_payment = "";
-            for(let i = 0; i < paymentType.length; i++){
-                if(paymentType[i].checked){
-                    order_payment = paymentType[i].value;
-                }
-            }
-
-            // get current date info for created time
-            let date = new Date();
-            let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-            let day = date.getDate() <= 9 ? "0" + (date.getDate()) : date.getDate();
-            let hour = date.getHours() <= 9 ? "0" + (date.getHours()) : date.getHours();
-            let minutes = date.getMinutes() <= 9 ? "0" + (date.getMinutes()) : date.getMinutes();
-
-            let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
-            let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
-            let order_stime = scheduleInfo.namedItem("scheduled_time").value;
-
-            let newOrder = {
-                order_id: 0,
-                customer_id: customerInfo.namedItem('customer_id').value,
-                first_name: customerInfo.namedItem('customer_fname').value,
-                last_name: customerInfo.namedItem('customer_lname').value,
-                email: customerInfo.namedItem('customer_email').value,
-                addr: customerInfo.namedItem('customer_addr').value,
-                addr2: customerInfo.namedItem('customer_addr2').value,
-                city: customerInfo.namedItem('customer_city').value,
-                state: customerInfo.namedItem('customer_state').value,
-                zip: customerInfo.namedItem('customer_zip').value,
-                date_time_created: order_cdatetime,
-                date_time_checked_out: order_cdatetime,
-                date_time_scheduled: order_sdate + " " + order_stime + ":00",
-                order_type: order_type,
-                notes: orderInfo.namedItem('order_notes').value,
-                payment_type: order_payment,
-                sub_total_price: parseFloat(document.getElementById('order-subtotal').getAttribute('data-price')),
-                tax_price: parseFloat(document.getElementById('order-tax').getAttribute('data-price')),
-                tip_price: parseFloat(document.getElementById('order-tip').getAttribute('data-price')),
-                total_price: parseFloat(document.getElementById('order-total').getAttribute('data-price')),
-                checked_out: true,
-                completed: false,
-            }
-
-            // get order items
-            let orderItemDivs= document.getElementsByClassName("item-row");
-            let orderItems = [];
-            for(let i = 0; i < orderItemDivs.length; i++){
-                // get size & price
-                let sizeOptions = orderItemDivs[i].getElementsByClassName("order-item-price");
-                let chosenSize = "";
-                let itemPrice = 0;
-                for(let j = 0; j < sizeOptions.length; j++){
-                    if(sizeOptions[j].checked){
-                        chosenSize = sizeOptions[j].value;
-                        itemPrice = parseFloat(sizeOptions[j].getAttribute("data-sizeprice"));
-                    }
-                }
-                // get crust type
-                let crustOptions = orderItemDivs[i].getElementsByClassName("crust-type");
-                let chosenCrust = "";
-                for(let j = 0; j < crustOptions.length; j++){
-                    if(crustOptions[j].checked){
-                        chosenCrust = crustOptions[j].value;
-                    }
-                }
-                let newItem = {
-                    order_item_id: 0,
-                    order_id: 0,
-                    item_name: orderItemDivs[i].getElementsByClassName("item-row-title")[0].getAttribute("data-name"),
-                    crust: chosenCrust,
-                    size: chosenSize,
-                    price: itemPrice,
-                    notes: orderItemDivs[i].getElementsByTagName("textarea")[0].value,
-                }
-                // get toppings for item
-                let toppingIdList = [];
-                let toppingElements = orderItemDivs[i].getElementsByClassName('topping-options-div')[0].getElementsByTagName("input");
-                for(let j = 0; j < toppingElements.length; j++){
-                    if(toppingElements[j].checked){
-                        toppingIdList.push(toppingElements[j].id);
-                    }
-                }
-                orderItems.push({orderItem: newItem, toppings: toppingIdList});
-            }
-            addAdminOrderToDB(newOrder, orderItems);
-        }
-
-        function setupMenuItemSelect(menuInfo, toppings, menuItemCount){
+        function loadForm(){
+            const formElement = document.getElementById('order-form');
+            loadCreateOrderForm(formElement);
+            // const queryString = window.location.search;
+            // const urlParams = new URLSearchParams(queryString);
+        }       
+        function setupMenuItemSelect(menuInfo, toppings){
             menuItemInfo = JSON.parse(JSON.stringify(menuInfo));
             allToppings = JSON.parse(JSON.stringify(toppings));
-            menuItemCount = menuItemCount;
+            console.log(menuItemInfo);
+            console.log(allToppings);
             let addMenuItemButton = document.getElementById('add-menu-item-to-order');
             addMenuItemButton.addEventListener('click', addMenuItemToOrder, false);
-            let removeButtons = document.getElementsByClassName('remove-button');
-            console.log("Remove buttons");
-            for(let i = 0; i < removeButtons.length; i++){
-                removeButtons[i].addEventListener('click', () => removeMenuItemFromOrder(removeButtons[i].id), false);
-            }
         }
 
         function addMenuItemToOrder(){
@@ -530,8 +405,14 @@
             newRow.appendChild(noteInput);
             newItemRow.appendChild(newRow);
 
+
             itemLocation.appendChild(newItemRow);
             menuItemCount++;
+            updatePrices();
+        }
+
+        function removeMenuItemFromOrder(itemID){
+            document.getElementById(itemID).remove();
             updatePrices();
         }
 
@@ -563,11 +444,112 @@
             totalItem.innerHTML = "Total: $" + tempPrice.toFixed(2);
         }
 
-        function removeMenuItemFromOrder(itemID){
-            document.getElementById(itemID).remove();
-            updatePrices();
-        }
+        function processFormContents(){
+            const orderType = document.getElementById('order_type').elements;
+            console.log(orderType);
+            const paymentType = document.getElementById('payment').elements;
+            console.log(paymentType);
+            const scheduleInfo = document.getElementById('schedule').elements;
+            console.log(scheduleInfo);
+            const customerInfo = document.getElementById('customer_info').elements;
+            console.log(customerInfo);
+            const orderMenuItems = document.getElementById('order-menu-options').elements;
+            console.log(orderMenuItems);
+            const orderInfo = document.getElementById('order_info').elements;
+            console.log(orderInfo);
 
+            let order_type = "";
+            for(let i = 0; i < orderType.length; i++){
+                if(orderType[i].checked){
+                    order_type = orderType[i].value;
+                }
+            }
+            let order_payment = "";
+            for(let i = 0; i < paymentType.length; i++){
+                if(paymentType[i].checked){
+                    order_payment = paymentType[i].value;
+                }
+            }
+
+            // get current date info for created time
+            let date = new Date();
+            let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
+            let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
+            let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
+            let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
+
+            let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
+            let order_sdate = scheduleInfo.namedItem("scheduled_date").value;
+            let order_stime = scheduleInfo.namedItem("scheduled_time").value;
+
+            let newOrder = {
+                order_id: 0,
+                customer_id: customerInfo.namedItem('customer_id').value,
+                first_name: customerInfo.namedItem('customer_fname').value,
+                last_name: customerInfo.namedItem('customer_lname').value,
+                email: customerInfo.namedItem('customer_email').value,
+                addr: customerInfo.namedItem('customer_addr').value,
+                addr2: customerInfo.namedItem('customer_addr2').value,
+                city: customerInfo.namedItem('customer_city').value,
+                state: customerInfo.namedItem('customer_state').value,
+                zip: customerInfo.namedItem('customer_zip').value,
+                date_time_created: order_cdatetime,
+                date_time_checked_out: order_cdatetime,
+                date_time_scheduled: order_sdate + " " + order_stime + ":00",
+                order_type: order_type,
+                notes: orderInfo.namedItem('order_notes').value,
+                payment_type: order_payment,
+                sub_total_price: parseFloat(document.getElementById('order-subtotal').getAttribute('data-price')),
+                tax_price: parseFloat(document.getElementById('order-tax').getAttribute('data-price')),
+                tip_price: parseFloat(document.getElementById('order-tip').getAttribute('data-price')),
+                total_price: parseFloat(document.getElementById('order-total').getAttribute('data-price')),
+                checked_out: true,
+                completed: false,
+            }
+
+            // get order items
+            let orderItemDivs= document.getElementsByClassName("item-row");
+            let orderItems = [];
+            for(let i = 0; i < orderItemDivs.length; i++){
+                // get size & price
+                let sizeOptions = orderItemDivs[i].getElementsByClassName("order-item-price");
+                let chosenSize = "";
+                let itemPrice = 0;
+                for(let j = 0; j < sizeOptions.length; j++){
+                    if(sizeOptions[j].checked){
+                        chosenSize = sizeOptions[j].value;
+                        itemPrice = parseFloat(sizeOptions[j].getAttribute("data-sizeprice"));
+                    }
+                }
+                // get crust type
+                let crustOptions = orderItemDivs[i].getElementsByClassName("crust-type");
+                let chosenCrust = "";
+                for(let j = 0; j < crustOptions.length; j++){
+                    if(crustOptions[j].checked){
+                        chosenCrust = crustOptions[j].value;
+                    }
+                }
+                let newItem = {
+                    order_item_id: 0,
+                    order_id: 0,
+                    item_name: orderItemDivs[i].getElementsByClassName("item-row-title")[0].getAttribute("data-name"),
+                    crust: chosenCrust,
+                    size: chosenSize,
+                    price: itemPrice,
+                    notes: orderItemDivs[i].getElementsByTagName("textarea")[0].value,
+                }
+                // get toppings for item
+                let toppingIdList = [];
+                let toppingElements = orderItemDivs[i].getElementsByClassName('topping-options-div')[0].getElementsByTagName("input");
+                for(let j = 0; j < toppingElements.length; j++){
+                    if(toppingElements[j].checked){
+                        toppingIdList.push(toppingElements[j].id);
+                    }
+                }
+                orderItems.push({orderItem: newItem, toppings: toppingIdList});
+            }
+            addAdminOrderToDB(newOrder, orderItems);
+        }
     </script>
 </body>
 </html>

@@ -464,9 +464,9 @@
             // get current date info for created time
             let date = new Date();
             let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-            let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
-            let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
-            let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
+            let day = date.getDate() <= 9 ? "0" + (date.getDate()) : date.getDate();
+            let hour = date.getHours() <= 9 ? "0" + (date.getHours()) : date.getHours();
+            let minutes = date.getMinutes() <= 9 ? "0" + (date.getMinutes()) : date.getMinutes();
 
             let order_cdatetime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":00.0";
             let order_sdate = scheduleInfo.namedItem("scheduled_date").value;

@@ -389,9 +389,9 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
 
     //get details for order
     const currentOrder = orders.find(item => item.order_id === orderId);
+    let currentOrderItems = [];
     if(currentOrder){
         // get items for this order
-        let currentOrderItems = [];
         orderItems.map(item => {
             if (orderId === item.order_id) {
                 // finds the toppings for the current order item, add them
@@ -814,6 +814,7 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
 
         newOrderDiv.appendChild(newRow);
         textBox.appendChild(newOrderDiv);
+        loadOrderDataToPage(currentOrder, currentOrderItems);
     }
 
 }

@@ -490,6 +490,43 @@ async function removeItem(id) {
 }
 
 
+//-------------------------
+//TODO: Emily's Functions
+async function orderForm(order) {
+    return new Promise(acc, rej);
+    {
+        pool.query(
+            'insert into orders (order_id, first_name, last_name, address1, address2, addr_city, addr_state, addr_zip, order_type, date_time_created, date_time_scheduled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [order.order_id, order.first_name, order.last_name, order.address1, order.address2, order.addr_city, order.addr_state, order.addr_zip, order.order_type, order.date_time_created, order.date_time_scheduled],
+            err =>{
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    }
+}
+
+async function viewConfirmationMessage() {
+    return new Promise();
+    {
+        pool.query(
+            'update create_orders set {} '
+        )
+    }
+
+}
+
+async function linkSurvey() {
+    return new Promise();
+    {
+        pool.query(
+            '//Statement'
+        )
+    }
+}
+//End of Emily's Functions
+
+
 // Defines the export functions above
 // Need to change this if you create more
 module.exports = {
@@ -515,54 +552,7 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
+    orderForm,
+    viewConfirmationMessage,
+    linkSurvey
 };
-//-------------------------
-//TODO: Emily's Functions
-async function takeoutOrderForm(args) {
-    return new Promise()
-    {
-        pool.query(
-            'INSERT INTO create_orders'
-        )
-    }
-}
-
-    async function deliveryOrderForm(args) {
-        return new Promise()
-        {
-            pool.query(
-                'INSERT INTO create_orders'
-            )
-        }
-    }
-
-    async function eatinOrderForm(args) {
-        return new Promise()
-        {
-            pool.query(
-                'INSERT INTO create_orders'
-            )
-        }
-
-    }
-
-    async function viewConfirmationMessage() {
-        return new Promise()
-        {
-            pool.query(
-                'UPDATE create_orders SET '
-            )
-        }
-
-    }
-
-    async function linkSurvey() {
-        return new Promise()
-        {
-            pool.query(
-                '//Statement'
-            )
-        }
-    }
-
-//-------------------------

@@ -11,7 +11,7 @@ const getJsonData = async (textBox) => {
 	const myJson = await response.json(); 
 
   const textBoxID = textBox.id;
-  if(textBoxID === "admin-menu-list"){
+  if(textBoxID === "account-list"){
     displayAllAccounts(textBox, myJson);
   } 
 }
@@ -24,6 +24,84 @@ function getDatafromDB(elementID){
 }
 
 function displayAllAccounts(textBox, jsonData){
+  // new array to hold the menu values corresponding to each key
+  let accValues = new Array(jsonData.length);
+  //fill those arrays with JSON data
+  for(let i = 0; i < jsonData.length; i++){
+    accValues[i] = Object.values(jsonData[i]);
+  }
+  let table = document.createElement("table");
+  table.classList.add("account-table");
+
+    let headingRow = document.createElement("tr");
+    headingRow.classList.add("account-table-heading-row");
+
+      //heading for first name
+      let fnameHeading = document.createElement("th");
+      fnameHeading.appendChild(document.createTextNode("FIRST NAME"));
+      fnameHeading.classList.add("fnameheading");
+
+      //heading for last name
+      let lnameHeading = document.createElement("th");
+      lnameHeading.appendChild(document.createTextNode("LAST NAME"));
+      lnameHeading.classList.add("heading");
+
+      //heading for email
+      let emailHeading = document.createElement("th");
+      emailHeading.appendChild(document.createTextNode("EMAIL ADDRESS"));
+      emailHeading.classList.add("heading");
+
+      //heading for account type
+      let typeHeading = document.createElement("th");
+      typeHeading.appendChild(document.createTextNode("ACCOUNT TYPE"));
+      typeHeading.classList.add("typeheading");
+
+    //append all the headings to the row
+    headingRow.appendChild(fnameHeading);
+    headingRow.appendChild(lnameHeading);
+    headingRow.appendChild(emailHeading);
+    headingRow.appendChild(typeHeading);
+
+  //append the row to the table
+  table.appendChild(headingRow);
+
+  //reiterate over all the jason values
+  for(let i = 0; i < accValues.length; i++){
+    let dataRow = document.createElement("tr");
+    dataRow.classList.add("account-table-data-row");
+
+      //data regarding first name
+      let fnameData = document.createElement("td");
+      fnameData.appendChild(document.createTextNode(jsonData[i].fname));
+      fnameData.classList.add("data");
+
+      //data regarding last name
+      let lnameData = document.createElement("td");
+      lnameData.appendChild(document.createTextNode(jsonData[i].lname));
+      lnameData.classList.add("data");
+
+      //data regarding email
+      let emailData = document.createElement("td");
+      emailData.appendChild(document.createTextNode(jsonData[i].email));
+      emailData.classList.add("data");
+
+      //data regarding email
+      let typeData = document.createElement("td");
+      typeData.appendChild(document.createTextNode(jsonData[i].acct_type));
+      typeData.classList.add("data");
+
+    //append the data to the row
+    dataRow.appendChild(fnameData);
+    dataRow.appendChild(lnameData);
+    dataRow.appendChild(emailData);
+    dataRow.appendChild(typeData);
+
+    //append the row to the table
+    table.appendChild(dataRow);
+  }
+
+  //finally append table to the textbox
+  textBox.appendChild(table);
 
 }
 

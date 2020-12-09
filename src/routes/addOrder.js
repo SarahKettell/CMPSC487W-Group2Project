@@ -6,6 +6,16 @@ module.exports = async (req, res) => {
     const order_info = {
         order_id: uuid(),
         customer_id: req.body.customer_id,
+
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        address1: req.body.address1,
+        address2: req.body.address2,
+        addr_city: req.body.addr_city,
+        addr_state: req.body.addr_state,
+        addr_zip: req.body.addr_zip,
+
         date_time_created: req.body.date_time_created,
         date_time_checked_out: req.body.date_time_checked_out,
         date_time_scheduled: req.body.date_time_scheduled,

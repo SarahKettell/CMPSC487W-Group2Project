@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 module.exports = async (req, res) => {
     const order_item_info = {
         order_item_id: uuid(),
-        order_id: order_info.order_id,
+        order_id: '8f894acb-2311-4560-8f0d-68450df13c4a',
         item_name: req.body.item_name,
         crust: req.body.crust,
         size: req.body.size,

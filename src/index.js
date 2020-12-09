@@ -45,7 +45,7 @@ app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
-app.post('/orders', addOrder.addNewOrder);
+//app.post('/orders', addOrder.addNewOrder);
 
 app.post('/orders', addOrders);
 app.post('/orderItems', addOrderItem);

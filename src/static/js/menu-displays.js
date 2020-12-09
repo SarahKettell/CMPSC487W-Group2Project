@@ -369,7 +369,7 @@ function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
         addPizzaButton.classList.add("btn-primary");
         addPizzaButton.setAttribute("type", "button");
         addPizzaButton.setAttribute("id", "add-to-cart-button");
-        addPizzaButton.addEventListener("click", () => {testingAdd()}, false);
+        addPizzaButton.addEventListener("click", () => {getshitTest(menuItems[i].item_name, menuItems[i].crust, sizecheck(smallOption, mediumOption, largeOption, xlargeOption), priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2)), currToppings)}, false);
         addPizzaButton.innerHTML = "Add to Cart";
         buttonRow.appendChild(addPizzaButton);
 
@@ -377,4 +377,52 @@ function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
         newItem.appendChild(contentDiv);
         textBox.appendChild(newItem);
     }
+}
+//getshitTest(menuItems[i].item_name, menuItems[i].crust, sizecheck(smallOption, mediumOption, largeOption, xlargeOption), priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2)), currToppings)
+//priceCheck(sizecheck(smallOption, mediumOption, largeOption, xlargeOption), menuItems[i].sm_price.toFixed(2), menuItems[i].med_price.toFixed(2), menuItems[i].lg_price.toFixed(2), menuItems[i].xlg_price.toFixed(2))
+function sizecheck(small, med, lrg, xlrg){
+    if(small.checked) {
+        //console.log('small');
+        return 'small';
+    }
+    if(med.checked){
+       // console.log('medium');
+        return 'medium';
+    }
+    if(lrg.checked){
+        //console.log('large');
+        return 'large';
+    }
+    if(xlrg.checked){
+        //console.log('extra large');
+        return 'extra large';
+    }
+    alert("select a size first")
+}
+
+function priceCheck(size, smallPrice, medPrice, largePrice, xLargePrice){
+    if(size =='small'){
+        console.log(smallPrice);
+        return smallPrice;
+    }
+    if(size =='medium'){
+        console.log(medPrice);
+        return medPrice;
+    }
+    if(size =='large'){
+        console.log(largePrice);
+        return largePizza;
+    }
+    if(size =='extra large'){
+        console.log(xLargePrice);
+        return xLargePrice;
+    }
+}
+
+function testFoo(){
+        if(smallOption.checked) {
+        console.log('small');
+        return 'small';
+    }
+    alert("no work bud :(")
 }

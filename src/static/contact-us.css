@@ -1,0 +1,29 @@
+.phone,
+.email,
+.msg {
+  width: 155%;
+}
+.input,
+.lname {
+  width: 75%;
+}
+.lname {
+  margin: 0% 0% 0% -20%;
+}
+.msg {
+  height: 150px;
+  margin-bottom: 5%;
+}
+table {
+  margin: 0% 0% 0% 10%;
+}
+h2 {
+  padding: 5% 0% 3% 0%;
+}
+span.mandatory {
+  color: #D50000;
+}
+span.sub-text {
+  font-size: 16px;
+  font-weight: normal;
+}

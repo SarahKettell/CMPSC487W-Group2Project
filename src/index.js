@@ -25,6 +25,12 @@ const updateContactInfo = require('./routes/updateContactInfo');
 const getHoursInfo = require('./routes/getHoursInfo');
 const updateHoursInfo = require('./routes/updateHoursInfo');
 
+const addAccount = require('./routes/addAccount');
+const getAllAccounts = require('./routes/getAllAccounts');
+const getAccountByEmail = require('./routes/getAccountByEmail');
+const getAccountById = require('./routes/getAccountById');
+const updateCustAccountInfo = require('./routes/updateCustAccountInfo');
+
 // Converts into JSON format
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/static'));
@@ -44,24 +50,32 @@ app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
 app.post('/orders/admin', addOrder.addNewOrder);
 
-// handling address and restaurant info calls
+// handling restaurant info calls
 app.get('/address', getAddrInfo);
-
 app.get('/contact', getContactInfo);
-
 app.get('/hours', getHoursInfo);
+
+// handling account info calls
+app.get('/accountByEmail', getAccountByEmail);
+app.get('/accountById', getAccountById);
+app.get('/account', getAllAccounts);
 
 // Add new menu item into the db
 app.post('/menuItems', addMenuItem);
 
+// Add account into the db
+app.post('/account', addAccount);
+
 // Updates contents based the id parameter given
 //app.put('/items/:id', updateItem);
 
+//updates Restaurant information
 app.put('/address/:id', updateAddrInfo);
-
 app.put('/contact/:id', updateContactInfo);
-
 app.put('/hours/:id', updateHoursInfo);
+
+//update Account information
+app.put('/account/:id', updateCustAccountInfo);
 
 // Deletes contents based on the id paramter given
 app.delete('/items/:id', deleteItem);

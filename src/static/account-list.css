@@ -1,0 +1,33 @@
+/* media queries */
+/* THEME COLORS */
+.listheading {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.account-table {
+  width: 100%;
+}
+.account-table .data,
+.account-table .heading,
+.account-table .fnameheading,
+.account-table .typeheading {
+  padding: 2%;
+  font-size: 14px;
+  text-align: center;
+}
+.account-table .data {
+  border: 1px solid;
+}
+.account-table .heading {
+  border: 1px solid #fff;
+}
+.account-table .fnameheading,
+.account-table .typeheading {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+.account-table .account-table-heading-row {
+  background: #D50000;
+  color: #fff;
+}

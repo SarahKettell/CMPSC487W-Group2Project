@@ -195,7 +195,7 @@ insert into order_item_toppings values('4', '8');
 insert into order_item_toppings values('4', '9');
 insert into order_item_toppings values('4', '16');
 insert into order_item_toppings values('4', '12');
-INSERT INTO orders VALUES('3', '1234567', 'Adam', 'Smith','another@gmail.com', NULL, NULL, NULL, NULL, null, '2020-11-25 13:00:01',  NULL,  NULL, NULL, 'eat-in', 'this order is not submitted',  'cc',  20.00, 3.00, 6.00, 29.00, false, false);
+INSERT INTO orders VALUES('3', '1234567', 'Adam', 'Smith','another@gmail.com', NULL, NULL, NULL, NULL, null, '2020-11-25 13:00:01',  '2020-11-25 13:00:01',  '2020-11-25 13:00:01', NULL, 'eat-in', 'this order is not submitted',  'cc',  20.00, 3.00, 6.00, 29.00, false, false);
 insert into order_items values('5', '3', 'The Cheese', 'thin-crust', 'medium', 10.00, '');
 insert into order_items values('6', '3', 'Meat Lovers', 'thick-crust', 'medium', 10.00, '');
 insert into order_items values('7','3',  'Veggie Extravaganza', 'whole-wheat-crust', 'large',  12.00, '');

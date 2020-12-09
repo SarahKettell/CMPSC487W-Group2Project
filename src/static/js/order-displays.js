@@ -42,13 +42,6 @@ function getSpecificOrder(elementID, orderId){
     getOrders(location, "admin-fullview", orderId);
 }
 
-// called from webpage, gets the data and it in the location given
-function getCustomerMenu(elementID){
-    let location = document.getElementById(elementID);
-    // async call to get the data
-    getMenuItems(location, "customer");
-}
-
 // Displays all custmer orders in an abbreviated form, with buttons to complete, edit, view, and delete
 function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppings){
 
@@ -74,9 +67,7 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
                 currentOrderItems.push({orderItem: item, toppings: toppingList});
             }
         });
-
-        // create object with combined data to store
-        const orderDetails = {orderInfo: currentOrder, orderItems: currentOrderItems};
+        console.log(currentOrder);
 
         // create the elements to display on the page
         let newOrderDiv = document.createElement("div");
@@ -89,6 +80,7 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
 
         let newHeader = document.createElement("h3");
         newHeader.classList.add("col");
+        newHeader.classList.add("admin-order-view-id");
         newHeader.appendChild(document.createTextNode("Order ID: " + currentOrder.order_id));
         newRow.appendChild(newHeader);
 
@@ -120,31 +112,37 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
         dataTitle.classList.add("data-title");
         dataTitle.appendChild(document.createTextNode("Order Type: "));
         orderType.appendChild(dataTitle);
-        orderType.appendChild(document.createTextNode(currentOrder.type));
+        orderType.appendChild(document.createTextNode(currentOrder.order_type));
         newRow.appendChild(orderType);
 
         let orderTimes = document.createElement('p');
         orderTimes.classList.add("col");
         orderTimes.classList.add("right-align");
-        if(currentOrder.completed === false){
+        if(!currentOrder.completed){
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Scheduled For: "));
             orderTimes.appendChild(dataTitle);
-            orderTimes.appendChild(document.createTextNode(currentOrder.date_time_scheduled));
+            let date = currentOrder.date_time_scheduled.split('T')[0];
+            let time = currentOrder.date_time_scheduled.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode(date + " at " + time));
             orderTimes.appendChild(document.createElement("br"));
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Checked Out At: "));
             orderTimes.appendChild(dataTitle);
-            orderTimes.appendChild(document.createTextNode(currentOrder.date_time_checked_out));
+            date = currentOrder.date_time_checked_out.split('T')[0];
+            time = currentOrder.date_time_checked_out.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode(date + " at " + time));
         }
         else {
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Completed At: "));
             orderTimes.appendChild(dataTitle);
-            orderTimes.appendChild(document.createTextNode(currentOrder.date_time_completed));
+            let date = currentOrder.date_time_completed.split('T')[0];
+            let time = currentOrder.date_time_completed.split('T')[1].split('.')[0];
+            orderTimes.appendChild(document.createTextNode(date + " at " + time));
         }
         newRow.appendChild(orderTimes);
         newOrderDiv.appendChild(newRow);
@@ -154,7 +152,6 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
             let itemRow = document.createElement("div");
             itemRow.classList.add("order-item");
 
-            console.log(item);
             // item name
             newRow = document.createElement("div");
             newRow.classList.add("row");
@@ -297,7 +294,7 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
         dataTitle.classList.add("data-title");
         dataTitle.appendChild(document.createTextNode("Customer Name: "));
         customerName.appendChild(dataTitle);
-        customerName.appendChild(document.createTextNode("To be Added Later"));
+        customerName.appendChild(document.createTextNode(currentOrder.first_name + " " + currentOrder.last_name));
         newRow.appendChild(customerName);
         let customerType = document.createElement('p');
         customerType.classList.add("col");
@@ -355,6 +352,7 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
             let viewOrderDetails = document.createElement("a");
             viewOrderDetails.classList.add("btn");
             viewOrderDetails.classList.add("btn-primary");
+            viewOrderDetails.classList.add("button-float-right");
             viewOrderDetails.setAttribute("name", currentOrder.order_id);
             viewOrderDetails.setAttribute("id", "view-order-details-button");
             viewOrderDetails.setAttribute("href", orderURL);
@@ -442,8 +440,9 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
         newRow = document.createElement("div");
         newRow.classList.add("row");
 
-        let newHeader = document.createElement("h3");
+        let newHeader = document.createElement("h4");
         newHeader.classList.add("col");
+        newHeader.classList.add("admin-order-view-id");
         newHeader.appendChild(document.createTextNode("Order ID: " + currentOrder.order_id));
         newRow.appendChild(newHeader);
 
@@ -475,13 +474,13 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
         dataTitle.classList.add("data-title");
         dataTitle.appendChild(document.createTextNode("Order Type: "));
         orderType.appendChild(dataTitle);
-        orderType.appendChild(document.createTextNode(currentOrder.type));
+        orderType.appendChild(document.createTextNode(currentOrder.order_type));
         newRow.appendChild(orderType);
 
         let orderTimes = document.createElement('p');
         orderTimes.classList.add("col");
         orderTimes.classList.add("right-align");
-        if(currentOrder.completed === false){
+        if(!currentOrder.completed){
             dataTitle = document.createElement("span");
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Scheduled: "));
@@ -521,9 +520,13 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
             dataTitle.classList.add("data-title");
             dataTitle.appendChild(document.createTextNode("Completed: "));
             orderTimes.appendChild(dataTitle);
-            date = currentOrder.date_time_completed.split('T')[0];
-            time = currentOrder.date_time_completed.split('T')[1].split('.')[0];
-            orderTimes.appendChild(document.createTextNode(date + " at " + time));
+            if(currentOrder.date_time_completed){
+                date = currentOrder.date_time_completed.split('T')[0];
+                time = currentOrder.date_time_completed.split('T')[1].split('.')[0];
+                orderTimes.appendChild(document.createTextNode(date + " at " + time));
+            } else {
+                orderTimes.appendChild(document.createTextNode( "Not completed."));
+            }
         }
         newRow.appendChild(orderTimes);
         newOrderDiv.appendChild(newRow);
@@ -600,8 +603,8 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
             let hasCheese = false;
             item.toppings.map(topping => {
                 if(topping.topping_category === "cheese") {
-                    let cheeseInfp = document.createTextNode(topping.topping_name + ", ");
-                    orderItem.appendChild(cheeseInfp);
+                    let cheeseInfo = document.createTextNode(topping.topping_name + ", ");
+                    orderItem.appendChild(cheeseInfo);
                     hasCheese = true;
                 }
             });
@@ -655,19 +658,6 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
         newRow.classList.add('divider-row');
         newOrderDiv.appendChild(newRow);
 
-        // notes
-        newRow = document.createElement("div");
-        newRow.classList.add("row");
-        let orderNotes = document.createElement('p');
-        orderNotes.classList.add("col");
-        dataTitle = document.createElement("span");
-        dataTitle.classList.add("data-title");
-        dataTitle.appendChild(document.createTextNode("Order Notes: "));
-        orderNotes.appendChild(dataTitle);
-        orderNotes.appendChild(document.createTextNode(currentOrder.notes));
-        newRow.appendChild(orderNotes);
-        newOrderDiv.appendChild(newRow);
-
         // customer info
         newRow = document.createElement("div");
         newRow.classList.add("row");
@@ -677,7 +667,7 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
         dataTitle.classList.add("data-title");
         dataTitle.appendChild(document.createTextNode("Customer Name: "));
         customerName.appendChild(dataTitle);
-        customerName.appendChild(document.createTextNode("To be Added Later"));
+        customerName.appendChild(document.createTextNode(currentOrder.first_name + " " + currentOrder.last_name));
         newRow.appendChild(customerName);
         let customerType = document.createElement('p');
         customerType.classList.add("col");
@@ -692,7 +682,80 @@ function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderIte
             customerType.appendChild(document.createTextNode("Guest"));
         }
         newRow.appendChild(customerType);
+        newOrderDiv.appendChild(newRow);
 
+        newRow = document.createElement("div");
+        newRow.classList.add("row");
+        customerName = document.createElement('p');
+        customerName.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("Address: "));
+        customerName.appendChild(dataTitle);
+        if(currentOrder.address1) {
+            if(currentOrder.address2){
+                customerName.appendChild(document.createTextNode(currentOrder.address1 + " " + currentOrder.address2));
+            }
+            else {
+                customerName.appendChild(document.createTextNode(currentOrder.address1));
+            }
+        }
+        else {
+            customerName.appendChild(document.createTextNode("None"));
+        }
+        newRow.appendChild(customerName);
+        customerType = document.createElement('p');
+        customerType.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("Email: "));
+        customerType.appendChild(dataTitle);
+        customerType.appendChild(document.createTextNode(currentOrder.email ? currentOrder.email : "None"));
+        newRow.appendChild(customerType);
+        newOrderDiv.appendChild(newRow);
+
+        newRow = document.createElement("div");
+        newRow.classList.add("row");
+        customerName = document.createElement('p');
+        customerName.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("City: "));
+        customerName.appendChild(dataTitle);
+        customerName.appendChild(document.createTextNode(currentOrder.addr_city ? currentOrder.addr_city : "None"));
+        newRow.appendChild(customerName);
+        customerType = document.createElement('p');
+        customerType.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("State: "));
+        customerType.appendChild(dataTitle);
+        customerType.appendChild(document.createTextNode(currentOrder.addr_state ? currentOrder.addr_state : "None"));
+        newRow.appendChild(customerType);
+        newOrderDiv.appendChild(newRow);
+        newRow = document.createElement("div");
+        newRow.classList.add("row");
+        customerType = document.createElement('p');
+        customerType.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("Zip: "));
+        customerType.appendChild(dataTitle);
+        customerType.appendChild(document.createTextNode(currentOrder.addr_zip ? currentOrder.addr_zip : "None"));
+        newRow.appendChild(customerType);
+        newOrderDiv.appendChild(newRow);
+
+        // notes
+        newRow = document.createElement("div");
+        newRow.classList.add("row");
+        let orderNotes = document.createElement('p');
+        orderNotes.classList.add("col");
+        dataTitle = document.createElement("span");
+        dataTitle.classList.add("data-title");
+        dataTitle.appendChild(document.createTextNode("Order Notes: "));
+        orderNotes.appendChild(dataTitle);
+        orderNotes.appendChild(document.createTextNode(currentOrder.notes));
+        newRow.appendChild(orderNotes);
         newOrderDiv.appendChild(newRow);
 
         // payment info
@@ -763,165 +826,22 @@ async function markOrderComplete(orderId) {
             'Content-Type' : 'application/json'
         }
     });
-
     await refreshAdminOrders();
 }
 
 function refreshAdminOrders(){
-    let currListElement = document.getElementById('admin-order-list');
-    currListElement.innerText = "";
-    getAdminOrders('admin-order-list');
-}
-
-/***************************************************************************
- * Display menu items to the customer on menu.html
- ***************************************************************************/
-// Converts the jsonData into menu item text
-// appends it to the element referenced
-function displayMenuItems(textBox, menuItems, toppingIDs, toppings){
-
-    /// create a new div element to add contents to
-    const newDiv = document.createElement("div");
-
-    // iterate over the menu items to output the data for each
-    for(let i = 0; i < menuItems.length; i++){
-        // get toppings associated with menu item
-        let currToppings = [];                        // empty array
-        let itemToppings = toppingIDs.map(item => {   // iterates over toppingIDs
-            if(menuItems[i].menu_item_id === item.menu_item_id){   // if the menu item ids match
-                // finds the topping with the specific topping_id and adds to array
-                currToppings.push(toppings.find(topping => topping.topping_id === item.topping_id));
-            }
-        })
-
-        // create a div for the item
-        let newItem = document.createElement("div");
-        newItem.classList.add("row");
-        newItem.classList.add("main-menu-item");
-
-        // default menu item image
-        let imageDiv = document.createElement("div");
-        imageDiv.classList.add("image-div");
-        newItem.appendChild(imageDiv);
-
-        // div to hold contents
-        let contentDiv = document.createElement("div");
-        contentDiv.classList.add("content-div");
-
-        // title
-        let newTitle = document.createElement("h2");
-        newTitle.appendChild(document.createTextNode(menuItems[i].item_name));
-        contentDiv.appendChild(newTitle);
-
-        // description
-        let descriptionElement = document.createElement("p");
-        descriptionElement.appendChild(document.createTextNode(menuItems[i].description));
-        contentDiv.appendChild(descriptionElement);
-
-        // list of prices for item
-        let priceDiv = document.createElement("form");
-        priceDiv.classList.add("form-group");
-
-        // small
-        let smallDiv = document.createElement("div");
-        smallDiv.classList.add("form-check");
-        let smallOption = document.createElement("input");
-        smallOption.classList.add("form-check-input");
-        smallOption.setAttribute("type", "radio");
-        smallOption.setAttribute("name", "pizzaSize");
-        smallOption.setAttribute("id", "smallPizza");
-        smallOption.setAttribute("value", "small");
-        smallOption.checked = true;
-        let smallLabel = document.createElement("label");
-        smallLabel.classList.add("form-check-label");
-        smallLabel.setAttribute("for", "smallPizza");
-        smallLabel.appendChild(document.createTextNode("Small: $" + menuItems[i].sm_price.toFixed(2)));
-        smallDiv.appendChild(smallOption);
-        smallDiv.appendChild(smallLabel);
-
-        // medium
-        let medDiv = document.createElement("div");
-        medDiv.classList.add("form-check");
-        let mediumOption = document.createElement("input");
-        mediumOption.classList.add("form-check-input");
-        mediumOption.setAttribute("type", "radio");
-        mediumOption.setAttribute("name", "pizzaSize");
-        mediumOption.setAttribute("id", "mediumPizza");
-        mediumOption.setAttribute("value", "medium");
-        let mediumLabel = document.createElement("label");
-        mediumLabel.classList.add("form-check-label");
-        mediumLabel.setAttribute("for", "mediumPizza");
-        mediumLabel.appendChild(document.createTextNode("Medium: $" + menuItems[i].med_price.toFixed(2)));
-        medDiv.appendChild(mediumOption);
-        medDiv.appendChild(mediumLabel);
-
-        // large
-        let lgDiv = document.createElement("div");
-        lgDiv.classList.add("form-check");
-        let largeOption = document.createElement("input");
-        largeOption.classList.add("form-check-input");
-        largeOption.setAttribute("type", "radio");
-        largeOption.setAttribute("name", "pizzaSize");
-        largeOption.setAttribute("id", "largePizza");
-        largeOption.setAttribute("value", "large");
-        let largeLabel = document.createElement("label");
-        largeLabel.classList.add("form-check-label");
-        largeLabel.setAttribute("for", "largePizza");
-        largeLabel.appendChild(document.createTextNode("Large: $" + menuItems[i].lg_price.toFixed(2)));
-        lgDiv.appendChild(largeOption);
-        lgDiv.appendChild(largeLabel);
-
-        // extra large
-        let xlgDiv = document.createElement("div");
-        xlgDiv.classList.add("form-check");
-        let xlargeOption = document.createElement("input");
-        xlargeOption.classList.add("form-check-input");
-        xlargeOption.setAttribute("type", "radio");
-        xlargeOption.setAttribute("name", "pizzaSize");
-        xlargeOption.setAttribute("id", "xlargePizza");
-        xlargeOption.setAttribute("value", "xlarge");
-        let xlargeLabel = document.createElement("label");
-        xlargeLabel.classList.add("form-check-label");
-        xlargeLabel.setAttribute("for", "xlargePizza");
-        xlargeLabel.appendChild(document.createTextNode("Extra Large: $" + menuItems[i].xlg_price.toFixed(2)));
-        xlgDiv.appendChild(xlargeOption);
-        xlgDiv.appendChild(xlargeLabel);
-
-        priceDiv.appendChild(smallDiv);
-        priceDiv.appendChild(medDiv);
-        priceDiv.appendChild(lgDiv);
-        priceDiv.appendChild(xlgDiv);
-        contentDiv.appendChild(priceDiv);
-
-
-        let buttonRow = document.createElement("div");
-        buttonRow.classList.add("button-row");
-
-        // Customize Button
-        let customizeButton = document.createElement("button");
-        customizeButton.classList.add("btn");
-        customizeButton.classList.add("btn-primary");
-        customizeButton.setAttribute("type", "button");
-        customizeButton.setAttribute("id", "customize-button");
-        customizeButton.addEventListener("click", () => {/*call function here*/}, false);
-        customizeButton.innerHTML = "Customize";
-        buttonRow.appendChild(customizeButton);
-
-        // Add to Cart Button
-        let addPizzaButton = document.createElement("button");
-        addPizzaButton.classList.add("btn");
-        addPizzaButton.classList.add("btn-primary");
-        addPizzaButton.setAttribute("type", "button");
-        addPizzaButton.setAttribute("id", "add-to-cart-button");
-        addPizzaButton.addEventListener("click", () => {/*call function here*/}, false);
-        addPizzaButton.innerHTML = "Add to Cart";
-        buttonRow.appendChild(addPizzaButton);
-
-        contentDiv.appendChild(buttonRow);
-        newItem.appendChild(contentDiv);
-        textBox.appendChild(newItem);
+    let currListElement = document.getElementById('admin-order-view');
+    if(currListElement){
+        currListElement.innerText = "";
+        getOrderDetails();
+    }
+    else {
+        let currListElement = document.getElementById('admin-order-list');
+        currListElement.innerText = "";
+        getAdminOrders('admin-order-list');
     }
 }
+
 
 // Launches a server command to delete an item.
 async function deleteItemData(idDel) {

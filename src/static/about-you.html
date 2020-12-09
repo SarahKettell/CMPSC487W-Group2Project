@@ -26,7 +26,7 @@
             success: function(html) { $('#footer').html(html); }
         });
     </script>
-    <script src="js/main.js"></script>
+    <script src="js/account.js"></script>
 </head>
 <body>
     <!-- call header -->
@@ -58,7 +58,7 @@
                     </div>
                     <div class="icon" onClick="window.location='edit-your-info.html';">
                         <svg width="30" height="30">
-                            <image href="/design/edit.svg" height="30" width="30"/>
+                            <image href="/design/edit.svg" height="30" width="30" cursor="pointer"/>
                         </svg>
                     </div>
                 </div>
@@ -71,6 +71,14 @@
 
     <!-- call footer -->
     <div id="footer"></div>
-    <body onload="getDatafromDB('cust-data')"></body>
+    <body onload="getAccountDetails()">
+        <script type="text/javascript">
+            console.log("got to above getAccountDetails");
+            function getAccountDetails(){
+                let arg = "customer@email.com";
+                getAccountFromDB('cust-data', arg);
+            }
+        </script>
+    </body>
 </body>
 </html>

@@ -176,10 +176,11 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
 
     let date = new Date();
     let month = date.getMonth() < 9 ? "0" + (date.getMonth()+1) : date.getMonth()+1;
-    let day = date.getDate() < 9 ? "0" + (date.getDate()) : date.getDate();
-    let hour = date.getHours() < 9 ? "0" + (date.getHours()) : date.getHours();
-    let minutes = date.getMinutes() < 9 ? "0" + (date.getMinutes()) : date.getMinutes();
+    let day = date.getDate() <= 9 ? "0" + (date.getDate()) : date.getDate();
+    let hour = date.getHours() <= 9 ? "0" + (date.getHours()) : date.getHours();
+    let minutes = date.getMinutes() <= 9 ? "0" + (date.getMinutes()) : date.getMinutes();
     console.log(date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate());
+    console.log(date.getFullYear() + "-" + month + "-" + day);
     newFormCheckOption = document.createElement("div");
     newFormCheckOption.classList.add("row");
     newInput = document.createElement("input");
@@ -187,8 +188,8 @@ function generateNewAdminOrderForm(textBox, menuItems, toppingIDs, toppings){
     newInput.setAttribute("id", "scheduled_date");
     newInput.setAttribute("name", "scheduled_date");
     newInput.setAttribute("value", date.getFullYear() + "-" + month + "-" + day);
-    newInput.setAttribute("min", date.getFullYear() + "-" + month + "-" + day);
-    newInput.setAttribute("max", date.getFullYear()+1 + "-" + month + "-" + day);
+    //newInput.setAttribute("min", date.getFullYear() + "-" + month + "-" + day);
+    //newInput.setAttribute("max", date.getFullYear()+1 + "-" + month + "-" + day);
     newInput.classList.add("form-control");
     newInput.classList.add("col");
     newFormCheckOption.appendChild(newInput);
@@ -517,7 +518,7 @@ function addAdminOrderToDB(orderInfo, orderItems, customerInfo){
 
 const saveAdminOrder = async (orderInfo, orderItems) => {
     const combinedOrder = {order: orderInfo, items: orderItems};
-    const response = await fetch('http://localhost:3000/orders', {
+    const response = await fetch('http://localhost:3000/orders/admin', {
         method: 'POST',
         body: JSON.stringify(combinedOrder), // string or object
         headers: {

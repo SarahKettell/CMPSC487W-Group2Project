@@ -42,7 +42,7 @@ app.get('/orders', getOrders.getOrders);
 app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/:id', updateOrder.completeOrder);
-app.post('/orders', addOrder.addNewOrder);
+app.post('/orders/admin', addOrder.addNewOrder);
 
 // handling address and restaurant info calls
 app.get('/address', getAddrInfo);

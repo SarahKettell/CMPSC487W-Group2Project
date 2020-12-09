@@ -551,7 +551,7 @@ async function updateOrderItemToppings(item) {
 // Update cust account_info in the DB (SURI)
 async function updateCustAccountInfo(arg) {
     console.log(arg);
-    
+
     return new Promise((acc, rej) => {
         pool.query(
             'UPDATE account_info SET fname=?, lname=?, email=? WHERE email=?',
@@ -690,28 +690,7 @@ async function orderForm(order) {
         );
     }
 }
-
-async function viewConfirmationMessage() {
-    return new Promise();
-    {
-        pool.query(
-            'update create_orders set {} '
-        )
-    }
-
-}
-
-async function linkSurvey() {
-    return new Promise();
-    {
-        pool.query(
-            '//Statement'
-        )
-    }
-}
 //End of Emily's Functions
-
-
 // Defines the export functions above
 // Need to change this if you create more
 module.exports = {
@@ -737,6 +716,7 @@ module.exports = {
     updateMenuItem,
     updateMenuItemToppings,
     removeItem,
+    orderForm,
     addNewOrder,
     addNewOrderItem,
     updateOrderItemToppings,

@@ -551,6 +551,22 @@ async function updateOrderItemToppings(item) {
     });
 }
 
+// Update cust account_info in the DB (SURI)
+async function updateCustAccountInfo(arg) {
+    console.log(arg);
+    
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE account_info SET fname=?, lname=?, email=? WHERE email=?',
+            [arg.fname, arg.lname, arg.email, 'customer@email.com'],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // Update a restaurant info in the DB (SURI)
 async function updateAddrInfo(arg) {
     console.log(arg);
@@ -642,5 +658,6 @@ module.exports = {
     storeNewAccount,
     updateOrderItemToppings,
     addNewAdminOrderItem,
-    addNewAdminOrder
+    addNewAdminOrder,
+    updateCustAccountInfo
 };

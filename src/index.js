@@ -29,6 +29,7 @@ const addAccount = require('./routes/addAccount');
 const getAllAccounts = require('./routes/getAllAccounts');
 const getAccountByEmail = require('./routes/getAccountByEmail');
 const getAccountById = require('./routes/getAccountById');
+const updateCustAccountInfo = require('./routes/updateCustAccountInfo');
 
 // Converts into JSON format
 app.use(require('body-parser').json());
@@ -74,6 +75,7 @@ app.put('/contact/:id', updateContactInfo);
 app.put('/hours/:id', updateHoursInfo);
 
 //update Account information
+app.put('/account/:id', updateCustAccountInfo);
 
 // Deletes contents based on the id paramter given
 app.delete('/items/:id', deleteItem);

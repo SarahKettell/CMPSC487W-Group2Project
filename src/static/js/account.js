@@ -238,9 +238,9 @@ function verifyUser(email, password){
     //user's password and email don't match
   }*/
   console.log("got to log-in verifyUser");
-  if(email == "surabhi.sahay24@gmail.com" && password == "123") {
+  if(email == "customer@email.com" && password == "pass") {
     return "customer";
-  } else if(email == "dfollweiler@gmail.com" && password == "passy") {
+  } else if(email == "admin@email.com" && password == "pass") {
     return "staff";
   } else if(email == ""){
     return "emptyEmail";

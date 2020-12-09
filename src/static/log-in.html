@@ -78,7 +78,8 @@
                     </div>
                     <div class ="two-buttons">
                         <button><a href="create-account-cust.html">Create Account</a></button>
-                        <button type="button" onclick="()=>{processFormContents();}" >Sign In</button>
+                        <button type="button" onclick=processFormContents()>Sign In</button>
+                        <!--<button type="button" onclick="location.href='my-account.html';">Sign In</button>-->
                     </div>
                 </div>
             </div>
@@ -89,8 +90,9 @@
     <script type="text/javascript">
         function processFormContents(){
             console.log("got to log-in processForm");
-            var email = (document.getElementById('email')).value;
-            var password = (document.getElementById('password')).value;
+            var email = (document.getElementById('emailInput')).value;
+            var password = (document.getElementById('passwordInput')).value;
+            console.log("email: " + email);
 
             const AccountInfo = {
                 email: email,
@@ -100,11 +102,16 @@
             // save new item
             //getAccountInfofromDB(AccountInfo);
             //verifyUser(email,password);
-            if(verifyUser(email, password) == "customer"){
+            /*if(verifyUser(email, password) == "customer"){
                 document.location.href = "my-account.html";
             } else if (verifyUser(email,password) == "staff"){
                 document.location.href = "about-you.html";
-            } 
+            } */
+            if (email == "admin@email.com") {
+                document.location.href = "my-account.html";
+            } else {
+                document.location.href = "about-you.html";
+            }
         }
     </script>
 </body>

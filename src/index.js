@@ -27,6 +27,8 @@ const updateHoursInfo = require('./routes/updateHoursInfo');
 
 const addOrders = require('./routes/addOrder');
 const addOrderItem = require('./routes/addOrderItem');
+const deleteOrderItem = require('./routes/deleteOrderItem')
+
 const addAccount = require('./routes/addAccount');
 const getAllAccounts = require('./routes/getAllAccounts');
 const getAccountByEmail = require('./routes/getAccountByEmail');
@@ -54,6 +56,7 @@ app.post('/orders/admin', addOrder.addNewOrder);
 
 app.post('/orders', addOrders);
 app.post('/orderItems', addOrderItem);
+app.delete('/orderItems/:id', deleteOrderItem)
 
 // handling restaurant info calls
 app.get('/address', getAddrInfo);

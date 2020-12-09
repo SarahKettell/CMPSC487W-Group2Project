@@ -663,7 +663,19 @@ async function updateOrderItemToppings(item) {
     });
 }
 
+async function removeOrderItem(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM order_items WHERE order_item_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
 
+    }).then(()=> {
+        pool.query(
+            'DELETE FROM order_item_toppings WHERE order_item_id = ?', [id]
+            );
+    });
+}
 
 
 // Defines the export functions above
@@ -701,5 +713,6 @@ module.exports = {
     updateOrderItemToppings,
     addNewAdminOrderItem,
     addNewAdminOrder,
-    updateCustAccountInfo
+    updateCustAccountInfo,
+    removeOrderItem
 };

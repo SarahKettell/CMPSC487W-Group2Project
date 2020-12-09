@@ -8,6 +8,7 @@
     <title>Log In</title>
     <link rel="stylesheet" href="my-account.css">
     <link rel="stylesheet" href="log-in.css">
+    <script src="js/account.js"></script>
 
 
     <!--jQuery-->
@@ -50,22 +51,22 @@
                 <table>
                     <tr>
                         <th>
-                            <label for="email" class="email">Email Address:</label>
+                            <label for="email" class="email"><span class="mandatory">*</span>Email Address:</label>
                         </th>
                     </tr>
                     <tr>
                         <th>
-                            <input type="email" id="email" name="email" class="emailInput" required>
+                            <input type="email" id="emailInput" name="email" class="emailInput" required>
                         </th>
                     </tr>
                     <tr>
                         <th>
-                            <label for="password" class="password">Password:</label>
+                            <label for="password" class="password"><span class="mandatory">*</span>Password:</label>
                         </th>
                     </tr>
                     <tr>
                         <th>
-                            <input type="password" id="password" name="password" class="passInput" required>
+                            <input type="password" id="passwordInput" name="password" class="passInput" required>
                         </th>
                     </tr>
                 </table>
@@ -76,8 +77,8 @@
                         <a>Don't Have an Account?</a>
                     </div>
                     <div class ="two-buttons">
-                        <button onclick="location.href='create-account-cust.html'">Create Account</button>
-                        <button type="submit">Sign In</button>
+                        <button><a href="create-account-cust.html">Create Account</a></button>
+                        <button type="button" onclick="()=>{processFormContents();}" >Sign In</button>
                     </div>
                 </div>
             </div>
@@ -85,5 +86,25 @@
     </form>
 
     <div id="footer"></div>
+    <script type="text/javascript">
+        function processFormContents(){
+            console.log("got to log-in processForm");
+            var email = (document.getElementById('email')).value;
+            var password = (document.getElementById('password')).value;
+
+            const AccountInfo = {
+                email: email,
+                password: password,
+            };   
+
+            // save new item
+            //getAccountInfofromDB(AccountInfo);
+            //verifyUser(email,password);
+            if(verifyUser(email, password) == "customer"){
+                document.location.href = "my-account.html";
+            } else if (verifyUser(email,password) == "staff"){
+                document.location.href = "my-account.html";
+            } 
+    </script>
 </body>
 </html>

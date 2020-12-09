@@ -67,6 +67,38 @@ const addAccounttoDB = async (inputData) => {
 	const myJson = await response.json(); //extract JSON from the http response
 }
 
+function verifyUser(email, password){
+  /*const response = await fetch('http://localhost:3000/account');
+	const myJson = await response.json(); 
+  let acctInfo = new Array(myJson.length);
+  for(let i = 0; i < myJson.length; i++){
+    acctInfo[i] = Object.values(myJson[i]);
+  }
+  for(let i = 0; i < acctInfo.length; i++){
+    if((myJson[i].email == email) && (myJson[i].password == password)) {
+      if(myJson[i].acct_type == 'customer') {
+        //display my-account-cust.html because this is a customer
+        return "customer";
+      }
+      //display my-account.html because this is an admin
+      return "staff";
+    }
+    //user's password and email don't match
+  }*/
+  console.log("got to log-in verifyUser");
+  if(email == "surabhi.sahay24@gmail.com" && password == "123") {
+    return "customer";
+  } else if(email == "dfollweiler@gmail.com" && password == "passy") {
+    return "staff";
+  } else if(email == ""){
+    return "emptyEmail";
+  } else if(password == ""){
+    return "emptyPassword";
+  } else if(email == "" || password == ""){
+    return "emptyFields";
+  }
+}
+
 
 
 

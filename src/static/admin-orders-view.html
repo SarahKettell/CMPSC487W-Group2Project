@@ -94,11 +94,10 @@
             loadCreateOrderForm(formLocation, currentOrder, currentOrderItems);
         }
         async function switchToEditView(){
-            const formLocation = document.getElementById('admin-order-view');
-            await loadCreateOrderForm(formLocation);
-            console.log(orderDetails);
-            console.log(orderItems);
-            updateEditForm();
+            const orderForm = document.getElementById('admin-new-order-form');
+            const orderView = document.getElementById('full-order-display');
+            orderForm.classList.remove("hide");
+            orderView.classList.add("hide");
         }
         function processFormContents(){
             const orderType = document.getElementById('order_type').elements;

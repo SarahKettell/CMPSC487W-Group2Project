@@ -49,7 +49,7 @@ app.get('/orderItems', getOrders.getOrderItems);
 app.get('/orderItemToppings', getOrders.getOrderItemToppingIds);
 app.put('/orders/admin/:id', updateOrder.completeOrder);
 app.post('/orders/admin', addOrder.addNewOrder);
-app.put('/orders/admin/:id', addOrder.updateOrder);
+app.put('/orders/admin', addOrder.updateOrder);
 
 // handling restaurant info calls
 app.get('/address', getAddrInfo);

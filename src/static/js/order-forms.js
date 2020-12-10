@@ -32,7 +32,7 @@ const getMenuItemsForEdit = async (textBox, currentOrder, currentOrderItems) => 
     await generateEditAdminOrderForm(textBox, menuItems, toppingIDs, toppings, currentOrder, currentOrderItems);
 }
 
-function loadCreateOrderForm(formElement){
+function loadCreateNewOrderForm(formElement){
     getMenuItems(formElement);
 }
 
@@ -546,15 +546,11 @@ function generateEditAdminOrderForm(textBox, menuItems, toppingIDs, toppings, cu
         });
         fullMenuDetails.push({ menuItem: menuItems[i], toppings: currToppings });
     }
-    console.log("----------------------------");
-    console.log(fullMenuDetails);
-    console.log(currentOrder);
-    console.log(currentOrderItems);
-    console.log("----------------------------");
 
     // create new form element
     const newForm = document.createElement("form");
     newForm.id = "admin-new-order-form";
+    newForm.classList.add("hide");
 
     let newRow = document.createElement("div");
     newRow.classList.add("row");
@@ -1382,14 +1378,15 @@ const saveAdminOrder = async (orderInfo, orderItems) => {
 }
 
 const updateAdminOrder = async (orderInfo, orderItems) => {
-    const combinedOrder = {order: orderInfo, items: orderItems};
-    const response = await fetch('http://localhost:3000/orders/admin/' + orderInfo.order_id, {
-        method: 'PUT',
-        body: JSON.stringify(combinedOrder), // string or object
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    // const combinedOrder = {order: orderInfo, items: orderItems};
+    // const response = await fetch('http://localhost:3000/orders/admin', {
+    //     method: 'PUT',
+    //     body: JSON.stringify(combinedOrder), // string or object
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     }
+    // });
+    
 
     await document.getElementById("admin-new-order-form").reset();
     if(orderInfo.payment_type === "cash"){

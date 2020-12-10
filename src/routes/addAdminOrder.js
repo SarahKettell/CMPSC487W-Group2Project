@@ -20,6 +20,7 @@ const addNewOrder = async (req, res) => {
         date_time_created: req.body.order.date_time_created,
         date_time_checked_out: req.body.order.date_time_checked_out,
         date_time_scheduled: req.body.order.date_time_scheduled,
+        date_time_completed: req.body.order.date_time_completed,
         order_type: req.body.order.order_type,
         notes: req.body.order.notes,
         payment_type: req.body.order.payment_type,
@@ -59,12 +60,13 @@ const addNewOrder = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
+    console.log("Got to update order");
     const cust_id = req.body.order.customer_id;
-    const orderID = req.params.id;
+    const orderID = req.body.order.order_id;
 
-    await db.deleteAdminOrder(orderID);
+    //await db.deleteAdminOrder(orderID);
     const order = {
-        order_id: orderID,
+        order_id: 1234,
         customer_id: cust_id,
         first_name: req.body.order.first_name,
         last_name: req.body.order.last_name,
@@ -77,6 +79,7 @@ const updateOrder = async (req, res) => {
         date_time_created: req.body.order.date_time_created,
         date_time_checked_out: req.body.order.date_time_checked_out,
         date_time_scheduled: req.body.order.date_time_scheduled,
+        date_time_completed: req.body.order.date_time_completed,
         order_type: req.body.order.order_type,
         notes: req.body.order.notes,
         payment_type: req.body.order.payment_type,
@@ -87,31 +90,31 @@ const updateOrder = async (req, res) => {
         checked_out: req.body.order.checked_out,
         completed: req.body.order.completed,
     }
-    await db.addNewAdminOrder(order);
-    // send the order to be saved here
-    for(let i = 0; i < req.body.items.length; i++){
-        // create a new order item for each in this order
-        let currItem = req.body.items[i];
-        let newItemID =  uuid();
-        const newItem = {
-            order_item_id: newItemID,
-            order_id: orderID,
-            item_name: currItem.orderItem.item_name,
-            crust: currItem.orderItem.crust,
-            size: currItem.orderItem.size,
-            price: currItem.orderItem.price,
-            notes: currItem.orderItem.notes
-        }
-        await db.addNewAdminOrderItem(newItem);
-        // send the item to be saved here
-        for(let j = 0; j < req.body.items[i].toppings.length; j++){
-            let topping_info = {
-                order_item_id: newItemID,
-                topping_id: currItem.toppings[j]
-            };
-            await db.updateOrderItemToppings(topping_info);
-        }
-    }
+    //await db.addNewAdminOrder(order);
+    // // send the order to be saved here
+    // for(let i = 0; i < req.body.items.length; i++){
+    //     // create a new order item for each in this order
+    //     let currItem = req.body.items[i];
+    //     let newItemID =  uuid();
+    //     const newItem = {
+    //         order_item_id: newItemID,
+    //         order_id: orderID,
+    //         item_name: currItem.orderItem.item_name,
+    //         crust: currItem.orderItem.crust,
+    //         size: currItem.orderItem.size,
+    //         price: currItem.orderItem.price,
+    //         notes: currItem.orderItem.notes
+    //     }
+    //     await db.addNewAdminOrderItem(newItem);
+    //     // send the item to be saved here
+    //     for(let j = 0; j < req.body.items[i].toppings.length; j++){
+    //         let topping_info = {
+    //             order_item_id: newItemID,
+    //             topping_id: currItem.toppings[j]
+    //         };
+    //         await db.updateOrderItemToppings(topping_info);
+    //     }
+    // }
     res.send(order);
 };
 

@@ -129,6 +129,10 @@
 	display:none;
 }
 
+#admin-order-list .hide{
+	display:none;
+}
+
 .order-box .right{
 	text-align: right;
 }

@@ -386,6 +386,7 @@ function displayCustomerOrders(textBox, orders, orderItems, orderItemIDs, toppin
 function displayFullCustomerOrder(textBox, orderId, orders, orderItems, orderItemIDs, toppings){
     // create a new div element to add contents to
     const newDiv = document.createElement("div");
+    newDiv.setAttribute("id", "full-order-display");
 
     //get details for order
     const currentOrder = orders.find(item => item.order_id === orderId);
